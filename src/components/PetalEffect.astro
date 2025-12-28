@@ -1,0 +1,141 @@
+<div class="petal-container" aria-hidden="true">
+	{Array.from({ length: 12 }).map((_, i) => (
+		<div class="petal" data-petal={i}></div>
+	))}
+</div>
+
+<style>
+	.petal-container {
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: var(--z-base);
+		overflow: hidden;
+	}
+
+	.petal {
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		background: var(--color-sakura);
+		border-radius: 50% 0 50% 0;
+		opacity: 0;
+		filter: blur(0.5px);
+		will-change: transform, opacity;
+	}
+
+	/* Individual petal animation timings */
+	.petal[data-petal="0"] {
+		left: 10%;
+		animation: floatUp 15s ease-in-out infinite;
+		animation-delay: 0s;
+	}
+
+	.petal[data-petal="1"] {
+		left: 25%;
+		animation: floatUp 18s ease-in-out infinite;
+		animation-delay: 2s;
+	}
+
+	.petal[data-petal="2"] {
+		left: 40%;
+		animation: floatUp 20s ease-in-out infinite;
+		animation-delay: 4s;
+	}
+
+	.petal[data-petal="3"] {
+		left: 55%;
+		animation: floatUp 16s ease-in-out infinite;
+		animation-delay: 1s;
+	}
+
+	.petal[data-petal="4"] {
+		left: 70%;
+		animation: floatUp 19s ease-in-out infinite;
+		animation-delay: 3s;
+	}
+
+	.petal[data-petal="5"] {
+		left: 85%;
+		animation: floatUp 17s ease-in-out infinite;
+		animation-delay: 5s;
+	}
+
+	.petal[data-petal="6"] {
+		left: 15%;
+		animation: floatUp 21s ease-in-out infinite;
+		animation-delay: 6s;
+	}
+
+	.petal[data-petal="7"] {
+		left: 30%;
+		animation: floatUp 16s ease-in-out infinite;
+		animation-delay: 7s;
+	}
+
+	.petal[data-petal="8"] {
+		left: 45%;
+		animation: floatUp 18s ease-in-out infinite;
+		animation-delay: 8s;
+	}
+
+	.petal[data-petal="9"] {
+		left: 60%;
+		animation: floatUp 20s ease-in-out infinite;
+		animation-delay: 9s;
+	}
+
+	.petal[data-petal="10"] {
+		left: 75%;
+		animation: floatUp 19s ease-in-out infinite;
+		animation-delay: 10s;
+	}
+
+	.petal[data-petal="11"] {
+		left: 90%;
+		animation: floatUp 17s ease-in-out infinite;
+		animation-delay: 11s;
+	}
+
+	/* Add small variety of petal sizes */
+	.petal[data-petal="0"],
+	.petal[data-petal="3"],
+	.petal[data-petal="6"],
+	.petal[data-petal="9"] {
+		width: 8px;
+		height: 8px;
+	}
+
+	.petal[data-petal="2"],
+	.petal[data-petal="5"],
+	.petal[data-petal="8"],
+	.petal[data-petal="11"] {
+		width: 12px;
+		height: 12px;
+	}
+
+	/* Respect reduced motion preferences */
+	@media (prefers-reduced-motion: reduce) {
+		.petal {
+			animation: none;
+			opacity: 0;
+		}
+	}
+
+	/* Reduce number of petals on smaller screens to reduce visual noise */
+	@media (max-width: 768px) {
+		.petal {
+			opacity: 0.5;
+		}
+
+		/* Show fewer petals on mobile */
+		.petal[data-petal="6"],
+		.petal[data-petal="7"],
+		.petal[data-petal="8"],
+		.petal[data-petal="9"],
+		.petal[data-petal="10"],
+		.petal[data-petal="11"] {
+			display: none;
+		}
+	}
+</style>

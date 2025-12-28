@@ -1,0 +1,184 @@
+---
+interface Props {
+	count?: number; // Number of particles (default: auto)
+}
+
+const { count } = Astro.props;
+
+const desktopCount = count || 30;
+const tabletCount = Math.floor(desktopCount * 0.66);
+const mobileCount = Math.floor(desktopCount * 0.33);
+---
+
+<div class="starry-particles" aria-hidden="true">
+	<!-- Desktop particles -->
+	<div class="particles-desktop">
+		{Array.from({ length: desktopCount }).map((_, i) => (
+			<div class="particle" data-particle={i}></div>
+		))}
+	</div>
+
+	<!-- Tablet particles -->
+	<div class="particles-tablet">
+		{Array.from({ length: tabletCount }).map((_, i) => (
+			<div class="particle" data-particle={i}></div>
+		))}
+	</div>
+
+	<!-- Mobile particles -->
+	<div class="particles-mobile">
+		{Array.from({ length: mobileCount }).map((_, i) => (
+			<div class="particle" data-particle={i}></div>
+		))}
+	</div>
+</div>
+
+<style>
+	.starry-particles {
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: var(--z-particles);
+		overflow: hidden;
+	}
+
+	.particle {
+		position: absolute;
+		width: 3px;
+		height: 3px;
+		background: radial-gradient(circle, var(--color-sky-vibrant) 0%, transparent 70%);
+		border-radius: 50%;
+		animation: twinkle 3s ease-in-out infinite;
+		will-change: opacity, transform;
+		box-shadow: 0 0 4px var(--color-sky-vibrant);
+	}
+
+	/* Add size variation to particles */
+	.particle[data-particle="0"],
+	.particle[data-particle="5"],
+	.particle[data-particle="10"],
+	.particle[data-particle="15"],
+	.particle[data-particle="20"],
+	.particle[data-particle="25"] {
+		width: 4px;
+		height: 4px;
+	}
+
+	.particle[data-particle="3"],
+	.particle[data-particle="8"],
+	.particle[data-particle="13"],
+	.particle[data-particle="18"],
+	.particle[data-particle="23"],
+	.particle[data-particle="28"] {
+		width: 6px;
+		height: 6px;
+		background: radial-gradient(circle, var(--color-golden-hour) 0%, transparent 60%);
+		box-shadow: 0 0 6px var(--color-golden-hour);
+	}
+
+	.particle[data-particle="7"],
+	.particle[data-particle="14"],
+	.particle[data-particle="21"] {
+		width: 2px;
+		height: 2px;
+	}
+
+	/* Random positioning */
+	.particles-desktop .particle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; animation-duration: 2.5s; }
+	.particles-desktop .particle:nth-child(2) { top: 25%; left: 25%; animation-delay: 0.5s; animation-duration: 3s; }
+	.particles-desktop .particle:nth-child(3) { top: 35%; left: 45%; animation-delay: 1s; animation-duration: 2.8s; }
+	.particles-desktop .particle:nth-child(4) { top: 20%; left: 60%; animation-delay: 1.5s; animation-duration: 3.2s; }
+	.particles-desktop .particle:nth-child(5) { top: 40%; left: 75%; animation-delay: 2s; animation-duration: 2.7s; }
+	.particles-desktop .particle:nth-child(6) { top: 55%; left: 85%; animation-delay: 0.8s; animation-duration: 3.1s; }
+	.particles-desktop .particle:nth-child(7) { top: 65%; left: 20%; animation-delay: 1.2s; animation-duration: 2.9s; }
+	.particles-desktop .particle:nth-child(8) { top: 75%; left: 40%; animation-delay: 1.8s; animation-duration: 3.3s; }
+	.particles-desktop .particle:nth-child(9) { top: 80%; left: 55%; animation-delay: 0.3s; animation-duration: 2.6s; }
+	.particles-desktop .particle:nth-child(10) { top: 85%; left: 70%; animation-delay: 0.7s; animation-duration: 3.4s; }
+
+	.particles-desktop .particle:nth-child(11) { top: 12%; left: 35%; animation-delay: 1.3s; animation-duration: 2.8s; }
+	.particles-desktop .particle:nth-child(12) { top: 28%; left: 50%; animation-delay: 0.4s; animation-duration: 3.1s; }
+	.particles-desktop .particle:nth-child(13) { top: 42%; left: 15%; animation-delay: 1.7s; animation-duration: 2.9s; }
+	.particles-desktop .particle:nth-child(14) { top: 48%; left: 90%; animation-delay: 0.9s; animation-duration: 3.2s; }
+	.particles-desktop .particle:nth-child(15) { top: 58%; left: 30%; animation-delay: 1.4s; animation-duration: 2.7s; }
+	.particles-desktop .particle:nth-child(16) { top: 68%; left: 65%; animation-delay: 0.6s; animation-duration: 3.3s; }
+	.particles-desktop .particle:nth-child(17) { top: 72%; left: 8%; animation-delay: 1.9s; animation-duration: 2.8s; }
+	.particles-desktop .particle:nth-child(18) { top: 78%; left: 82%; animation-delay: 0.2s; animation-duration: 3s; }
+	.particles-desktop .particle:nth-child(19) { top: 88%; left: 22%; animation-delay: 1.1s; animation-duration: 2.9s; }
+	.particles-desktop .particle:nth-child(20) { top: 92%; left: 48%; animation-delay: 1.6s; animation-duration: 3.1s; }
+
+	.particles-desktop .particle:nth-child(21) { top: 8%; left: 72%; animation-delay: 0.5s; animation-duration: 2.7s; }
+	.particles-desktop .particle:nth-child(22) { top: 18%; left: 88%; animation-delay: 1.2s; animation-duration: 3.2s; }
+	.particles-desktop .particle:nth-child(23) { top: 32%; left: 12%; animation-delay: 0.8s; animation-duration: 2.9s; }
+	.particles-desktop .particle:nth-child(24) { top: 45%; left: 52%; animation-delay: 1.5s; animation-duration: 3.3s; }
+	.particles-desktop .particle:nth-child(25) { top: 52%; left: 38%; animation-delay: 0.3s; animation-duration: 2.8s; }
+	.particles-desktop .particle:nth-child(26) { top: 62%; left: 78%; animation-delay: 1.8s; animation-duration: 3s; }
+	.particles-desktop .particle:nth-child(27) { top: 70%; left: 92%; animation-delay: 0.7s; animation-duration: 2.9s; }
+	.particles-desktop .particle:nth-child(28) { top: 82%; left: 28%; animation-delay: 1.3s; animation-duration: 3.1s; }
+	.particles-desktop .particle:nth-child(29) { top: 90%; left: 62%; animation-delay: 0.4s; animation-duration: 2.7s; }
+	.particles-desktop .particle:nth-child(30) { top: 95%; left: 5%; animation-delay: 1.7s; animation-duration: 3.2s; }
+
+	.particles-tablet,
+	.particles-mobile {
+		display: none;
+	}
+
+	/* Tablet */
+	@media (max-width: 1024px) {
+		.particles-desktop {
+			display: none;
+		}
+		.particles-tablet {
+			display: block;
+		}
+		/* Random positioning */
+		.particles-tablet .particle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+		.particles-tablet .particle:nth-child(2) { top: 25%; left: 30%; animation-delay: 0.5s; }
+		.particles-tablet .particle:nth-child(3) { top: 35%; left: 50%; animation-delay: 1s; }
+		.particles-tablet .particle:nth-child(4) { top: 20%; left: 70%; animation-delay: 1.5s; }
+		.particles-tablet .particle:nth-child(5) { top: 45%; left: 85%; animation-delay: 2s; }
+		.particles-tablet .particle:nth-child(6) { top: 60%; left: 20%; animation-delay: 0.8s; }
+		.particles-tablet .particle:nth-child(7) { top: 70%; left: 40%; animation-delay: 1.2s; }
+		.particles-tablet .particle:nth-child(8) { top: 75%; left: 60%; animation-delay: 1.8s; }
+		.particles-tablet .particle:nth-child(9) { top: 85%; left: 80%; animation-delay: 0.3s; }
+		.particles-tablet .particle:nth-child(10) { top: 90%; left: 15%; animation-delay: 0.7s; }
+		.particles-tablet .particle:nth-child(11) { top: 12%; left: 45%; animation-delay: 1.3s; }
+		.particles-tablet .particle:nth-child(12) { top: 28%; left: 65%; animation-delay: 0.4s; }
+		.particles-tablet .particle:nth-child(13) { top: 42%; left: 25%; animation-delay: 1.7s; }
+		.particles-tablet .particle:nth-child(14) { top: 52%; left: 90%; animation-delay: 0.9s; }
+		.particles-tablet .particle:nth-child(15) { top: 62%; left: 35%; animation-delay: 1.4s; }
+		.particles-tablet .particle:nth-child(16) { top: 72%; left: 75%; animation-delay: 0.6s; }
+		.particles-tablet .particle:nth-child(17) { top: 78%; left: 10%; animation-delay: 1.9s; }
+		.particles-tablet .particle:nth-child(18) { top: 82%; left: 55%; animation-delay: 0.2s; }
+		.particles-tablet .particle:nth-child(19) { top: 88%; left: 30%; animation-delay: 1.1s; }
+		.particles-tablet .particle:nth-child(20) { top: 95%; left: 70%; animation-delay: 1.6s; }
+	}
+
+	/* Mobile */
+	@media (max-width: 768px) {
+		.particles-tablet {
+			display: none;
+		}
+		.particles-mobile {
+			display: block;
+		}
+		/* Random positioning */
+		.particles-mobile .particle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+		.particles-mobile .particle:nth-child(2) { top: 30%; left: 40%; animation-delay: 0.6s; }
+		.particles-mobile .particle:nth-child(3) { top: 40%; left: 65%; animation-delay: 1.2s; }
+		.particles-mobile .particle:nth-child(4) { top: 50%; left: 25%; animation-delay: 1.8s; }
+		.particles-mobile .particle:nth-child(5) { top: 60%; left: 75%; animation-delay: 0.4s; }
+		.particles-mobile .particle:nth-child(6) { top: 70%; left: 50%; animation-delay: 1s; }
+		.particles-mobile .particle:nth-child(7) { top: 75%; left: 10%; animation-delay: 1.6s; }
+		.particles-mobile .particle:nth-child(8) { top: 80%; left: 85%; animation-delay: 0.2s; }
+		.particles-mobile .particle:nth-child(9) { top: 85%; left: 35%; animation-delay: 0.8s; }
+		.particles-mobile .particle:nth-child(10) { top: 92%; left: 60%; animation-delay: 1.4s; }
+	}
+
+	/* Respect reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		.particle {
+			animation: none;
+			opacity: 0.5;
+		}
+	}
+</style>

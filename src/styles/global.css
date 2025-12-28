@@ -1,0 +1,265 @@
+:root {
+  /* TODO: currently only supporting dark mode */
+  /* Light Mode */
+  --color-sakura: #fdcbcb;
+  --color-sky: #cbf7fd;
+  --color-air: #e5fbfe;
+  --color-cream: #fef1ef;
+  --color-sunshine: #fcfeef;
+
+  --color-sunset-orange: #ffb347;
+  --color-golden-hour: #ffd700;
+  --color-amber-glow: #ffcc80;
+  --color-coral-warm: #ff8a80;
+
+  --color-starry-night: #1a237e;
+  --color-sky-vibrant: #42a5f5;
+  --color-twilight-purple: #5c6bc0;
+  --color-ocean-deep: #0d47a1;
+
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: var(--color-air);
+  --color-text-primary: #4a4a4a;
+  --color-text-secondary: #666666;
+  --color-text-light: #999999;
+  --color-accent: #f88da0;
+
+  /* Portal-specific colors */
+  --portal-portfolio: var(--color-sky);
+  --portal-leisure: var(--color-sakura);
+  --portal-wiki: var(--color-sunshine);
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+  --spacing-3xl: 6rem;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Crimson Pro', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+  --font-size-5xl: 3rem;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --transition-slower: 600ms ease;
+
+  /* Shadows & Glows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 24px rgba(253, 203, 203, 0.3);
+  --shadow-glow-blue: 0 0 30px rgba(66, 165, 245, 0.4);
+  --shadow-glow-golden: 0 0 30px rgba(255, 215, 0, 0.3);
+
+  /* Time-based Gradients */
+  --gradient-morning: linear-gradient(180deg, #42a5f5 0%, #ffcc80 60%, #e5fbfe 100%);
+  --gradient-afternoon: linear-gradient(180deg, #42a5f5 0%, #ffb347 50%, #5c6bc0 100%);
+  --gradient-sunset: linear-gradient(180deg, #ffd700 0%, #ffb347 30%, #5c6bc0 70%, #1a237e 100%);
+  --gradient-night: linear-gradient(180deg, #0d47a1 0%, #1a237e 50%, #16213e 100%);
+
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Z-index layers */
+  --z-background: 0;
+  --z-base: 1;
+  --z-particles: 2;
+  --z-content: 10;
+  --z-dropdown: 20;
+  --z-sticky: 30;
+  --z-modal: 40;
+  --z-popover: 50;
+  --z-tooltip: 60;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+  --color-bg-primary: var(--color-starry-night);
+  --color-bg-secondary: #16213e;
+  --color-text-primary: #e5e5e5;
+  --color-text-secondary: #b8b8b8;
+  --color-text-light: #8a8a8a;
+
+  --color-sakura: #c79ea5;
+  --color-sky: #8dbcc9;
+  --color-air: #2d3e50;
+  --color-cream: #d4b5ad;
+  --color-sunshine: #d4c99f;
+  --color-accent: #e87d93;
+
+  --color-sunset-orange: #ff9966;
+  --color-golden-hour: #ffdd66;
+  --color-amber-glow: #ffb366;
+  --color-sky-vibrant: #66b3ff;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px rgba(199, 158, 165, 0.3);
+  --shadow-glow-blue: 0 0 40px rgba(102, 179, 255, 0.4);
+  --shadow-glow-golden: 0 0 40px rgba(255, 221, 102, 0.4);
+
+  --gradient-morning: linear-gradient(180deg, #0d47a1 0%, #1a237e 60%, #16213e 100%);
+  --gradient-afternoon: linear-gradient(180deg, #0d47a1 0%, #1a237e 50%, #16213e 100%);
+  --gradient-sunset: linear-gradient(180deg, #5c6bc0 0%, #1a237e 50%, #16213e 100%);
+  --gradient-night: linear-gradient(180deg, #0a0e1a 0%, #16213e 50%, #1a237e 100%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  min-height: 100vh;
+  transition: background-color var(--transition-slow), color var(--transition-slow);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: var(--font-size-5xl);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: var(--font-size-4xl);
+}
+
+h3 {
+  font-size: var(--font-size-3xl);
+}
+
+h4 {
+  font-size: var(--font-size-2xl);
+}
+
+h5 {
+  font-size: var(--font-size-xl);
+}
+
+h6 {
+  font-size: var(--font-size-lg);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-sakura);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-slow) ease-in;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-5xl: 2.5rem;
+    --font-size-4xl: 2rem;
+    --font-size-3xl: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-5xl: 2rem;
+    --font-size-4xl: 1.75rem;
+    --font-size-3xl: 1.5rem;
+  }
+
+  html {
+    font-size: 14px;
+  }
+}
+
+::selection {
+  background-color: var(--color-sakura);
+  color: var(--color-text-primary);
+}
+
+::-moz-selection {
+  background-color: var(--color-sakura);
+  color: var(--color-text-primary);
+}

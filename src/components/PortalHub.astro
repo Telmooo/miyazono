@@ -1,0 +1,219 @@
+---
+import Portal from './Portal.astro';
+import AnimatedGreeting from './AnimatedGreeting.astro';
+
+interface Props {
+	name?: string;
+	nameJapanese?: string;
+}
+
+const {
+	name = "Telmo Baptista",
+	nameJapanese = "狐"
+} = Astro.props;
+---
+
+<div class="portal-hub">
+	<div class="hub-center scroll-fade">
+		<AnimatedGreeting />
+		<h1 class="hub-name">
+			<span class="name-english">{name}</span>
+			<span class="name-japanese">{nameJapanese}</span>
+		</h1>
+	</div>
+
+	<div class="portals-container">
+		<div class="portal-wrapper portal-1 scroll-fade stagger-1">
+			<Portal
+				title="Portfolio"
+				subtitle="ポートフォリオ"
+				href="/portfolio"
+				color="portfolio"
+				icon="💼"
+			/>
+		</div>
+
+		<div class="portal-wrapper portal-2 scroll-fade stagger-2">
+			<Portal
+				title="My World"
+				subtitle="マイワールド"
+				href="/leisure"
+				color="leisure"
+				icon="🎮"
+			/>
+		</div>
+
+		<div class="portal-wrapper portal-3 scroll-fade stagger-3">
+			<Portal
+				title="Wiki"
+				subtitle="知識の宝庫"
+				href="/wiki"
+				color="wiki"
+				icon="📚"
+			/>
+		</div>
+	</div>
+</div>
+
+<style>
+	.portal-hub {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: var(--spacing-2xl) var(--spacing-md);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.hub-center {
+		text-align: center;
+		margin-bottom: var(--spacing-3xl);
+		position: relative;
+		z-index: 2;
+	}
+
+	.hub-name {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-sm);
+		margin-bottom: 0;
+	}
+
+	.name-english {
+		font-family: var(--font-serif);
+		font-size: var(--font-size-5xl);
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		color: var(--color-text-primary);
+		animation: floatInPlace 4s ease-in-out infinite;
+		text-shadow: 0 0 20px rgba(253, 203, 203, 0.15);
+	}
+
+	.name-japanese {
+		font-family: var(--font-serif);
+		font-size: var(--font-size-3xl);
+		font-weight: 400;
+		color: var(--color-text-secondary);
+		letter-spacing: 0.1em;
+		text-shadow: 0 0 15px rgba(203, 247, 253, 0.1);
+	}
+
+	html[data-theme="dark"] .name-english {
+		text-shadow: 0 0 25px rgba(199, 158, 165, 0.2);
+	}
+
+	html[data-theme="dark"] .name-japanese {
+		text-shadow: 0 0 20px rgba(141, 188, 201, 0.15);
+	}
+
+	.portals-container {
+		position: relative;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--spacing-3xl);
+		max-width: 1200px;
+		width: 100%;
+		align-items: center;
+		justify-items: center;
+	}
+
+	.portal-wrapper {
+		position: relative;
+	}
+
+	/* Responsive layouts */
+	@media (max-width: 1024px) {
+		.portals-container {
+			gap: var(--spacing-2xl);
+		}
+
+		.name-english {
+			font-size: var(--font-size-4xl);
+		}
+
+		.name-japanese {
+			font-size: var(--font-size-2xl);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.portal-hub {
+			padding: var(--spacing-xl) var(--spacing-md);
+		}
+
+		.hub-center {
+			margin-bottom: var(--spacing-2xl);
+		}
+
+		.portals-container {
+			grid-template-columns: 1fr;
+			gap: var(--spacing-xl);
+		}
+
+		.name-english {
+			font-size: var(--font-size-3xl);
+		}
+
+		.name-japanese {
+			font-size: var(--font-size-xl);
+		}
+
+		.hub-tagline {
+			font-size: var(--font-size-base);
+		}
+	}
+
+	@media (max-width: 480px) {
+		.portal-hub {
+			padding: var(--spacing-lg) var(--spacing-sm);
+		}
+
+		.hub-center {
+			margin-bottom: var(--spacing-xl);
+		}
+
+		.portals-container {
+			gap: var(--spacing-lg);
+		}
+	}
+
+	/* Tablet */
+	@media (min-width: 769px) and (max-width: 1024px) {
+		.portals-container {
+			grid-template-columns: repeat(2, 1fr);
+			max-width: 800px;
+		}
+
+		.portal-wrapper.portal-3 {
+			grid-column: 1 / -1;
+			justify-self: center;
+		}
+	}
+
+	/* Landscape mobile */
+	@media (max-height: 600px) and (orientation: landscape) {
+		.portal-hub {
+			min-height: auto;
+			padding: var(--spacing-lg) var(--spacing-md);
+		}
+
+		.hub-center {
+			margin-bottom: var(--spacing-lg);
+		}
+
+		.name-english {
+			font-size: var(--font-size-3xl);
+		}
+
+		.name-japanese {
+			font-size: var(--font-size-xl);
+		}
+
+		.portals-container {
+			grid-template-columns: repeat(3, 1fr);
+			gap: var(--spacing-lg);
+		}
+	}
+</style>

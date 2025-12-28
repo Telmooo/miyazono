@@ -1,22 +1,83 @@
+---
+import '../styles/global.css';
+import '../styles/animations.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = "Telmo Baptista",
+	description = "My collection of things"
+} = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+		<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
+
+		<script is:inline>
+			function initTheme() {
+				// const savedTheme = localStorage.getItem('theme');
+				// const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				// const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+				// document.documentElement.setAttribute('data-theme', theme);
+				document.documentElement.setAttribute('data-theme', "dark");
+			}
+
+			initTheme();
+
+			// window.addEventListener('themechange', (e) => {
+			// 	const theme = e.detail.theme;
+			// 	document.documentElement.setAttribute('data-theme', theme);
+			// 	localStorage.setItem('theme', theme);
+			// });
+
+			// window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+			// 	if (!localStorage.getItem('theme')) {
+			// 		const theme = e.matches ? 'dark' : 'light';
+			// 		document.documentElement.setAttribute('data-theme', theme);
+			// 	}
+			// });
+		</script>
+
+		<script>
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+					}
+				});
+			}, observerOptions);
+
+			// Observe all elements with .scroll-fade class
+			document.addEventListener('DOMContentLoaded', () => {
+				document.querySelectorAll('.scroll-fade').forEach(el => {
+					observer.observe(el);
+				});
+			});
+		</script>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

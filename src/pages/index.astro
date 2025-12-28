@@ -1,11 +1,95 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import PortalHub from '../components/PortalHub.astro';
+import PetalEffect from '../components/PetalEffect.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import StarryParticles from '../components/StarryParticles.astro';
+import WaterReflection from '../components/WaterReflection.astro';
+import MusicalStaff from '../components/MusicalStaff.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title="Telmo Baptista"
+	description="Developer • A personal hub for projects, passions, and knowledge"
+>
+	<main class="landing-page" id="landing-page">
+		<!-- Background layer (z-index: 0) -->
+		<MusicalStaff />
+
+		<!-- Particle layer (z-index: 2) -->
+		<StarryParticles />
+		<PetalEffect />
+
+		<!-- Content layer (z-index: 10) -->
+		<PortalHub />
+
+		<!-- Reflection layer (z-index: 1) -->
+		<WaterReflection />
+
+		<!-- UI layer (z-index: 30) -->
+		<!-- <ThemeToggle /> -->
+	</main>
 </Layout>
+
+<style>
+	.landing-page {
+		/* Dynamic gradient set by JavaScript based on time */
+		background: var(--gradient-afternoon);
+		min-height: 100vh;
+		position: relative;
+		transition: background 2s ease-in-out;
+	}
+
+	.landing-page::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		opacity: 0.03;
+		background-image: radial-gradient(
+			circle at 1px 1px,
+			var(--color-text-primary) 1px,
+			transparent 0
+		);
+		background-size: 40px 40px;
+		pointer-events: none;
+		z-index: var(--z-background);
+	}
+</style>
+
+<script>
+	// Time-based gradient system
+	function getTimeBasedGradient() {
+		const hour = new Date().getHours();
+
+		if (hour >= 6 && hour < 12) {
+			return 'var(--gradient-morning)';
+		} else if (hour >= 12 && hour < 18) {
+			return 'var(--gradient-afternoon)';
+		} else if (hour >= 18 && hour < 21) {
+			return 'var(--gradient-sunset)';
+		} else {
+			return 'var(--gradient-night)';
+		}
+	}
+
+	function applyTimeBasedGradient() {
+		const landingPage = document.getElementById('landing-page');
+		if (landingPage) {
+			const gradient = getTimeBasedGradient();
+			landingPage.style.background = gradient;
+		}
+	}
+
+	// Apply on load
+	document.addEventListener('DOMContentLoaded', () => {
+		applyTimeBasedGradient();
+	});
+
+	// Update gradient when theme changes
+	window.addEventListener('themechange', () => {
+		setTimeout(applyTimeBasedGradient, 100);
+	});
+
+	// Update gradient every hour
+	setInterval(applyTimeBasedGradient, 3600000);
+</script>

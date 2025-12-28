@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+---
+
+<Layout
+	title="Knowledge - Miyazono (宮園)"
+	description="Wiki, Documentation, System Setups, and Guides"
+>
+	<!-- <ThemeToggle /> -->
+	<main class="page-content">
+		<div class="container">
+			<header class="page-header scroll-fade">
+				<a href="/" class="back-link">← Back to Hub</a>
+				<h1 class="page-title">
+					<span class="title-en">Wiki</span>
+					<span class="title-jp">知識の宝庫</span>
+				</h1>
+				<p class="page-subtitle">Wiki • Guides • Configurations</p>
+			</header>
+
+			<section class="content-section scroll-fade stagger-1">
+				<h2>Coming Soon</h2>
+			</section>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.page-content {
+		min-height: 100vh;
+		padding: var(--spacing-3xl) var(--spacing-md);
+		background: var(--color-bg-primary);
+	}
+
+	.page-header {
+		text-align: center;
+		margin-bottom: var(--spacing-3xl);
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-bottom: var(--spacing-lg);
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		transition: color var(--transition-base);
+		font-size: var(--font-size-sm);
+	}
+
+	.back-link:hover {
+		color: var(--color-accent);
+	}
+
+	.page-title {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-sm);
+		margin-bottom: var(--spacing-md);
+	}
+
+	.title-en {
+		font-size: var(--font-size-5xl);
+		font-family: var(--font-serif);
+		color: var(--color-text-primary);
+		letter-spacing: 0.05em;
+	}
+
+	.title-jp {
+		font-size: var(--font-size-2xl);
+		font-family: var(--font-serif);
+		color: var(--color-text-secondary);
+		font-weight: 400;
+	}
+
+	.page-subtitle {
+		color: var(--color-text-light);
+		font-size: var(--font-size-lg);
+	}
+
+	.content-section {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: var(--spacing-2xl);
+		background: var(--color-bg-secondary);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-md);
+	}
+
+	.content-section h2 {
+		color: var(--portal-wiki);
+		margin-bottom: var(--spacing-lg);
+	}
+
+	.content-section ul {
+		list-style-position: inside;
+		color: var(--color-text-secondary);
+		line-height: 1.8;
+	}
+
+	@media (max-width: 768px) {
+		.page-content {
+			padding: var(--spacing-2xl) var(--spacing-md);
+		}
+
+		.title-en {
+			font-size: var(--font-size-4xl);
+		}
+
+		.title-jp {
+			font-size: var(--font-size-xl);
+		}
+
+		.content-section {
+			padding: var(--spacing-lg);
+		}
+	}
+</style>

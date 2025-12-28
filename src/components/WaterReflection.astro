@@ -1,0 +1,81 @@
+<div class="water-reflection" aria-hidden="true">
+	<div class="reflection-content" id="reflection-mirror">
+		<!-- Content will be mirrored via JavaScript -->
+	</div>
+</div>
+
+<style>
+	.water-reflection {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 40vh;
+		pointer-events: none;
+		z-index: var(--z-base);
+		overflow: hidden;
+		mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			rgba(0, 0, 0, 0.3) 40%,
+			rgba(0, 0, 0, 0.1) 100%
+		);
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			rgba(0, 0, 0, 0.3) 40%,
+			rgba(0, 0, 0, 0.1) 100%
+		);
+	}
+
+	.reflection-content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		transform: scaleY(-1);
+		opacity: 0.4;
+		filter: blur(2px);
+	}
+
+	html[data-theme="dark"] .reflection-content {
+		opacity: 0.25;
+		filter: blur(3px);
+	}
+
+	/* Reduce reflection on mobile */
+	@media (max-width: 768px) {
+		.water-reflection {
+			height: 25vh;
+			opacity: 0.6;
+		}
+	}
+</style>
+
+<script>
+	// Simple reflection: clone the hub content
+	function updateReflection() {
+		const portalHub = document.querySelector(".portal-hub");
+		const reflectionMirror = document.getElementById("reflection-mirror");
+
+		if (portalHub && reflectionMirror) {
+			// Clone the hub content
+			const clone = portalHub.cloneNode(true) as HTMLElement;
+			clone.style.marginTop = "0";
+
+			// Clear previous reflection and add new
+			reflectionMirror.innerHTML = "";
+			reflectionMirror.appendChild(clone);
+		}
+	}
+
+	// Update reflection on load and when content changes
+	document.addEventListener("DOMContentLoaded", () => {
+		setTimeout(updateReflection, 100); // Small delay to ensure content is loaded
+	});
+
+	// Optional: update on window resize
+	window.addEventListener("resize", () => {
+		setTimeout(updateReflection, 100);
+	});
+</script>
