@@ -1,5 +1,4 @@
 :root {
-  /* TODO: currently only supporting dark mode */
   /* Light Mode */
   --color-sakura: #fdcbcb;
   --color-sky: #cbf7fd;
@@ -17,17 +16,17 @@
   --color-twilight-purple: #5c6bc0;
   --color-ocean-deep: #0d47a1;
 
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: var(--color-air);
-  --color-text-primary: #4a4a4a;
-  --color-text-secondary: #666666;
-  --color-text-light: #999999;
-  --color-accent: #f88da0;
+  --color-bg-primary: #fafafa;
+  --color-bg-secondary: #f5f5f5;
+  --color-text-primary: #2a2a2a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-light: #666666;
+  --color-accent: #d63384;
 
   /* Portal-specific colors */
-  --portal-portfolio: var(--color-sky);
-  --portal-leisure: var(--color-sakura);
-  --portal-wiki: var(--color-sunshine);
+  --portal-portfolio: #1976d2;
+  --portal-leisure: #e91e63;
+  --portal-wiki: #f57c00;
 
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -67,10 +66,10 @@
   --shadow-glow-golden: 0 0 30px rgba(255, 215, 0, 0.3);
 
   /* Time-based Gradients */
-  --gradient-morning: linear-gradient(180deg, #42a5f5 0%, #ffcc80 60%, #e5fbfe 100%);
-  --gradient-afternoon: linear-gradient(180deg, #42a5f5 0%, #ffb347 50%, #5c6bc0 100%);
-  --gradient-sunset: linear-gradient(180deg, #ffd700 0%, #ffb347 30%, #5c6bc0 70%, #1a237e 100%);
-  --gradient-night: linear-gradient(180deg, #0d47a1 0%, #1a237e 50%, #16213e 100%);
+  --gradient-morning: linear-gradient(180deg, #e3f2fd 0%, #fff3e0 50%, #fafafa 100%);
+  --gradient-afternoon: linear-gradient(180deg, #f5f5f5 0%, #fff8e1 40%, #fce4ec 100%);
+  --gradient-sunset: linear-gradient(180deg, #fff9c4 0%, #ffccbc 40%, #e1bee7 100%);
+  --gradient-night: linear-gradient(180deg, #e8eaf6 0%, #f3e5f5 50%, #fafafa 100%);
 
   /* Border radius */
   --radius-sm: 0.25rem;
@@ -97,19 +96,24 @@
   --color-bg-secondary: #16213e;
   --color-text-primary: #e5e5e5;
   --color-text-secondary: #b8b8b8;
-  --color-text-light: #8a8a8a;
+  --color-text-light: #adadad;
 
   --color-sakura: #c79ea5;
   --color-sky: #8dbcc9;
   --color-air: #2d3e50;
   --color-cream: #d4b5ad;
   --color-sunshine: #d4c99f;
-  --color-accent: #e87d93;
+  --color-accent: #ff90a8;
 
   --color-sunset-orange: #ff9966;
   --color-golden-hour: #ffdd66;
   --color-amber-glow: #ffb366;
   --color-sky-vibrant: #66b3ff;
+
+  /* Portal-specific colors */
+  --portal-portfolio: #64b5f6;
+  --portal-leisure: #f48fb1;
+  --portal-wiki: #ffd54f;
 
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);

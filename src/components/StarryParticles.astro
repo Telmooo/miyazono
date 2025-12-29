@@ -46,10 +46,16 @@ const mobileCount = Math.floor(desktopCount * 0.33);
 		position: absolute;
 		width: 3px;
 		height: 3px;
-		background: radial-gradient(circle, var(--color-sky-vibrant) 0%, transparent 70%);
+		background: radial-gradient(circle, #1976d2 0%, transparent 70%);
 		border-radius: 50%;
 		animation: twinkle 3s ease-in-out infinite;
 		will-change: opacity, transform;
+		box-shadow: 0 0 4px #1976d2;
+	}
+
+	/* Dark mode */
+	html[data-theme="dark"] .particle {
+		background: radial-gradient(circle, var(--color-sky-vibrant) 0%, transparent 70%);
 		box-shadow: 0 0 4px var(--color-sky-vibrant);
 	}
 
@@ -72,6 +78,17 @@ const mobileCount = Math.floor(desktopCount * 0.33);
 	.particle[data-particle="28"] {
 		width: 6px;
 		height: 6px;
+		background: radial-gradient(circle, #f57c00 0%, transparent 60%);
+		box-shadow: 0 0 6px #f57c00;
+	}
+
+	/* Dark mode */
+	html[data-theme="dark"] .particle[data-particle="3"],
+	html[data-theme="dark"] .particle[data-particle="8"],
+	html[data-theme="dark"] .particle[data-particle="13"],
+	html[data-theme="dark"] .particle[data-particle="18"],
+	html[data-theme="dark"] .particle[data-particle="23"],
+	html[data-theme="dark"] .particle[data-particle="28"] {
 		background: radial-gradient(circle, var(--color-golden-hour) 0%, transparent 60%);
 		box-shadow: 0 0 6px var(--color-golden-hour);
 	}

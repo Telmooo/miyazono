@@ -22,7 +22,7 @@
 		inset: 0;
 		pointer-events: none;
 		z-index: var(--z-background);
-		opacity: 0.08;
+		opacity: 0.15;
 		overflow: hidden;
 	}
 
@@ -32,7 +32,7 @@
 	}
 
 	.staff-line {
-		stroke: var(--color-text-primary);
+		stroke: #666666;
 		stroke-width: 1;
 		fill: none;
 		animation: staffWave 8s ease-in-out infinite;
@@ -60,9 +60,9 @@
 	}
 
 	.staff-note {
-		fill: var(--color-accent);
+		fill: #d63384;
 		font-size: 24px;
-		opacity: 0.6;
+		opacity: 0.7;
 		animation: floatInPlace 4s ease-in-out infinite;
 	}
 
@@ -92,6 +92,10 @@
 
 	html[data-theme="dark"] .staff-line {
 		stroke: var(--color-sky-vibrant);
+	}
+
+	html[data-theme="dark"] .staff-note {
+		fill: var(--color-accent);
 	}
 
 	/* Hide on mobile to reduce visual noise */
