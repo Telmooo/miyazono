@@ -220,6 +220,28 @@ a:focus-visible {
   border: 0;
 }
 
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 0;
+  border-radius: 0 0 var(--radius-md) 0;
+  opacity: 0;
+}
+
+.skip-to-main:focus {
+  left: 50%;
+  translate: -50% 15%;
+  opacity: 1;
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 1px;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -247,10 +269,6 @@ a:focus-visible {
     --font-size-5xl: 2rem;
     --font-size-4xl: 1.75rem;
     --font-size-3xl: 1.5rem;
-  }
-
-  html {
-    font-size: 14px;
   }
 }
 

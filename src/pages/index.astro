@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import PortalHub from '../components/PortalHub.astro';
 import PetalEffect from '../components/PetalEffect.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
 import StarryParticles from '../components/StarryParticles.astro';
 import WaterReflection from '../components/WaterReflection.astro';
 import MusicalStaff from '../components/MusicalStaff.astro';
@@ -12,7 +11,7 @@ import MusicalStaff from '../components/MusicalStaff.astro';
 	title="Telmo Baptista"
 	description="Developer • A personal hub for projects, passions, and knowledge"
 >
-	<main class="landing-page" id="landing-page">
+	<main class="landing-page" id="main-content">
 		<!-- Background layer (z-index: 0) -->
 		<MusicalStaff />
 
@@ -73,7 +72,7 @@ import MusicalStaff from '../components/MusicalStaff.astro';
 	}
 
 	function applyTimeBasedGradient() {
-		const landingPage = document.getElementById('landing-page');
+		const landingPage = document.getElementById('main-content');
 		if (landingPage) {
 			const gradient = getTimeBasedGradient();
 			landingPage.style.background = gradient;

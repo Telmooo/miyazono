@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
 ---
 
 <Layout
@@ -8,13 +7,13 @@ import ThemeToggle from '../components/ThemeToggle.astro';
 	description="My Personal Interests"
 >
 	<!-- <ThemeToggle /> -->
-	<main class="page-content">
+	<main class="page-content" id="main-content">
 		<div class="container">
 			<header class="page-header scroll-fade">
-				<a href="/" class="back-link">← Back to Hub</a>
+				<a href="/" class="back-link" aria-label="Return to main hub">← Back to Hub</a>
 				<h1 class="page-title">
 					<span class="title-en">My World</span>
-					<span class="title-jp">マイワールド</span>
+					<span class="title-jp" lang="ja">マイワールド</span>
 				</h1>
 				<p class="page-subtitle">Gaming • Music • Travel</p>
 			</header>
