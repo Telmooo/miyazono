@@ -1,0 +1,682 @@
+---
+title: Arch Linux Installation
+description: My own Arch Linux installation steps
+---
+import { Badge } from '@astrojs/starlight/components';
+import { FileTree } from '@astrojs/starlight/components';
+import { Icon } from '@astrojs/starlight/components';
+
+This is a step by step installation of my own Arch Linux configuration.
+
+:::note
+Always get the latest ISO in the [official source](https://archlinux.org/download/).
+:::
+
+:::tip[RTFM]{icon="open-book"}
+And as usual, always read the official [installation guide](https://wiki.archlinux.org/title/Installation_guide) for latest information or in case of doubt :)
+:::
+
+## Overview
+
+The current installation is using the following options:
+
+- **Boot & Firmware**: UEFI
+- **Bootloader**: systemd-boot
+- **Encryption**: LUKS
+- **Filesystem**: Btrfs
+- **Kernels**: `linux` and `linux-lts`
+- **Shell**: Fish
+- **Terminal Emulator**: Kitty
+- **Desktop Environment**: KDE <Badge text="Choose one of the two" size="small" variant="caution" />
+- **Window Manager**: Hyprland <Badge text="Choose one of the two" size="small" variant="caution" />
+- **Display Manager**: sddm
+- **File Manager**: lf (TUI) + Dolphin (GUI)
+- **AUR Helper**: Yay
+- **Network Manager**: NetworkManager
+- **Audio System**: Pipewire
+- **Desktop Notifications**: Mako <Badge text="Hyprland" size="small" variant="note" />
+- **Status Bar**: Waybar <Badge text="Hyprland" size="small" variant="note" />
+- **Application Launcher**: Vicinae
+- **Text Editor**: NeoVim (TUI) + VSCode (GUI)
+- **Browser**: Firefox
+
+## Setup SSH <Badge text="optional" size="large" variant="tip" />
+
+To make the whole installation easier you can remotely connect (via SSH) to the system after setting up network (Ethernet or Wi-fi). Only need to enable the `sshd` service and setup a password.
+
+```bash title="SSH setup"
+systemctl start sshd
+passwd
+```
+
+## Set keyboard layout <Badge text="optional" size="large" variant="tip" />
+
+```bash title="Set desired keyboard layout" "pt-latin1"
+# List all available keymaps
+localectl list-keymaps
+# Replace with your desired keyboard layout
+loadkeys pt-latin1
+```
+
+## Wi-fi setup
+
+:::note
+Skip this step if using Ethernet connection.
+:::
+
+```bash title="Connecting to Wi-Fi via iwd" "NAME" "SSID"
+iwctl
+# Generally named wlan0 use "device list" to list all options
+[iwd]# station NAME scan
+[iwd]# station NAME get-networks
+# Replace with your network name
+[iwd]# station NAME connect SSID
+[iwd]# exit
+ping ping.archlinux.org
+# Verify system clock is synchronised once internet connection is established
+timedatectl
+```
+
+## Setting up your partitions
+
+Before setting up any encryption or partitions, I like to wipe everything and fill it with random bytes (this will take a while depending on your drive size).
+
+```bash title="Wiping entire device" "DEVICE_NAME"
+dd if=/dev/urandom of=/dev/DEVICE_NAME bs=1M status=progress
+```
+
+Now to set up the partitions. For now, I'm just using two partitions:
+
+- **Boot partition**: 1GB size (EFI System)
+- **Root partition**: Remaining space (Linux File System)
+
+I do not have any swap partition for now as my current drive is small, so I rather trade performance for more space (I'll use zram instead).
+
+| Mount Point |       Partition       |  Partition Type   | Suggested size  |
+| :---------: | :-------------------: | :---------------: | :-------------: |
+|    /boot    | `/dev/efi_partition`  |    EFI System     |  At least 1GiB  |
+|      /      | `/dev/root_partition` | Linux File System | Remaining space |
+
+```bash title="Disk Partition Setup" "DEVICE_NAME" "<use default>"
+fdisk /dev/DEVICE_NAME
+# Create GPT partition table
+g
+# Boot partition
+n
+<use default>
+<use default>
++1G
+t
+# `uefi` or generally `1` for EFI System, but double check the list of types
+1
+# Root partition
+n
+<use default>
+<use default>
+<use default>
+# Save partition table
+w
+```
+
+The partitions in `lsblk` should look something like:
+
+```bash title="Disk Partition Setup" "DEVICE_NAME"
+NAME                TYPE      MOUNTPOINT   SIZE
+DEVICE_NAME         disk                    ...
+├─DEVICE_NAME1      part                    1G
+└─DEVICE_NAME2      part                    ...
+```
+
+### LUKS Setup
+This section covers encrypting the root partition with LUKS encryption.
+
+:::note
+Skip this section if you don't need/want encryption.
+:::
+
+:::danger
+Do not encrypt the boot partition or your system won't boot.
+:::
+
+
+```bash title="Encryption setup" "root_partition"
+modprobe dm-crypt
+modprobe dm-mod
+cryptsetup -v luksFormat -s 512 -h sha512 /dev/root_partition
+# Enter passphrase and do not forget it, or your data will be unacessible
+```
+
+### File System Setup
+
+We'll setup a `Btrfs` system with the following subvolumes:
+
+| Subvolume  |      Mountpoint       |
+| :--------: | :-------------------: |
+|     @      |           /           |
+|   @home    |         /home         |
+|  @var_log  |       /var/log        |
+|    @pkg    | /var/cache/pacman/pkg |
+| @snapshots |      /.snapshots      |
+
+:::note
+The subvolume `@snapshots` will only be mounted after setting up `snapper`, as the later will create subvolumes during setup that we'll delete and replace.
+:::
+
+```bash title="Btrfs Setup" "root_partition" "efi_partition"
+# Skip this command if you're not using encryption
+# Replace /dev/mapper/root by /dev/root_partition
+cryptsetup open /dev/root_partition root
+# Create Btrfs subvolumes
+mkfs.btrfs -L root /dev/mapper/root
+mkdir -p /mnt/arch_btrfs
+mount -o compress=zstd /dev/mapper/root /mnt/arch_btrfs
+btrfs subvolume create -p /mnt/arch_btrfs/@
+btrfs subvolume create -p /mnt/arch_btrfs/@home
+btrfs subvolume create -p /mnt/arch_btrfs/@var_log
+btrfs subvolume create -p /mnt/arch_btrfs/@pkg
+btrfs subvolume create -p /mnt/arch_btrfs/@snapshots
+umount /mnt/arch_btrfs
+
+# Mount the subvolumes
+mount -o compress=zstd,subvol=@ /dev/mapper/root /mnt
+mount -o compress=zstd,subvol=@home --mkdir /dev/mapper/root /mnt/home
+mount -o compress=zstd,subvol=@var_log --mkdir /dev/mapper/root /mnt/var/log
+mount -o compress=zstd,subvol=@pkg --mkdir /dev/mapper/root /mnt/var/cache/pacman/pkg
+
+# Format boot partition and mount
+mkfs.fat -F 32 /dev/efi_partition"
+mount -o fmask=0077,dmask=0077 --mkdir /dev/efi_partition /mnt/boot
+```
+
+The partitions in `lsblk` should look something like:
+
+```bash title="Disk Partition Setup" "DEVICE_NAME" "efi_partition" "root_partition"
+NAME                TYPE    MOUNTPOINTS
+DEVICE_NAME         disk
+├─efi_partition     part    /mnt/boot
+└─root_partition    part
+  └─root            crypt   /mnt/var/cache/pacman/pkg
+                            /mnt/var/log
+                            /mnt/home
+                            /mnt
+```
+
+If not using `LUKS` encryption, the `root_partition` will map directly to the subvolumes without the intermediary `root`.
+
+## Setup Mirrors
+
+```bash title="Update mirrorlist" "Portugal,Netherlands,Germany"
+reflector --save /etc/pacman.d/mirrorlist --latest 5 --protocol https --country Portugal,Netherlands,Germany --sort rate
+```
+
+## Install essential packages
+
+:::note
+Before using `pacstrap` verify what microcode you'll need for your CPU.
+
+```bash title="Verify CPU vendor"
+cat /proc/cpuinfo | grep "vendor_id"
+```
+
+Depending on your CPU vendor include the following package:
+
+- `GenuineIntel`: `intel-ucode`
+- `AuthenticAMD`: `amd-ucode`
+:::
+
+```bash title="Installing essential packages" "CPUVENDOR"
+pacman -Sy
+# Remove zram-generator if using swap partition
+pacstrap -K /mnt --needed base base-devel linux linux-headers linux-lts linux-lts-headers linux-firmware btrfs-progs snapper networkmanager efibootmgr neovim zram-generator
+```
+
+## Configure `snapper`
+
+```bash title="Setup snapper backups" "root_partition"
+arch-chroot -S /mnt snapper --no-dbus -c root create-config /
+arch-chroot -S /mnt snapper --no-dbus -c home create-config /home
+# Delete automatically created subvolumes by snapper
+btrfs subvolume delete /mnt/home/.snapshots
+btrfs subvolume delete /mnt/.snapshots
+# Replace /dev/mapper/root by your /dev/root_partition if not using encryption
+mount -o compress=zstd,subvol=@snapshots --mkdir /dev/mapper/root /mnt/.snapshots
+chmod 750 /mnt/.snapshots
+```
+
+```bash title="Fstab Generation"
+genfstab -U /mnt >> /mnt/etc/fstab
+```
+
+## Configuring the System
+
+Change root to the new system:
+
+```bash
+arch-chroot /mnt
+```
+
+### Enabling `snapper` services
+
+```bash
+systemctl enable snapper-timeline.service
+systemctl enable snapper-cleanup.service
+```
+
+### Enable decryption on boot
+
+Add `sd-encrypt` to `HOOKS` in `/etc/mkinitcpio.conf`.
+
+```txt ins="sd-encrypt"
+// etc/mkinitcpio.conf
+HOOKS=(base systemd autodetect microcode modconf kms keyboard keymap sd-vconsole block sd-encrypt filesystems fsck)
+```
+
+### Timezone
+
+You can search the available timezones by using `ls /usr/share/zoneinfo` and then `ls /usr/share/zoneinfo/Region` when you choose your region.
+
+```bash title="Setting your timezone" "Region" "City"
+ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+hwclock --systohc
+```
+
+Add the NTP pools to your `etc/systemd/tymesyncd.conf`:
+
+```diff txt
+// etc/systemd/timesyncd.conf
+- #NTP=
+- #FallbackNTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.org
++ NTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.org
++ FallbackNTP=0.pool.ntp.org 1.pool.ntp.org
+```
+
+```bash title="Enable timesyncd service"
+systemctl enable systemd-timesyncd.service
+```
+
+### Localisation
+
+Uncomment wanted locales in `/etc/locale.gen`.
+
+```diff txt
+// /etc/locale.gen
+- #en_GB.UTF-8 UTF-8
+- #ja_JP.UTF-8 UTF-8
+- #pt_PT.UTF-8 UTF-8
++ en_GB.UTF-8 UTF-8
++ ja_JP.UTF-8 UTF-8
++ pt_PT.UTF-8 UTF-8
+```
+
+```bash title="Generate locales"
+locale-gen
+```
+
+Create `/etc/locale.conf` and set your language preferences.
+
+```
+// /etc/locale.conf
+LANG=en_GB.UTF-8
+LANGUAGE=en_GB
+LC_CTYPE=en_GB.UTF-8
+LC_NUMERIC=en_GB.UTF-8
+LC_TIME=pt_PT.UTF-8
+LC_COLLATE=C.UTF-8
+LC_MONETARY=pt_PT.UTF-8
+LC_MESSAGES=en_GB.UTF-8
+LC_PAPER=en_GB.UTF-8
+LC_NAME=en_GB.UTF-8
+LC_ADDRESS=pt_PT.UTF-8
+LC_TELEPHONE=pt_PT.UTF-8
+LC_MEASUREMENT=pt_PT.UTF-8
+LC_IDENTIFICATION=en_GB.UTF-8
+```
+
+:::note
+Do not set `LC_ALL` as it overrides every other option.
+:::
+
+Create `/etc/vconsole.conf` and set your console keyboard layout.
+
+```
+// etc/vconsole.conf
+KEYMAP=pt-latin1
+```
+
+### Networking
+
+Set your hostname in `/etc/hostname`.
+
+```txt "myhostname"
+// etc/hostname
+myhostname
+```
+
+```bash title="Enable NetworkManager"
+systemctl enable NetworkManager.service
+```
+
+### Regenerate `initramfs`
+
+```bash
+mkinitcpio -P
+```
+
+### Set root password
+
+```bash
+passwd
+```
+
+### Bootloader Setup
+
+This is the setup for `systemd-boot` bootloader, if you want to use other bootloader like [`GRUB`](https://wiki.archlinux.org/title/GRUB), read the appropriate wiki page.
+
+```bash title="systemd-boot setup" "root_partition"
+bootctl install
+# Get UUID of `root_partition" and put it on our future entry
+blkid /dev/root_partition >> /boot/loader/entries/arch.conf
+# Duplicate entry for LTS kernel (can do it later after configuring normal kernel)
+cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-lts.conf 
+```
+
+Edit the bootloader configuration in `/boot/loader/loader.conf`.
+
+```
+// boot/loader/loader.conf
+default @saved
+timeout 5
+console-mode max
+```
+
+Create entries for each kernel in `/boot/loader/entries/`.
+
+```txt "DEVICE-UUID"
+// boot/loader/entries/arch.conf
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd  initramfs-linux.img
+options rd.luks.name=DEVICE-UUID=root root=/dev/mapper/root rootflags=subvol=@
+```
+
+```txt "DEVICE-UUID"
+// boot/loader/entries/arch-lts.conf
+title   Arch Linux (LTS)
+linux   /vmlinuz-linux-lts
+initrd  initramfs-linux-lts.img
+options rd.luks.name=DEVICE-UUID=root root=/dev/mapper/root rootflags=subvol=@
+```
+
+:::note
+If not using encryption delete `rd.luks.name=DEVICE-UUID=root` option and change `root=/dev/mapper/root` to `root=UUID=DEVICE-UUID`
+:::
+
+### Shell
+
+```bash
+pacman -S --needed fish
+```
+
+### User Configuration
+
+```bash title="Create your user" "USERNAME"
+useradd -m -G wheel -s /usr/bin/fish USERNAME
+passwd USERNAME
+export EDITOR=nvim
+visudo
+```
+
+The last command is used to configure our `sudo` users. Uncomment one of the lines whether you want `sudo` to be used with or without password.
+
+```diff txt
+- #%wheel ALL=(ALL:ALL) ALL
++ %wheel ALL=(ALL:ALL) ALL
+# or
+- #%wheel ALL=(ALL:ALL) NOPASSWD: ALL
++ %wheel ALL=(ALL:ALL) NOPASSWD: ALL
+```
+
+### Pkgstats
+
+Once installed (it is enabled on install), this will send your installed packages, the architecture and the mirror you're using to Arch Linux developers. This information is anonymous and can't be used to identify the user, and is only used to help the developers prioritise their efforts.
+
+```bash
+pacman -S --needed pkgstats
+```
+
+### GPU Setup <Badge text="optional" size="large" variant="tip" />
+
+This setup depends on your card. Always better to check the Arch Wiki for this, especially with NVIDIA cards.
+
+#### NVIDIA
+
+This is always changing with NVIDIA drivers, so check compatability in the [wiki](https://wiki.archlinux.org/title/NVIDIA).
+
+```bash title="Install NVIDIA drivers"
+pacman -S --needed nvidia-open-dkms nvidia-utils
+```
+
+#### AMD
+
+I haven't used an AMD GPU yet, as my desktop with one is still running Windows. Check the [wiki](https://wiki.archlinux.org/title/AMDGPU) for how to install AMD drivers.
+
+### Terminal
+
+```bash
+pacman -S --needed kitty
+```
+
+### KDE <Badge text="DE" size="large" variant="note" />
+
+:::note
+If you want to use Hyprland, skip this section as these are the packages required for KDE.
+:::
+
+If `qt6-multimedia-ffmpeg pipewire-jack noto-fonts` aren't specified, the installation will ask you to choose between these and other options.
+
+```bash title="Install KDE packages"
+pacman -S --needed plasma-meta ark plasma-workspace qt6-multimedia-ffmpeg pipewire-jack noto-fonts
+```
+
+### Hyprland <Badge text="WM" size="large" variant="note" />
+
+:::note
+If you want to use KDE, skip this section as these are the packages required for Hyprland.
+:::
+
+```bash title="Install Hyprland packages"
+pacman -S --needed hyprland
+```
+
+:::caution[Using NVIDIA GPU]
+Setup Early KMS to allow NVIDIA modules to load earlier in the boot sequence. Add the modules to `etc/mkinitcpio.conf` and regenerate your `initramfs` afterwards. For more information check official [Hyprland wiki](https://wiki.hypr.land/Nvidia).
+
+```txt ins="i915 nvidia nvidia_modeset nvidia_uvm nvidia_drm"
+// etc/mkinitcpio.conf
+MODULES=(... i915 nvidia nvidia_modeset nvidia_uvm nvidia_drm ...)
+```
+
+```bash title="Regenerate initramfs"
+mkinitcpio -P
+```
+:::
+
+### Rebooting to our system
+
+:::caution
+Make sure your bootloader is properly configured before rebooting.
+:::
+
+```bash title="Rebooting..."
+exit
+sync
+umount -R /mnt
+reboot now
+```
+
+## Post-install Configuration
+
+### Enable `zram`
+
+:::note
+If using swap partition, skip this step.
+:::
+
+Add the `zram` configuration to `/etc/systemd/zram-generator.conf`.
+
+```
+// etc/systemd/zram-generator.conf
+[zram0]
+```
+
+```bash title="Enable zram service"
+systemctl start /dev/zram0
+```
+
+### Wi-Fi Configuration
+
+```bash title="Wi-Fi configuration with NetworkManager" "SSID_OR_BSSID" password "PASSWORD"
+nmcli device wifi list
+nmcli device wifi connect SSID_OR_BSSID password PASSWORD
+nmcli connection show
+ping ping.archlinux.org
+```
+
+### AUR Helper
+
+```bash title="Yay setup"
+mkdir tools # optional
+sudo pacman -S --needed git base-devel
+cd tools
+git clone https://aur.archlinux.org/yay.git
+cd yay && makepkg -si
+```
+
+### Reflector
+
+Periodically update mirrorlist with `reflector`.
+
+```bash title="Setup reflector"
+yay -S --needed reflector
+```
+
+Configure the settings in `/etc/xdg/reflector/reflector.conf`.
+
+```diff lang="txt"
+// etc/xdg/reflector/reflector.conf
+--save /etc/pacman.d/mirrorlist
+
+--protocol https
+
+- # --country France,Germany
++ --country Portugal,Netherlands,Germany
+
+--latest 5
+
+- --sort age
++ --sort rate
+```
+
+```bash title="Enable reflector services"
+sudo systemctl enable reflector.timer
+```
+
+### SSH
+
+```bash title="Install SSH"
+yay -S --needed openssh
+```
+
+### Display Manager
+
+```bash title="Install sddm"
+yay -S --needed sddm
+sudo systemctl enable sddm.service
+```
+
+### Pipewire
+
+```bash title="Install Pipewire"
+yay -S --needed pipewire wireplumber
+```
+
+### File Manager
+
+```bash title="Install file managers"
+yay -S --needed lf dolphin
+```
+
+### Browser
+
+```bash title="Install browsers"
+yay -S --needed firefox
+```
+
+### Fonts
+
+```bash title="Install fonts"
+yay -S --needed noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-noto-nerd
+```
+
+### Bluetooth
+
+```bash title="Install Bluetooth"
+yay -S --needed bluez bluez-utils
+sudo systemctl enable bluetooth.service
+# Start now
+sudo systemctl start bluetooth.service
+```
+
+### VSCode
+
+```bash
+yay -S --needed visual-studio-code-bin
+```
+
+### Fastfetch
+
+```bash
+yay -S --needed fastfetch
+```
+
+### Mise
+
+```bash
+yay -S --needed mise
+```
+
+### Pipx
+
+```bash
+yay -S --needed python-pipx
+```
+
+### Hyprland Configuration
+
+:::note
+If not using Hyprland, skip this section.
+:::
+
+#### XDG Desktop Portal
+
+```bash
+yay -S --needed xdg-desktop-portal-hyprland
+```
+
+#### Auth Agent
+
+```bash
+yay -S --needed hyprpolkitagent
+```
+
+#### Desktop Notifications
+
+```bash
+yay -S --needed libnotify mako
+```
+
+#### Status Bar
+
+```bash
+yay -S --needed pipewire-jack waybar
+```
