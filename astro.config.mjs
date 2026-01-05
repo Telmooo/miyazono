@@ -2,10 +2,12 @@
 import { defineConfig } from 'astro/config';
 
 import starlight from '@astrojs/starlight';
+import starlightAutoSidebar from 'starlight-auto-sidebar';
 
 // https://astro.build/config
 export default defineConfig({
     integrations: [starlight({
+        plugins: [ starlightAutoSidebar() ],
         title: {
             en: "Wiki | Telmo Baptista",
             ja: "知識の宝庫 | Telmo Baptista"
@@ -26,6 +28,10 @@ export default defineConfig({
             { label: "Home", link: "/" },
             // Wiki entrypoint
             { label: "Wiki Introduction", link: "/wiki" },
+            {
+                label: "Awesome",
+                autogenerate: { directory: "wiki/awesome" }
+            },
             { label: "Linux", autogenerate: { directory: "wiki/linux" } }
         ],
         social: [

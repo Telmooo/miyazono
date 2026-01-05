@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.37.1",
-    "astro": "^5.16.6"
+    "astro": "^5.16.6",
+    "starlight-auto-sidebar": "^0.1.4"
   },
   "packageManager": "yarn@4.12.0"
 }

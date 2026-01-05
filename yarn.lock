@@ -4381,6 +4381,7 @@ __metadata:
   dependencies:
     "@astrojs/starlight": "npm:^0.37.1"
     astro: "npm:^5.16.6"
+    starlight-auto-sidebar: "npm:^0.1.4"
   languageName: unknown
   linkType: soft
 
@@ -4590,6 +4591,17 @@ __metadata:
   dependencies:
     minipass: "npm:^7.0.3"
   checksum: 10c0/405f3a531cd98b013cecb355d63555dca42fd12c7bc6671738aaa9a82882ff41cdf0ef9a2b734ca4f9a760338f114c29d01d9238a65db3ccac27929bd6e6d4b2
+  languageName: node
+  linkType: hard
+
+"starlight-auto-sidebar@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "starlight-auto-sidebar@npm:0.1.4"
+  dependencies:
+    github-slugger: "npm:^2.0.0"
+  peerDependencies:
+    "@astrojs/starlight": ">=0.32.0"
+  checksum: 10c0/86bd861aba00e389e7847afa1abeea557789532d5dda5d036cfcdfd5738309d2b0db3e0e9469b3d52ce463157a696f751e377d63ae5da5736025d79ae594f495
   languageName: node
   linkType: hard
 
