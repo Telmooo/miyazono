@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.37.1",
+    "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.6",
-    "starlight-auto-sidebar": "^0.1.4"
+    "starlight-auto-sidebar": "^0.1.4",
+    "tailwindcss": "^4.1.18"
   },
   "packageManager": "yarn@4.12.0"
 }
