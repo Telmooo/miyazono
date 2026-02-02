@@ -144,7 +144,7 @@ Do not encrypt the boot partition or your system won't boot.
 modprobe dm-crypt
 modprobe dm-mod
 cryptsetup -v luksFormat -s 512 -h sha512 /dev/root_partition
-# Enter passphrase and do not forget it, or your data will be unacessible
+# Enter passphrase and do not forget it, or your data will be inaccessible
 ```
 
 ### File System Setup
@@ -282,7 +282,7 @@ ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
 hwclock --systohc
 ```
 
-Add the NTP pools to your `etc/systemd/tymesyncd.conf`:
+Add the NTP pools to your `etc/systemd/timesyncd.conf`:
 
 ```diff txt
 // etc/systemd/timesyncd.conf
@@ -452,7 +452,7 @@ This setup depends on your card. Always better to check the Arch Wiki for this, 
 
 #### NVIDIA
 
-This is always changing with NVIDIA drivers, so check compatability in the [wiki](https://wiki.archlinux.org/title/NVIDIA).
+This is always changing with NVIDIA drivers, so check compatibility in the [wiki](https://wiki.archlinux.org/title/NVIDIA).
 
 ```bash title="Install NVIDIA drivers"
 pacman -S --needed nvidia-open-dkms nvidia-utils
