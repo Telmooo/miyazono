@@ -223,6 +223,7 @@ Depending on your CPU vendor include the following package:
 
 - `GenuineIntel`: `intel-ucode`
 - `AuthenticAMD`: `amd-ucode`
+
   :::
 
 ```bash title="Installing essential packages" "CPUVENDOR"
@@ -315,7 +316,7 @@ locale-gen
 
 Create `/etc/locale.conf` and set your language preferences.
 
-```
+```txt
 // /etc/locale.conf
 LANG=en_GB.UTF-8
 LANGUAGE=en_GB
@@ -339,7 +340,7 @@ Do not set `LC_ALL` as it overrides every other option.
 
 Create `/etc/vconsole.conf` and set your console keyboard layout.
 
-```
+```txt
 // etc/vconsole.conf
 KEYMAP=pt-latin1
 ```
@@ -383,7 +384,7 @@ cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-lts.conf
 
 Edit the bootloader configuration in `/boot/loader/loader.conf`.
 
-```
+```txt
 // boot/loader/loader.conf
 default @saved
 timeout 5
@@ -526,7 +527,7 @@ If using swap partition, skip this step.
 
 Add the `zram` configuration to `/etc/systemd/zram-generator.conf`.
 
-```
+```txt
 // etc/systemd/zram-generator.conf
 [zram0]
 ```
