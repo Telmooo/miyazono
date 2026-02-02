@@ -1,46 +1,43 @@
-# Astro Starter Kit: Basics
+<div align="center">
+    <h1>Miyazono</h1>
+    <span><i>My personal digital garden and knowledge repository that I use to archive all kinds of things</i></span>
+</div>
 
-```sh
-yarn create astro@latest -- --template basics
+## Quick Start
+
+These steps will guide you to set up your local development environment and preview the website.
+
+### Prerequisites
+
+- `node >= 25.2.1`
+- `yarn >= 4.12.0`
+
+I personally use [mise](https://mise.jdx.dev/) to prepare all my development environments and it is already configured [here](mise.toml).
+
+However, using mise is not a requirement, feel free to use whatever you prefer •ᴗ• .
+
+### Installing Dependencies
+
+1. Clone repository
+
+```bash
+git clone https://github.com/Telmooo/miyazono.git
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+2. Install dependencies
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```bash
+yarn install
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+3. Launching development server
 
-## 🧞 Commands
+```bash
+yarn dev
+```
 
-All commands are run from the root of the project, from a terminal:
+The local website can be see on [http://localhost:4321](http://localhost:4321).
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `yarn install`             | Installs dependencies                            |
-| `yarn dev`             | Starts local dev server at `localhost:4321`      |
-| `yarn build`           | Build your production site to `./dist/`          |
-| `yarn preview`         | Preview your build locally, before deploying     |
-| `yarn astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `yarn astro -- --help` | Get help using the Astro CLI                     |
+## License
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Miyazono is released under the [MIT License](https://opensource.org/license/MIT).
