@@ -42,7 +42,8 @@
 
 /* Float in place (slight up-down movement) */
 @keyframes floatInPlace {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -86,7 +87,8 @@
 
 /* Wave (for musical elements) */
 @keyframes wave {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) scaleY(1);
   }
   50% {
@@ -142,7 +144,8 @@
 
 /* Starry Twinkle - for glowing particles */
 @keyframes twinkle {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.3;
     transform: scale(1);
   }
@@ -221,7 +224,8 @@
 
 /* Staff Line Wave */
 @keyframes staffWave {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0) translateY(0);
   }
   50% {
@@ -233,7 +237,9 @@
   .scroll-fade {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity var(--transition-slower), transform var(--transition-slower);
+    transition:
+      opacity var(--transition-slower),
+      transform var(--transition-slower);
   }
 
   .scroll-fade.is-visible {

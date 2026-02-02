@@ -1,50 +1,50 @@
 {
-    "config": {
-        // Default state for all rules
-        "default": true,
-        // Heading levels should only increment by one level at a time
-        "MD001": true,
-        // Heading style
-        "MD003": { "style": "atx" },
-        // Unordered list style
-        "MD004": { "style": "dash" },
-        // Unordered list indentation
-        "MD007": { "indent": 2 },
-        // Trailing spaces
-        "MD009": true,
-        // Hard tabs
-        "MD010": true,
-        // Multiple consecutive blank lines
-        "MD012": { "maximum": 1 },
-        // Line length
-        "MD013": false,
-        // Headings should be surrounded by blank lines
-        "MD022": { "lines_above": 1, "lines_below": 1 },
-        // Multiple headings with the same content
-        "MD024": { "siblings_only": true },
-        // Multiple top-level headings in the same document
-        "MD025": { "front_matter_title": "^\\s*title\\s*[:=]" },
-        // Trailing punctuation in heading
-        "MD026": { "punctuation": ".,;:!。，；：！" },
-        // Ordered list item prefix
-        "MD029": { "style": "ordered" },
-        // Spaces after list markers
-        "MD030": { "ul_single": 1, "ol_single": 1, "ul_multi": 1, "ol_multi": 1 },
-        // Inline HTML
-        "MD033": false,
-        // Emphasis used instead of a heading
-        "MD036": false,
-        // Fenced code blocks should have a language specified
-        "MD040": true,
-        // First line in a file should be a top-level heading
-        "MD041": false,
-        // Code block style
-        "MD046": { "style": "fenced" },
-        // Files should end with a single newline character
-        "MD047": true,
-        // Emphasis style
-        "MD049": { "style": "underscore" },
-        // Strong style
-        "MD050": { "style": "asterisk" }
-    }
+  "config": {
+    // Default state for all rules
+    "default": true,
+    // Heading levels should only increment by one level at a time
+    "MD001": true,
+    // Heading style
+    "MD003": { "style": "atx" },
+    // Unordered list style
+    "MD004": { "style": "dash" },
+    // Unordered list indentation
+    "MD007": { "indent": 2 },
+    // Trailing spaces
+    "MD009": true,
+    // Hard tabs
+    "MD010": true,
+    // Multiple consecutive blank lines
+    "MD012": { "maximum": 1 },
+    // Line length
+    "MD013": false,
+    // Headings should be surrounded by blank lines
+    "MD022": { "lines_above": 1, "lines_below": 1 },
+    // Multiple headings with the same content
+    "MD024": { "siblings_only": true },
+    // Multiple top-level headings in the same document
+    "MD025": { "front_matter_title": "^\\s*title\\s*[:=]" },
+    // Trailing punctuation in heading
+    "MD026": { "punctuation": ".,;:!。，；：！" },
+    // Ordered list item prefix
+    "MD029": { "style": "ordered" },
+    // Spaces after list markers
+    "MD030": { "ul_single": 1, "ol_single": 1, "ul_multi": 1, "ol_multi": 1 },
+    // Inline HTML
+    "MD033": false,
+    // Emphasis used instead of a heading
+    "MD036": false,
+    // Fenced code blocks should have a language specified
+    "MD040": true,
+    // First line in a file should be a top-level heading
+    "MD041": false,
+    // Code block style
+    "MD046": { "style": "fenced" },
+    // Files should end with a single newline character
+    "MD047": true,
+    // Emphasis style
+    "MD049": { "style": "underscore" },
+    // Strong style
+    "MD050": { "style": "asterisk" },
+  },
 }

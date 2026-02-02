@@ -2,9 +2,10 @@
 title: Arch Linux Installation
 description: My own Arch Linux installation steps
 ---
-import { Badge } from '@astrojs/starlight/components';
-import { FileTree } from '@astrojs/starlight/components';
-import { Icon } from '@astrojs/starlight/components';
+
+import { Badge } from "@astrojs/starlight/components";
+import { FileTree } from "@astrojs/starlight/components";
+import { Icon } from "@astrojs/starlight/components";
 
 This is a step by step installation of my own Arch Linux configuration.
 
@@ -128,6 +129,7 @@ DEVICE_NAME         disk                    ...
 ```
 
 ### LUKS Setup
+
 This section covers encrypting the root partition with LUKS encryption.
 
 :::note
@@ -137,7 +139,6 @@ Skip this section if you don't need/want encryption.
 :::danger
 Do not encrypt the boot partition or your system won't boot.
 :::
-
 
 ```bash title="Encryption setup" "root_partition"
 modprobe dm-crypt
@@ -222,7 +223,7 @@ Depending on your CPU vendor include the following package:
 
 - `GenuineIntel`: `intel-ucode`
 - `AuthenticAMD`: `amd-ucode`
-:::
+  :::
 
 ```bash title="Installing essential packages" "CPUVENDOR"
 pacman -Sy
@@ -377,7 +378,7 @@ bootctl install
 # Get UUID of `root_partition" and put it on our future entry
 blkid /dev/root_partition >> /boot/loader/entries/arch.conf
 # Duplicate entry for LTS kernel (can do it later after configuring normal kernel)
-cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-lts.conf 
+cp /boot/loader/entries/arch.conf /boot/loader/entries/arch-lts.conf
 ```
 
 Edit the bootloader configuration in `/boot/loader/loader.conf`.
@@ -499,6 +500,7 @@ MODULES=(... i915 nvidia nvidia_modeset nvidia_uvm nvidia_drm ...)
 ```bash title="Regenerate initramfs"
 mkinitcpio -P
 ```
+
 :::
 
 ### Rebooting to our system

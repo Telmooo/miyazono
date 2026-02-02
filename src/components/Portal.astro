@@ -1,267 +1,273 @@
 ---
 interface Props {
-	title: string;
-	subtitle: string;
-	href: string;
-	color: "portfolio" | "leisure" | "wiki";
-	icon?: string;
+  title: string;
+  subtitle: string;
+  href: string;
+  color: "portfolio" | "leisure" | "wiki";
+  icon?: string;
 }
 
 const { title, subtitle, href, color, icon } = Astro.props;
 
 // Portal colours
 const colorMap = {
-	portfolio: "var(--portal-portfolio)",
-	leisure: "var(--portal-leisure)",
-	wiki: "var(--portal-wiki)",
+  portfolio: "var(--portal-portfolio)",
+  leisure: "var(--portal-leisure)",
+  wiki: "var(--portal-wiki)",
 };
 
 const portalColor = colorMap[color];
 ---
 
 <a href={href} class="portal" style={`--portal-color: ${portalColor}`}>
-	<div class="portal-inner">
-		<div class="portal-ring ring-1"></div>
-		<div class="portal-ring ring-2"></div>
-		<div class="portal-ring ring-3"></div>
-		<div class="portal-content">
-			{icon && <div class="portal-icon" aria-hidden="true">{icon}</div>}
-			<div class="portal-subtitle" lang="ja">{subtitle}</div>
-			<div class="portal-title">{title}</div>
-		</div>
-	</div>
-	<div class="portal-ripple"></div>
-	<div class="sound-wave wave-1"></div>
-	<div class="sound-wave wave-2"></div>
-	<div class="sound-wave wave-3"></div>
+  <div class="portal-inner">
+    <div class="portal-ring ring-1"></div>
+    <div class="portal-ring ring-2"></div>
+    <div class="portal-ring ring-3"></div>
+    <div class="portal-content">
+      {
+        icon && (
+          <div class="portal-icon" aria-hidden="true">
+            {icon}
+          </div>
+        )
+      }
+      <div class="portal-subtitle" lang="ja">{subtitle}</div>
+      <div class="portal-title">{title}</div>
+    </div>
+  </div>
+  <div class="portal-ripple"></div>
+  <div class="sound-wave wave-1"></div>
+  <div class="sound-wave wave-2"></div>
+  <div class="sound-wave wave-3"></div>
 </a>
 
 <style>
-	.portal {
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 280px;
-		height: 280px;
-		text-decoration: none;
-		cursor: pointer;
-		transition: transform var(--transition-slow);
-	}
+  .portal {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+    height: 280px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform var(--transition-slow);
+  }
 
-	.portal-inner {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+  .portal-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-	.portal-ring {
-		position: absolute;
-		border-radius: var(--radius-full);
-		border: 2px solid var(--portal-color);
-		transition: all var(--transition-slow);
-		opacity: 0.4;
-	}
+  .portal-ring {
+    position: absolute;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--portal-color);
+    transition: all var(--transition-slow);
+    opacity: 0.4;
+  }
 
-	.ring-1 {
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(
-			135deg,
-			var(--portal-color) 0%,
-			transparent 100%
-		);
-		opacity: 0.1;
-	}
+  .ring-1 {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      135deg,
+      var(--portal-color) 0%,
+      transparent 100%
+    );
+    opacity: 0.1;
+  }
 
-	.ring-2 {
-		width: 80%;
-		height: 80%;
-		opacity: 0.3;
-	}
+  .ring-2 {
+    width: 80%;
+    height: 80%;
+    opacity: 0.3;
+  }
 
-	.ring-3 {
-		width: 60%;
-		height: 60%;
-		opacity: 0.5;
-	}
+  .ring-3 {
+    width: 60%;
+    height: 60%;
+    opacity: 0.5;
+  }
 
-	.portal-content {
-		position: relative;
-		z-index: 2;
-		text-align: center;
-		padding: var(--spacing-md);
-		transition: all var(--transition-slow);
-	}
+  .portal-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: var(--spacing-md);
+    transition: all var(--transition-slow);
+  }
 
-	.portal-icon {
-		font-size: var(--font-size-4xl);
-		margin-bottom: var(--spacing-sm);
-		filter: grayscale(0.3);
-		transition: all var(--transition-slow);
-	}
+  .portal-icon {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-sm);
+    filter: grayscale(0.3);
+    transition: all var(--transition-slow);
+  }
 
-	.portal-subtitle {
-		font-family: var(--font-mono);
-		font-size: var(--font-size-sm);
-		color: var(--color-text-secondary);
-		letter-spacing: 0.05em;
-		margin-bottom: var(--spacing-xs);
-		transition: all var(--transition-base);
-	}
+  .portal-subtitle {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.05em;
+    margin-bottom: var(--spacing-xs);
+    transition: all var(--transition-base);
+  }
 
-	.portal-title {
-		font-family: var(--font-serif);
-		font-size: var(--font-size-2xl);
-		font-weight: 600;
-		color: var(--color-text-primary);
-		letter-spacing: 0.02em;
-		transition: all var(--transition-base);
-	}
+  .portal-title {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    letter-spacing: 0.02em;
+    transition: all var(--transition-base);
+  }
 
-	/* Ripple effect on click */
-	.portal-ripple {
-		position: absolute;
-		inset: 0;
-		border-radius: var(--radius-full);
-		background: var(--portal-color);
-		opacity: 0;
-		pointer-events: none;
-		transform: scale(0);
-		transition: all var(--transition-slow);
-	}
+  /* Ripple effect on click */
+  .portal-ripple {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-full);
+    background: var(--portal-color);
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0);
+    transition: all var(--transition-slow);
+  }
 
-	/* Sound Wave Ripples - triggered on hover */
-	.sound-wave {
-		position: absolute;
-		inset: 0;
-		border-radius: var(--radius-full);
-		border: 2px solid var(--portal-color);
-		opacity: 0;
-		pointer-events: none;
-	}
+  /* Sound Wave Ripples - triggered on hover */
+  .sound-wave {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--portal-color);
+    opacity: 0;
+    pointer-events: none;
+  }
 
-	/* Hover effects */
-	.portal:hover {
-		transform: scale(1.02);
-	}
+  /* Hover effects */
+  .portal:hover {
+    transform: scale(1.02);
+  }
 
-	.portal:hover .ring-1 {
-		transform: scale(1.03);
-		opacity: 0.15;
-		border-color: var(--portal-color);
-	}
+  .portal:hover .ring-1 {
+    transform: scale(1.03);
+    opacity: 0.15;
+    border-color: var(--portal-color);
+  }
 
-	.portal:hover .ring-2 {
-		transform: scale(1.05);
-		opacity: 0.4;
-	}
+  .portal:hover .ring-2 {
+    transform: scale(1.05);
+    opacity: 0.4;
+  }
 
-	.portal:hover .ring-3 {
-		transform: scale(1.07);
-		opacity: 0.6;
-	}
+  .portal:hover .ring-3 {
+    transform: scale(1.07);
+    opacity: 0.6;
+  }
 
-	.portal:hover .portal-content {
-		transform: scale(1.02);
-	}
+  .portal:hover .portal-content {
+    transform: scale(1.02);
+  }
 
-	.portal:hover .portal-icon {
-		filter: grayscale(0);
-		transform: scale(1.05);
-	}
+  .portal:hover .portal-icon {
+    filter: grayscale(0);
+    transform: scale(1.05);
+  }
 
-	.portal:hover .portal-title {
-		color: var(--color-accent);
-	}
+  .portal:hover .portal-title {
+    color: var(--color-accent);
+  }
 
-	.portal:hover .portal-subtitle {
-		color: var(--color-text-primary);
-	}
+  .portal:hover .portal-subtitle {
+    color: var(--color-text-primary);
+  }
 
-	/* Sound waves on hover */
-	.portal:hover .sound-wave {
-		animation: soundWave 1.5s ease-out infinite;
-	}
+  /* Sound waves on hover */
+  .portal:hover .sound-wave {
+    animation: soundWave 1.5s ease-out infinite;
+  }
 
-	.portal:hover .wave-1 {
-		animation-delay: 0s;
-	}
+  .portal:hover .wave-1 {
+    animation-delay: 0s;
+  }
 
-	.portal:hover .wave-2 {
-		animation-delay: 0.5s;
-	}
+  .portal:hover .wave-2 {
+    animation-delay: 0.5s;
+  }
 
-	.portal:hover .wave-3 {
-		animation-delay: 1s;
-	}
+  .portal:hover .wave-3 {
+    animation-delay: 1s;
+  }
 
-	/* Focus state for accessibility */
-	.portal:focus-visible {
-		outline: 3px solid var(--color-accent);
-		outline-offset: 4px;
-		border-radius: var(--radius-full);
-	}
+  /* Focus state for accessibility */
+  .portal:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-full);
+  }
 
-	/* Ripple on active/click */
-	.portal:active .portal-ripple {
-		animation: ripple 0.6s ease-out;
-	}
+  /* Ripple on active/click */
+  .portal:active .portal-ripple {
+    animation: ripple 0.6s ease-out;
+  }
 
-	.portal:active .sound-wave {
-		animation: soundWave 0.8s ease-out;
-	}
+  .portal:active .sound-wave {
+    animation: soundWave 0.8s ease-out;
+  }
 
-	.portal:active {
-		filter: brightness(1.05);
-	}
+  .portal:active {
+    filter: brightness(1.05);
+  }
 
-	/* Responsive sizing */
-	@media (max-width: 1024px) {
-		.portal {
-			width: 240px;
-			height: 240px;
-		}
+  /* Responsive sizing */
+  @media (max-width: 1024px) {
+    .portal {
+      width: 240px;
+      height: 240px;
+    }
 
-		.portal-title {
-			font-size: var(--font-size-xl);
-		}
-	}
+    .portal-title {
+      font-size: var(--font-size-xl);
+    }
+  }
 
-	@media (max-width: 768px) {
-		.portal {
-			width: 200px;
-			height: 200px;
-		}
+  @media (max-width: 768px) {
+    .portal {
+      width: 200px;
+      height: 200px;
+    }
 
-		.portal-title {
-			font-size: var(--font-size-lg);
-		}
+    .portal-title {
+      font-size: var(--font-size-lg);
+    }
 
-		.portal-icon {
-			font-size: var(--font-size-3xl);
-		}
-	}
+    .portal-icon {
+      font-size: var(--font-size-3xl);
+    }
+  }
 
-	@media (max-width: 480px) {
-		.portal {
-			width: 160px;
-			height: 160px;
-		}
+  @media (max-width: 480px) {
+    .portal {
+      width: 160px;
+      height: 160px;
+    }
 
-		.portal-title {
-			font-size: var(--font-size-base);
-		}
+    .portal-title {
+      font-size: var(--font-size-base);
+    }
 
-		.portal-subtitle {
-			font-size: 0.75rem;
-		}
+    .portal-subtitle {
+      font-size: 0.75rem;
+    }
 
-		.portal-icon {
-			font-size: var(--font-size-2xl);
-		}
-	}
+    .portal-icon {
+      font-size: var(--font-size-2xl);
+    }
+  }
 </style>

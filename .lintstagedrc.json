@@ -1,12 +1,5 @@
 {
-    "*.{js,ts,astro}": [
-        "eslint --fix",
-        "prettier --write"
-    ],
-    "*.{json,yml,yaml}": [
-        "prettier --write"
-    ],
-    "*.{md,mdx}": [
-        "cspell"
-    ]
+  "*.{js,ts,astro}": ["eslint --fix", "prettier --write"],
+  "*.{json,yml,yaml}": ["prettier --write"],
+  "*.{md,mdx}": ["cspell"]
 }

@@ -1,115 +1,115 @@
 <div class="musical-staff" aria-hidden="true">
-	<svg class="staff-svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
-		<!-- Five staff lines -->
-		<line x1="0" y1="200" x2="1200" y2="200" class="staff-line line-1" />
-		<line x1="0" y1="250" x2="1200" y2="250" class="staff-line line-2" />
-		<line x1="0" y1="300" x2="1200" y2="300" class="staff-line line-3" />
-		<line x1="0" y1="350" x2="1200" y2="350" class="staff-line line-4" />
-		<line x1="0" y1="400" x2="1200" y2="400" class="staff-line line-5" />
+  <svg class="staff-svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
+    <!-- Five staff lines -->
+    <line x1="0" y1="200" x2="1200" y2="200" class="staff-line line-1"></line>
+    <line x1="0" y1="250" x2="1200" y2="250" class="staff-line line-2"></line>
+    <line x1="0" y1="300" x2="1200" y2="300" class="staff-line line-3"></line>
+    <line x1="0" y1="350" x2="1200" y2="350" class="staff-line line-4"></line>
+    <line x1="0" y1="400" x2="1200" y2="400" class="staff-line line-5"></line>
 
-		<!-- Notes hovering -->
-		<text x="200" y="220" class="staff-note">♪</text>
-		<text x="400" y="270" class="staff-note">♫</text>
-		<text x="600" y="320" class="staff-note">♬</text>
-		<text x="800" y="360" class="staff-note">♪</text>
-		<text x="1000" y="240" class="staff-note">♫</text>
-	</svg>
+    <!-- Notes hovering -->
+    <text x="200" y="220" class="staff-note">♪</text>
+    <text x="400" y="270" class="staff-note">♫</text>
+    <text x="600" y="320" class="staff-note">♬</text>
+    <text x="800" y="360" class="staff-note">♪</text>
+    <text x="1000" y="240" class="staff-note">♫</text>
+  </svg>
 </div>
 
 <style>
-	.musical-staff {
-		position: fixed;
-		inset: 0;
-		pointer-events: none;
-		z-index: var(--z-background);
-		opacity: 0.15;
-		overflow: hidden;
-	}
+  .musical-staff {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: var(--z-background);
+    opacity: 0.15;
+    overflow: hidden;
+  }
 
-	.staff-svg {
-		width: 100%;
-		height: 100%;
-	}
+  .staff-svg {
+    width: 100%;
+    height: 100%;
+  }
 
-	.staff-line {
-		stroke: #666666;
-		stroke-width: 1;
-		fill: none;
-		animation: staffWave 8s ease-in-out infinite;
-	}
+  .staff-line {
+    stroke: #666666;
+    stroke-width: 1;
+    fill: none;
+    animation: staffWave 8s ease-in-out infinite;
+  }
 
-	/* Stagger the wave animation */
-	.line-1 {
-		animation-delay: 0s;
-	}
+  /* Stagger the wave animation */
+  .line-1 {
+    animation-delay: 0s;
+  }
 
-	.line-2 {
-		animation-delay: 0.2s;
-	}
+  .line-2 {
+    animation-delay: 0.2s;
+  }
 
-	.line-3 {
-		animation-delay: 0.4s;
-	}
+  .line-3 {
+    animation-delay: 0.4s;
+  }
 
-	.line-4 {
-		animation-delay: 0.6s;
-	}
+  .line-4 {
+    animation-delay: 0.6s;
+  }
 
-	.line-5 {
-		animation-delay: 0.8s;
-	}
+  .line-5 {
+    animation-delay: 0.8s;
+  }
 
-	.staff-note {
-		fill: #d63384;
-		font-size: 24px;
-		opacity: 0.7;
-		animation: floatInPlace 4s ease-in-out infinite;
-	}
+  .staff-note {
+    fill: #d63384;
+    font-size: 24px;
+    opacity: 0.7;
+    animation: floatInPlace 4s ease-in-out infinite;
+  }
 
-	.staff-note:nth-child(6) {
-		animation-delay: 0s;
-	}
+  .staff-note:nth-child(6) {
+    animation-delay: 0s;
+  }
 
-	.staff-note:nth-child(7) {
-		animation-delay: 0.5s;
-	}
+  .staff-note:nth-child(7) {
+    animation-delay: 0.5s;
+  }
 
-	.staff-note:nth-child(8) {
-		animation-delay: 1s;
-	}
+  .staff-note:nth-child(8) {
+    animation-delay: 1s;
+  }
 
-	.staff-note:nth-child(9) {
-		animation-delay: 1.5s;
-	}
+  .staff-note:nth-child(9) {
+    animation-delay: 1.5s;
+  }
 
-	.staff-note:nth-child(10) {
-		animation-delay: 2s;
-	}
+  .staff-note:nth-child(10) {
+    animation-delay: 2s;
+  }
 
-	html[data-theme="dark"] .musical-staff {
-		opacity: 0.12;
-	}
+  html[data-theme="dark"] .musical-staff {
+    opacity: 0.12;
+  }
 
-	html[data-theme="dark"] .staff-line {
-		stroke: var(--color-sky-vibrant);
-	}
+  html[data-theme="dark"] .staff-line {
+    stroke: var(--color-sky-vibrant);
+  }
 
-	html[data-theme="dark"] .staff-note {
-		fill: var(--color-accent);
-	}
+  html[data-theme="dark"] .staff-note {
+    fill: var(--color-accent);
+  }
 
-	/* Hide on mobile to reduce visual noise */
-	@media (max-width: 768px) {
-		.musical-staff {
-			display: none;
-		}
-	}
+  /* Hide on mobile to reduce visual noise */
+  @media (max-width: 768px) {
+    .musical-staff {
+      display: none;
+    }
+  }
 
-	/* Respect reduced motion */
-	@media (prefers-reduced-motion: reduce) {
-		.staff-line,
-		.staff-note {
-			animation: none;
-		}
-	}
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .staff-line,
+    .staff-note {
+      animation: none;
+    }
+  }
 </style>
