@@ -1,0 +1,27 @@
+# Software terms
+luks
+btrfs
+asgi
+zram
+bssid
+
+# Distros
+archlinux
+
+# Packages, frameworks, tools
+pacman
+bluez
+nmcli
+vicinae
+noctalia
+cryptsetup
+efibootmgr
+pacstrap
+mkinitcpio
+hyprpolkitagent
+iwctl
+hwclock
+systohc
+timesyncd
+wireplumber
+genfstab

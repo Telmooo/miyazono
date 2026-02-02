@@ -1,0 +1,26 @@
+---
+name: "global"
+$schema: "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json"
+version: "0.2"
+language: "en"
+dictionaries:
+  - "bash"
+  - "cpp-compound-words"
+  - "en-gb"
+  - "filetypes"
+  - "fonts"
+  - "global-words"
+  - "git"
+  - "html"
+  - "makefile"
+  - "node"
+  - "pt-pt"
+  - "public-licenses"
+  - "python"
+  - "python-common"
+  - "typescript"
+  - "vim"
+dictionaryDefinitions:
+  - name: "global-words"
+    path: "./dictionaries/global-words.txt"
+    addWords: true
