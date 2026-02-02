@@ -34,7 +34,8 @@ export default defineConfig({
               label: "Awesome",
               autogenerate: { directory: "wiki/awesome" }
           },
-          { label: "Linux", autogenerate: { directory: "wiki/linux" } }
+          { label: "Linux", autogenerate: { directory: "wiki/linux" } },
+          { label: "Homelab", autogenerate: { directory: "wiki/homelab" } },
       ],
       social: [
           { icon: "github", label: "GitHub", href: "https://github.com/Telmooo" }
