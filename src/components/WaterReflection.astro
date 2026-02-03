@@ -63,6 +63,15 @@
       const clone = portalHub.cloneNode(true) as HTMLElement;
       clone.style.marginTop = "0";
 
+      // Make all focusable elements non-tabbable for accessibility
+      // (parent has aria-hidden="true", so focusable children violate WCAG)
+      const focusableElements = clone.querySelectorAll(
+        'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      focusableElements.forEach((el) => {
+        el.setAttribute("tabindex", "-1");
+      });
+
       // Clear previous reflection and add new
       reflectionMirror.innerHTML = "";
       reflectionMirror.appendChild(clone);
