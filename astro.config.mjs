@@ -32,7 +32,7 @@ export default defineConfig({
         // Back to homepage
         { label: "Home", link: "/" },
         // Wiki entrypoint
-        { label: "Wiki Introduction", link: "/wiki" },
+        { label: "Wiki Introduction", link: "/wiki/" },
         {
           label: "Awesome",
           autogenerate: { directory: "wiki/awesome" },

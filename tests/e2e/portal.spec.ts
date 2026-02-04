@@ -113,8 +113,8 @@ test.describe("Portal Interactions", () => {
       .getAttribute("href");
     const wikiHref = await page.locator(".portal").nth(2).getAttribute("href");
 
-    expect(portfolioHref).toBe("/portfolio");
-    expect(leisureHref).toBe("/leisure");
-    expect(wikiHref).toBe("/wiki");
+    expect(portfolioHref).toBe("/portfolio/");
+    expect(leisureHref).toBe("/leisure/");
+    expect(wikiHref).toBe("/wiki/");
   });
 });
