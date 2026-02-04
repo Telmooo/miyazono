@@ -53,7 +53,6 @@
 </style>
 
 <script>
-  // Simple reflection: clone the hub content
   function updateReflection() {
     const portalHub = document.querySelector(".portal-hub");
     const reflectionMirror = document.getElementById("reflection-mirror");
@@ -63,13 +62,17 @@
       const clone = portalHub.cloneNode(true) as HTMLElement;
       clone.style.marginTop = "0";
 
-      // Make all focusable elements non-tabbable for accessibility
+      // Make all focusable elements non-tabbable and non-interactive for accessibility
       // (parent has aria-hidden="true", so focusable children violate WCAG)
       const focusableElements = clone.querySelectorAll(
         'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
       focusableElements.forEach((el) => {
         el.setAttribute("tabindex", "-1");
+        // Remove href from links so they're purely decorative
+        if (el.tagName === "A") {
+          el.removeAttribute("href");
+        }
       });
 
       // Clear previous reflection and add new
@@ -83,7 +86,6 @@
     setTimeout(updateReflection, 100); // Small delay to ensure content is loaded
   });
 
-  // Optional: update on window resize
   window.addEventListener("resize", () => {
     setTimeout(updateReflection, 100);
   });
