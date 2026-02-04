@@ -8,6 +8,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://telmooo.github.io",
+  output: "static",
   integrations: [
     starlight({
       plugins: [starlightAutoSidebar()],
@@ -44,6 +46,9 @@ export default defineConfig({
       favicon: "/logo.png",
     }),
   ],
+  srcDir: "./src",
+  publicDir: "./public",
+  outDir: "./dist",
 
   vite: {
     plugins: [tailwindcss()],
