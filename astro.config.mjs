@@ -19,7 +19,7 @@ export default defineConfig({
       },
       description: "Wiki, System Setups, and Guides",
       logo: {
-        src: "./src/assets/logo.png",
+        src: "./src/assets/logo.webp",
       },
       tableOfContents: {
         minHeadingLevel: 2,
