@@ -1,0 +1,273 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+---
+
+<Layout
+  title="404 - Lost in the Void | Telmo Baptista"
+  description="Page not found"
+>
+  <main class="error-page" id="main-content">
+    <div class="void-container">
+      <!-- Animated rings -->
+      <div class="void-ring ring-1"></div>
+      <div class="void-ring ring-2"></div>
+      <div class="void-ring ring-3"></div>
+      <div class="void-ring ring-4"></div>
+
+      <!-- Content -->
+      <div class="error-content">
+        <div class="error-code">404</div>
+        <h1 class="error-title">Lost in the Void</h1>
+        <p class="error-message">
+          The page you're looking for has drifted into the cosmic unknown.
+        </p>
+        <a href="/" class="home-portal">
+          <span class="portal-text">Return Home</span>
+          <span class="portal-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      <!-- Floating particles -->
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+      <div class="particle particle-5"></div>
+    </div>
+
+    <ThemeToggle />
+  </main>
+</Layout>
+
+<style>
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-night);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .void-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1080px;
+    aspect-ratio: 1;
+  }
+
+  .void-ring {
+    position: absolute;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--color-accent);
+    opacity: 0.2;
+    animation: voidPulse 4s ease-in-out infinite;
+  }
+
+  .ring-1 {
+    width: 100%;
+    height: 100%;
+    animation-delay: 0s;
+  }
+
+  .ring-2 {
+    width: 80%;
+    height: 80%;
+    animation-delay: 0.5s;
+    opacity: 0.3;
+  }
+
+  .ring-3 {
+    width: 60%;
+    height: 60%;
+    animation-delay: 1s;
+    opacity: 0.4;
+  }
+
+  .ring-4 {
+    width: 40%;
+    height: 40%;
+    animation-delay: 1.5s;
+    opacity: 0.5;
+  }
+
+  @keyframes voidPulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.2;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.4;
+    }
+  }
+
+  .error-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: var(--spacing-xl);
+    animation: fadeIn var(--transition-slow) ease-out;
+  }
+
+  .error-code {
+    font-family: var(--font-mono);
+    font-size: clamp(4rem, 15vw, 8rem);
+    font-weight: 700;
+    color: var(--color-accent);
+    opacity: 0.8;
+    line-height: 1;
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 0 0 5px var(--color-accent);
+  }
+
+  .error-title {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-3xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .error-message {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 400px;
+    margin: 0 auto var(--spacing-xl);
+    line-height: 1.6;
+  }
+
+  .home-portal {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: transparent;
+    border: 2px solid var(--color-accent);
+    border-radius: var(--radius-full);
+    color: var(--color-accent);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-portal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+    z-index: -1;
+  }
+
+  .home-portal:hover {
+    color: var(--color-bg-primary);
+    border-color: var(--color-accent);
+  }
+
+  .home-portal:hover::before {
+    transform: scaleX(1);
+  }
+
+  .home-portal:hover .portal-arrow {
+    transform: translateX(4px);
+  }
+
+  .home-portal:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  .portal-arrow {
+    transition: transform var(--transition-base);
+  }
+
+  /* Floating particles */
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--color-accent);
+    border-radius: var(--radius-full);
+    opacity: 0.6;
+    animation: floatParticle 6s ease-in-out infinite;
+  }
+
+  .particle-1 {
+    top: 20%;
+    left: 15%;
+    animation-delay: 0s;
+  }
+
+  .particle-2 {
+    top: 30%;
+    right: 20%;
+    animation-delay: 1s;
+  }
+
+  .particle-3 {
+    bottom: 25%;
+    left: 25%;
+    animation-delay: 2s;
+  }
+
+  .particle-4 {
+    bottom: 35%;
+    right: 15%;
+    animation-delay: 3s;
+  }
+
+  .particle-5 {
+    top: 50%;
+    left: 10%;
+    animation-delay: 4s;
+  }
+
+  @keyframes floatParticle {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateY(-20px) scale(1.5);
+      opacity: 1;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .void-container {
+      max-width: 400px;
+    }
+
+    .error-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .error-message {
+      font-size: var(--font-size-base);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .void-container {
+      max-width: 300px;
+    }
+
+    .error-content {
+      padding: var(--spacing-md);
+    }
+  }
+</style>

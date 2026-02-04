@@ -18,6 +18,7 @@ export default defineConfig({
         ja: "知識の宝庫 | Telmo Baptista",
       },
       description: "Wiki, System Setups, and Guides",
+      disable404Route: true,
       logo: {
         src: "./src/assets/logo.webp",
       },
