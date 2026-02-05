@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Portal Interactions", () => {
   test("portal has hover transform effect", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     const portal = page.locator(".portal").first();
 
     const initialTransform = await portal.evaluate(
@@ -23,7 +23,7 @@ test.describe("Portal Interactions", () => {
   test("portal has focus-visible outline for keyboard navigation", async ({
     page,
   }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     const portal = page.locator(".portal").first();
 
     await page.keyboard.press("Tab");
@@ -33,7 +33,7 @@ test.describe("Portal Interactions", () => {
   });
 
   test("portal sound wave elements exist", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     const portal = page.locator(".portal").first();
 
     const soundWaves = portal.locator(".sound-wave");
@@ -41,7 +41,7 @@ test.describe("Portal Interactions", () => {
   });
 
   test("portal rings animate on hover", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     const portal = page.locator(".portal").first();
     const ring1 = portal.locator(".ring-1");
 
@@ -63,7 +63,7 @@ test.describe("Portal Interactions", () => {
   });
 
   test("portal icon becomes less grayscale on hover", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     const portal = page.locator(".portal").first();
     const icon = portal.locator(".portal-icon");
 
@@ -82,7 +82,7 @@ test.describe("Portal Interactions", () => {
   });
 
   test("portal title color changes on hover", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     const portal = page.locator(".portal").first();
     const title = portal.locator(".portal-title");
 
@@ -101,7 +101,7 @@ test.describe("Portal Interactions", () => {
   });
 
   test("portal has correct href attributes", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
 
     const portfolioHref = await page
       .locator(".portal")
@@ -113,8 +113,8 @@ test.describe("Portal Interactions", () => {
       .getAttribute("href");
     const wikiHref = await page.locator(".portal").nth(2).getAttribute("href");
 
-    expect(portfolioHref).toBe("/portfolio/");
-    expect(leisureHref).toBe("/leisure/");
-    expect(wikiHref).toBe("/wiki/");
+    expect(portfolioHref).toBe("/miyazono/portfolio/");
+    expect(leisureHref).toBe("/miyazono/leisure/");
+    expect(wikiHref).toBe("/miyazono/wiki/");
   });
 });

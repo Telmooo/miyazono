@@ -5,7 +5,7 @@ test.describe("Accessibility", () => {
   test("homepage has no critical accessibility violations", async ({
     page,
   }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
 
     const accessibilityScanResults = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])

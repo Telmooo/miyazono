@@ -2,19 +2,19 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Theme Toggle", () => {
   test("theme toggle button is visible", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     const toggle = page.locator("#theme-toggle");
     await expect(toggle).toBeVisible();
   });
 
   test("theme toggle button has accessible label", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     const toggle = page.locator("#theme-toggle");
     await expect(toggle).toHaveAttribute("aria-label", "Toggle dark mode");
   });
 
   test("clicking theme toggle switches theme", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     await page.evaluate(() => localStorage.removeItem("theme"));
     await page.reload();
 
@@ -32,7 +32,7 @@ test.describe("Theme Toggle", () => {
   test("clicking theme toggle twice returns to original theme", async ({
     page,
   }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     const html = page.locator("html");
     const toggle = page.locator("#theme-toggle");
 
@@ -46,7 +46,7 @@ test.describe("Theme Toggle", () => {
   });
 
   test("theme preference persists in localStorage", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     const toggle = page.locator("#theme-toggle");
 
     await page.evaluate(() => localStorage.setItem("theme", "dark"));
@@ -65,7 +65,7 @@ test.describe("Theme Toggle", () => {
     page,
   }) => {
     await page.emulateMedia({ colorScheme: "dark" });
-    await page.goto("/");
+    await page.goto("/miyazono/");
     await page.evaluate(() => localStorage.removeItem("theme"));
     await page.reload();
 
@@ -77,7 +77,7 @@ test.describe("Theme Toggle", () => {
     page,
   }) => {
     await page.emulateMedia({ colorScheme: "light" });
-    await page.goto("/");
+    await page.goto("/miyazono/");
     await page.evaluate(() => localStorage.removeItem("theme"));
     await page.reload();
 
@@ -86,7 +86,7 @@ test.describe("Theme Toggle", () => {
   });
 
   test("theme toggle shows correct icon for light mode", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     await page.evaluate(() => localStorage.setItem("theme", "light"));
     await page.reload();
 
@@ -105,7 +105,7 @@ test.describe("Theme Toggle", () => {
   });
 
   test("theme toggle shows correct icon for dark mode", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/miyazono/");
     await page.evaluate(() => localStorage.setItem("theme", "dark"));
     await page.reload();
 
