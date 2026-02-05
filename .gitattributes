@@ -1,0 +1,9 @@
+# Keep line endings consistent
+* text=auto eol=lf
+
+# Mark Yarn release and plugin bundles as binary to avoid massive diffs
+/.yarn/releases/** binary
+/.yarn/plugins/** binary
+
+# Mark Yarn Plug'n'Play files as binary
+.pnp.* binary
