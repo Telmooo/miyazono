@@ -1,12 +1,12 @@
 {
   "git": {
     "commitMessage": "chore(release): version ${version}",
-    "tagName": "${version}",
+    "tagName": "v${version}",
     "requireCleanWorkingDir": true
   },
   "github": {
     "release": true,
-    "releaseName": "${version}"
+    "releaseName": "v${version}"
   },
   "npm": {
     "publish": false
