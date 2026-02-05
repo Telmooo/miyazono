@@ -9,6 +9,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://telmooo.github.io",
+  base: "/miyazono",
   output: "static",
   integrations: [
     starlight({
