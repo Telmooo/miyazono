@@ -1,0 +1,21 @@
+{
+  "git": {
+    "commitMessage": "chore(release): version ${version}",
+    "tagName": "${version}",
+    "requireCleanWorkingDir": true
+  },
+  "github": {
+    "release": true,
+    "releaseName": "${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "conventionalcommits",
+      "infile": "CHANGELOG.md",
+      "header": "# Changelog"
+    }
+  }
+}
