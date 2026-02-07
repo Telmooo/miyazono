@@ -13,6 +13,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "spellcheck": "cspell --no-progress 'src/content/**/*.{md,mdx}'",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
     "postinstall": "husky",
     "release": "release-it"
   },
