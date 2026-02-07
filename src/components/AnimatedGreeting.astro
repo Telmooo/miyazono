@@ -36,7 +36,8 @@ const greetings = [
     align-items: center;
     gap: var(--spacing-xs);
     opacity: 0;
-    animation: textFadeCycle 12s ease-in-out infinite;
+    animation: textFadeCycle var(--animation-greeting-cycle) ease-in-out
+      infinite;
   }
 
   /* Stagger each greeting */
@@ -45,7 +46,7 @@ const greetings = [
   }
 
   .greeting-text[data-index="1"] {
-    animation-delay: 6s;
+    animation-delay: calc(var(--animation-greeting-cycle) / 2);
   }
 
   .greeting-en {

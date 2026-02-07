@@ -190,7 +190,7 @@ const portalColor = colorMap[color];
 
   /* Sound waves on hover */
   .portal:hover .sound-wave {
-    animation: soundWave 1.5s ease-out infinite;
+    animation: soundWave var(--animation-sound-wave) ease-out infinite;
   }
 
   .portal:hover .wave-1 {
@@ -214,7 +214,7 @@ const portalColor = colorMap[color];
 
   /* Ripple on active/click */
   .portal:active .portal-ripple {
-    animation: ripple 0.6s ease-out;
+    animation: ripple var(--animation-ripple) ease-out;
   }
 
   .portal:active .sound-wave {

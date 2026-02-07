@@ -37,7 +37,7 @@ import ThemeToggle from "../components/ThemeToggle.astro";
     background: var(--gradient-afternoon);
     min-height: 100vh;
     position: relative;
-    transition: background 2s ease-in-out;
+    transition: background var(--animation-bg-transition) ease-in-out;
   }
 
   .landing-page::before {
@@ -57,25 +57,13 @@ import ThemeToggle from "../components/ThemeToggle.astro";
 </style>
 
 <script>
-  // Time-based gradient system
-  function getTimeBasedGradient() {
-    const hour = new Date().getHours();
-
-    if (hour >= 6 && hour < 12) {
-      return "var(--gradient-morning)";
-    } else if (hour >= 12 && hour < 18) {
-      return "var(--gradient-afternoon)";
-    } else if (hour >= 18 && hour < 21) {
-      return "var(--gradient-sunset)";
-    } else {
-      return "var(--gradient-night)";
-    }
-  }
+  import { getTimeOfDay, getGradientVar } from "../utils/time-gradient";
 
   function applyTimeBasedGradient() {
     const landingPage = document.getElementById("main-content");
     if (landingPage) {
-      const gradient = getTimeBasedGradient();
+      const hour = new Date().getHours();
+      const gradient = getGradientVar(getTimeOfDay(hour));
       landingPage.style.background = gradient;
     }
   }

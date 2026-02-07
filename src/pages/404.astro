@@ -66,7 +66,7 @@ import ThemeToggle from "../components/ThemeToggle.astro";
     border-radius: var(--radius-full);
     border: 2px solid var(--color-accent);
     opacity: 0.2;
-    animation: voidPulse 4s ease-in-out infinite;
+    animation: voidPulse var(--animation-void-pulse) ease-in-out infinite;
   }
 
   .ring-1 {
@@ -201,7 +201,7 @@ import ThemeToggle from "../components/ThemeToggle.astro";
     background: var(--color-accent);
     border-radius: var(--radius-full);
     opacity: 0.6;
-    animation: floatParticle 6s ease-in-out infinite;
+    animation: floatParticle var(--animation-void-particle) ease-in-out infinite;
   }
 
   .particle-1 {

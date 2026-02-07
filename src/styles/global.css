@@ -60,6 +60,16 @@
   --transition-slow: 400ms ease;
   --transition-slower: 600ms ease;
 
+  /* Animation Durations */
+  --animation-float: 4s;
+  --animation-float-slow: 8s;
+  --animation-greeting-cycle: 12s;
+  --animation-sound-wave: 1.5s;
+  --animation-ripple: 0.6s;
+  --animation-void-pulse: 4s;
+  --animation-void-particle: 6s;
+  --animation-bg-transition: 2s;
+
   /* Shadows & Glows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
