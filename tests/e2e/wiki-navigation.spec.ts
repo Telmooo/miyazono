@@ -30,7 +30,7 @@ test.describe("Wiki Navigation", () => {
   test("can navigate to Awesome section", async ({ page }) => {
     await page.goto("/miyazono/wiki/");
     await page.click("a[href='/miyazono/wiki/awesome/']");
-    await expect(page.url()).toContain("/miyazono/wiki/awesome/");
+    expect(page.url()).toContain("/miyazono/wiki/awesome/");
   });
 
   test("wiki has Home link to return to main site", async ({ page }) => {

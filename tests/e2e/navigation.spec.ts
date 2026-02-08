@@ -18,7 +18,7 @@ test.describe("Navigation", () => {
   test("can navigate from homepage to Wiki", async ({ page }) => {
     await page.goto("/miyazono/");
     await page.click("a.portal[href='/miyazono/wiki/']");
-    await expect(page.url()).toContain("/miyazono/wiki/");
+    expect(page.url()).toContain("/miyazono/wiki/");
   });
 
   test("can navigate back to homepage from Portfolio", async ({ page }) => {

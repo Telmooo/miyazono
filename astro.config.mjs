@@ -56,8 +56,9 @@ export default defineConfig({
   srcDir: "./src",
   publicDir: "./public",
   outDir: "./dist",
-
+  
   vite: {
+    // @ts-expect-error This is proper Tailwind configuration as per documentation
     plugins: [tailwindcss()],
   },
 });

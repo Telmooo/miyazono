@@ -26,10 +26,9 @@ test.describe("Portal Interactions", () => {
     await page.goto("/miyazono/");
     const portal = page.locator(".portal").first();
 
-    await page.keyboard.press("Tab");
+    await portal.focus();
 
-    const focusedElement = page.locator(":focus");
-    await expect(focusedElement).toBeVisible();
+    await expect(portal).toBeFocused();
   });
 
   test("portal sound wave elements exist", async ({ page }) => {

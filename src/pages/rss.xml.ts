@@ -1,7 +1,7 @@
 import type { APIContext } from "astro";
 import { getCollection } from "astro:content";
 import rss from "@astrojs/rss";
-import { mapWikiEntriesToRssItems } from "../utils/rss";
+import { mapWikiEntriesToRssItems, type WikiEntry } from "../utils/rss";
 
 export async function GET(context: APIContext) {
   const wikiCollection = await getCollection("docs");
@@ -11,6 +11,6 @@ export async function GET(context: APIContext) {
     description:
       "A place for my guides, how-tos, configurations and other useful stuff for my (future) self.",
     site: context.site!,
-    items: mapWikiEntriesToRssItems(wikiCollection),
+    items: mapWikiEntriesToRssItems(wikiCollection as WikiEntry[]),
   });
 }

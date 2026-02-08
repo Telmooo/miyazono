@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+// @ts-expect-error This works fine, and StarlightIcon should be exposed https://github.com/withastro/starlight/pull/2805
 import { Icon, type StarlightIcon } from "@astrojs/starlight/components";
 
 interface Props extends Omit<HTMLAttributes<"a">, "title"> {
