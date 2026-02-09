@@ -1,9 +1,13 @@
+# Unique Project terms
+miyazono
+
 # Software terms
 luks
 btrfs
 asgi
 zram
 bssid
+debloat
 
 # Distros
 archlinux

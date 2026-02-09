@@ -24,6 +24,8 @@ jobs:
           node-version: "24"
       - name: Enable Corepack
         run: corepack enable
+      - name: Install dependencies
+        run: yarn install --immutable
       - name: Cache Yarn dependencies
         uses: actions/cache/save@v5
         with:
@@ -32,10 +34,6 @@ jobs:
             .yarn/unplugged
             .yarn/install-state.gz
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install dependencies
-        run: yarn install --immutable
 
   quality-checks:
     name: Quality Check (${{ matrix.check }})
@@ -65,10 +63,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies from cache
-        run: yarn install --immutable --immutable-cache
-      - name: Run {{ matrix.check }}
-        run: yarn {{ matrix.check }}
-  
+        run: yarn install --immutable
+      - name: Run ${{ matrix.check }}
+        run: yarn ${{ matrix.check }}
+
   build:
     name: Build site
     needs: setup
@@ -93,7 +91,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies from cache
-        run: yarn install --immutable --immutable-cache
+        run: yarn install --immutable
       - name: Run build
         run: yarn build
       - name: Upload build artifact
@@ -127,7 +125,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies from cache
-        run: yarn install --immutable --immutable-cache
+        run: yarn install --immutable
       - name: Download build artifacts
         uses: actions/download-artifact@v6
         with:
@@ -159,7 +157,7 @@ jobs:
           name: test-results
           path: test-results/
           retention-days: 1
-  
+
   lighthouse:
     name: Lighthouse test
     needs: build
@@ -184,7 +182,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies from cache
-        run: yarn install --immutable --immutable-cache
+        run: yarn install --immutable
       - name: Download build artifacts
         uses: actions/download-artifact@v6
         with:

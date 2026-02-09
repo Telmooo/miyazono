@@ -35,9 +35,15 @@ test.describe("Navigation", () => {
 
   test("homepage displays all three portal links", async ({ page }) => {
     await page.goto("/miyazono/");
-    await expect(page.locator("a.portal[href='/miyazono/portfolio/']")).toBeVisible();
-    await expect(page.locator("a.portal[href='/miyazono/leisure/']")).toBeVisible();
-    await expect(page.locator("a.portal[href='/miyazono/wiki/']")).toBeVisible();
+    await expect(
+      page.locator("a.portal[href='/miyazono/portfolio/']"),
+    ).toBeVisible();
+    await expect(
+      page.locator("a.portal[href='/miyazono/leisure/']"),
+    ).toBeVisible();
+    await expect(
+      page.locator("a.portal[href='/miyazono/wiki/']"),
+    ).toBeVisible();
   });
 
   test("portal titles are displayed correctly", async ({ page }) => {
