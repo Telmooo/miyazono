@@ -3253,7 +3253,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^25.2.0":
+"@types/node@npm:*":
   version: 25.2.0
   resolution: "@types/node@npm:25.2.0"
   dependencies:
@@ -3275,6 +3275,15 @@ __metadata:
   dependencies:
     undici-types: "npm:~6.21.0"
   checksum: 10c0/35c3c0916a983dd33ddd8710d868a2678192c2ff3c6677e1d348872b78b9911c929279579c78efac1c9e61958b3f61cc5d3e725aaa41462f16f531d381ff15e6
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^25.2.1":
+  version: 25.2.3
+  resolution: "@types/node@npm:25.2.3"
+  dependencies:
+    undici-types: "npm:~7.16.0"
+  checksum: 10c0/925833029ce0bb4a72c36f90b93287184d3511aeb0fa60a994ae94b5430c22f9be6693d67d210df79267cb54c6f6978caaefb149d99ab5f83af5827ba7cb9822
   languageName: node
   linkType: hard
 
@@ -10898,7 +10907,7 @@ __metadata:
     "@release-it/conventional-changelog": "npm:^10.0.5"
     "@tailwindcss/vite": "npm:^4.1.18"
     "@types/eslint-plugin-jsx-a11y": "npm:^6"
-    "@types/node": "npm:^25.2.0"
+    "@types/node": "npm:^25.2.1"
     "@types/react": "npm:^19.2.14"
     "@types/react-dom": "npm:^19.2.3"
     "@types/three": "npm:0.169.0"
