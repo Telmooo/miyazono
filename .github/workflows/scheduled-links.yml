@@ -4,7 +4,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
   schedule:
-    interval: "weekly"
+    - cron: "0 8 * * 0"
 
 jobs:
   check-links:
