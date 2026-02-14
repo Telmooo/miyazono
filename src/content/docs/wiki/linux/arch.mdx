@@ -491,7 +491,7 @@ pacman -S --needed hyprland
 ```
 
 :::caution[Using NVIDIA GPU]
-Setup Early KMS to allow NVIDIA modules to load earlier in the boot sequence. Add the modules to `etc/mkinitcpio.conf` and regenerate your `initramfs` afterwards. For more information check official [Hyprland wiki](https://wiki.hypr.land/Nvidia).
+Setup Early KMS to allow NVIDIA modules to load earlier in the boot sequence. Add the modules to `etc/mkinitcpio.conf` and regenerate your `initramfs` afterwards. For more information check official [Hyprland wiki](https://wiki.hypr.land/Nvidia/).
 
 ```txt ins="i915 nvidia nvidia_modeset nvidia_uvm nvidia_drm"
 // etc/mkinitcpio.conf
