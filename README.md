@@ -12,7 +12,7 @@ These steps will guide you to set up your local development environment and prev
 - `node >= 25.2.1`
 - `yarn >= 4.12.0`
 
-I personally use [mise](https://mise.jdx.dev/) to prepare all my development environments and it is already configured [here](mise.toml).
+I personally use [mise](https://mise.jdx.dev/) to prepare all my development environments and already has a [local configuration](mise.toml).
 
 However, using mise is not a requirement, feel free to use whatever you prefer •ᴗ• .
 

@@ -1,0 +1,90 @@
+#############################  Display  #############################
+
+# Verbose program output
+# Accepts log level: "error", "warn", "info", "debug", "trace"
+verbose = "warn"
+
+# Output format
+# Accepts formats: "compact", "detailed", "json", "markdown", "raw"
+format = "detailed"
+
+# Output display mode
+# Accepts modes: "plain", "color", "emoji", "task"
+mode = "color"
+
+# Don't show interactive progress bar while checking links.
+no_progress = false
+
+#############################  Cache  ###############################
+
+# Enable link caching. This can be helpful to avoid checking the same links on
+# multiple runs.
+cache = true
+
+# Discard all cached requests older than this duration.
+max_cache_age = "1d"
+
+# A list of status codes that will be ignored from the cache
+cache_exclude_status = "500.."
+
+#############################  Runtime  #############################
+
+# Maximum number of allowed redirects.
+max_redirects = 5
+
+# Maximum number of allowed retries before a link is declared dead.
+max_retries = 3
+
+# Maximum number of concurrent link checks.
+max_concurrency = 128
+
+# extension applied to files without extension
+default_extension = "md"
+
+#############################  Requests  ############################
+
+# Website timeout from connect to response finished.
+timeout = 20
+
+# Minimum wait time in seconds between retries of failed requests.
+retry_wait_time = 1
+
+# Comma-separated list of accepted status codes for valid links.
+# Supported values are:
+#
+# accept = ["200..=204", "429"]
+# accept = "200..=204, 429"
+# accept = ["200", "429"]
+# accept = "200, 429"
+accept = ["200", "429"]
+
+# Proceed for server connections considered insecure (invalid TLS).
+insecure = false
+
+# When links are available using HTTPS, treat HTTP links as errors.
+require_https = true
+
+# Request method
+method = "get"
+
+# Base URL or website root directory to check relative URLs.
+# This rule is used for href links on hyperlink tags.
+base_url = "http://localhost:4321"
+
+#############################  Exclusions  ##########################
+
+# Exclude URLs and mail addresses from checking. The values are treated as regular expressions
+exclude = [
+    "^https://github.com/.*/edit/",  # Edit link requires authentication
+    "^https://fonts.googleapis.com", # Font link
+    "^https://fonts.gstatic.com",    # Font link
+    "^http://localhost(:4321)?",     # Local host links
+]
+
+#############################  Hosts  #############################
+
+# Maximum simultaneous requests to the same host
+host_concurrency = 10
+
+# Minimum interval between requests to the same host
+host_request_interval = "50ms"

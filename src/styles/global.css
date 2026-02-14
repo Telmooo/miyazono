@@ -77,6 +77,7 @@
   --shadow-glow: 0 0 24px rgba(253, 203, 203, 0.3);
   --shadow-glow-blue: 0 0 30px rgba(66, 165, 245, 0.4);
   --shadow-glow-golden: 0 0 30px rgba(255, 215, 0, 0.3);
+  --shadow-glow-pink: 0 0 30px rgba(233, 30, 99, 0.3);
 
   /* Time-based Gradients */
   --gradient-morning: linear-gradient(
@@ -154,6 +155,7 @@
   --shadow-glow: 0 0 30px rgba(199, 158, 165, 0.3);
   --shadow-glow-blue: 0 0 40px rgba(102, 179, 255, 0.4);
   --shadow-glow-golden: 0 0 40px rgba(255, 221, 102, 0.4);
+  --shadow-glow-pink: 0 0 40px rgba(244, 143, 177, 0.4);
 
   --gradient-morning: linear-gradient(
     180deg,
