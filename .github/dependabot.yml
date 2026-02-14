@@ -19,3 +19,17 @@ updates:
       semver-major-days: 28
       semver-minor-days: 14
       semver-patch-days: 7
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "Telmooo"
+    commit-message:
+      prefix: "ci(deps):"
+    cooldown:
+      default-days: 14
+      semver-major-days: 28
+      semver-minor-days: 14
+      semver-patch-days: 7
