@@ -1,5 +1,5 @@
 {
-  "*.{js,ts,astro}": ["eslint --fix", "prettier --write"],
-  "*.{json,yml,yaml}": ["prettier --write"],
-  "*.{md,mdx}": ["cspell"]
+  "*.{js,ts,astro}": ["yarn lint:fix", "yarn typecheck", "yarn format"],
+  "*.{json,yml,yaml}": ["yarn format"],
+  "*.{md,mdx}": ["yarn lint:md", "yarn spellcheck"]
 }
