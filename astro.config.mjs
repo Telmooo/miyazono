@@ -52,7 +52,9 @@ export default defineConfig({
       { icon: "github", label: "GitHub", href: "https://github.com/Telmooo" },
     ],
     favicon: "/logo.png",
-  }), react()],
+  }), react({
+    include: ['**/react/*'],
+  })],
   srcDir: "./src",
   publicDir: "./public",
   outDir: "./dist",

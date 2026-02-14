@@ -29,8 +29,10 @@
     "astro": "^5.16.15",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-globe.gl": "^2.37.0",
     "starlight-auto-sidebar": "^0.1.4",
     "tailwindcss": "^4.1.18",
+    "three": "0.169.0",
     "vite": "^7.3.1"
   },
   "packageManager": "yarn@4.12.0",
@@ -45,6 +47,7 @@
     "@release-it/conventional-changelog": "^10.0.4",
     "@types/eslint-plugin-jsx-a11y": "^6",
     "@types/node": "^25.2.0",
+    "@types/three": "0.169.0",
     "@typescript-eslint/parser": "^8.54.0",
     "cspell": "^9.6.2",
     "eslint": "^9.39.2",
@@ -60,5 +63,8 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.54.0",
     "vitest": "^4.0.18"
+  },
+  "resolutions": {
+    "three": "0.169.0"
   }
 }
