@@ -2548,9 +2548,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@release-it/conventional-changelog@npm:^10.0.4":
-  version: 10.0.4
-  resolution: "@release-it/conventional-changelog@npm:10.0.4"
+"@release-it/conventional-changelog@npm:^10.0.5":
+  version: 10.0.5
+  resolution: "@release-it/conventional-changelog@npm:10.0.5"
   dependencies:
     "@conventional-changelog/git-client": "npm:^2.5.1"
     concat-stream: "npm:^2.0.0"
@@ -2561,7 +2561,7 @@ __metadata:
     semver: "npm:^7.7.3"
   peerDependencies:
     release-it: ^18.0.0 || ^19.0.0
-  checksum: 10c0/d7ef21203eec23d2ded3de67664649da179beaf681bf05a1c5fad29ced9a82161ae98819756e36148fa12e21b3f5eb7760830f4990bb121702120a3f86a6f561
+  checksum: 10c0/a7a48c09532151ecc2ddb7e6420e3c54814f6a7c10279a4e0b378c07635a3323fe15ce1e85db530a83094fee7a2116a01b4f031eacbf4cbf9f7bd960f0589908
   languageName: node
   linkType: hard
 
@@ -10895,7 +10895,7 @@ __metadata:
     "@cspell/dict-vim": "npm:^1.0.10"
     "@eslint/js": "npm:^9.39.2"
     "@playwright/test": "npm:^1.58.1"
-    "@release-it/conventional-changelog": "npm:^10.0.4"
+    "@release-it/conventional-changelog": "npm:^10.0.5"
     "@tailwindcss/vite": "npm:^4.1.18"
     "@types/eslint-plugin-jsx-a11y": "npm:^6"
     "@types/node": "npm:^25.2.0"
