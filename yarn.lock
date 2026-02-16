@@ -724,10 +724,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cspell/dict-en-gb@npm:^5.0.22":
-  version: 5.0.22
-  resolution: "@cspell/dict-en-gb@npm:5.0.22"
-  checksum: 10c0/856952cd1aa7f8eec2925c175985a56606b72ecbba23f07bed709790d6de72222992c66be7952bdeea9399a43682f9dbbdf79eb142600359aef46d169bb10096
+"@cspell/dict-en-gb@npm:^5.0.23":
+  version: 5.0.23
+  resolution: "@cspell/dict-en-gb@npm:5.0.23"
+  checksum: 10c0/3c32364933ec8d5779d2d034bc14b377b9d52ac7a609ebe8e0b416874c14f387b75b58614ad19f93f5ea10efe986060c113e4ecc305f03af0eaadbe2c103a5f4
   languageName: node
   linkType: hard
 
@@ -10916,7 +10916,7 @@ __metadata:
     "@astrojs/sitemap": "npm:^3.7.0"
     "@astrojs/starlight": "npm:^0.37.6"
     "@axe-core/playwright": "npm:^4.11.1"
-    "@cspell/dict-en-gb": "npm:^5.0.22"
+    "@cspell/dict-en-gb": "npm:^5.0.23"
     "@cspell/dict-pt-pt": "npm:^3.0.6"
     "@cspell/dict-vim": "npm:^1.0.10"
     "@eslint/js": "npm:^9.39.2"
