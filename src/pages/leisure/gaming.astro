@@ -1,0 +1,136 @@
+---
+import GameCard from "@/components/games/GameCard.astro";
+import VideoBanner from "@/components/games/VideoBanner.astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const gameSectionsCollection = await getCollection("gameSections");
+const gameCollection = await getCollection("games");
+
+const totalGames = gameCollection.length;
+const totalHours = gameCollection.reduce((sum, game) => {
+  return sum + (game.data.stats?.hoursPlayed ?? 0);
+}, 0);
+const totalAchievementsUnlocked = gameCollection.reduce((sum, game) => {
+  return sum + (game.data.stats?.achievements?.unlocked ?? 0);
+}, 0);
+
+const bannerVideos = [
+  {
+    webm: "/miyazono/games/Nier_Automata_Banner.webm",
+    mp4: "/miyazono/games/Nier_Automata_Banner.mp4",
+  },
+  {
+    webm: "/miyazono/games/Hollow_Knight_Banner.webm",
+    mp4: "/miyazono/games/Hollow_Knight_Banner.mp4",
+  },
+  {
+    webm: "/miyazono/games/Hollow_Knight_Silksong_Banner.webm",
+    mp4: "/miyazono/games/Hollow_Knight_Silksong_Banner.mp4",
+  },
+];
+---
+
+<Layout title="Gaming | Telmo Baptista" description="My game collection">
+  <ThemeToggle />
+
+  <VideoBanner videos={bannerVideos} />
+
+  <main
+    id="main-content"
+    class="relative z-(--z-content) bg-(--color-bg-primary) pb-24"
+  >
+    <header class="scroll-fade mx-auto my-0 max-w-7xl px-8 pt-8 pb-0">
+      <a
+        href="/miyazono/leisure/"
+        class="inline-block text-sm text-(--color-text-secondary) no-underline transition-colors duration-200 hover:text-(--portal-leisure)"
+        aria-label="Return to My World"
+      >
+        ← Back to My World
+      </a>
+    </header>
+
+    <section
+      class="scroll-fade mx-auto my-12 flex max-w-7xl items-center justify-center gap-8 rounded-3xl bg-(--color-bg-secondary) px-8 py-6"
+      aria-label="Game statistics summary"
+    >
+      <div class="flex flex-col items-center gap-0.5">
+        <span class="font-mono text-2xl font-bold text-(--portal-leisure)"
+          >{totalGames}</span
+        >
+        <span
+          class="font-mono text-sm tracking-wider text-(--color-text-light) uppercase"
+          >Games</span
+        >
+      </div>
+      <span class="h-8 w-0.5 bg-(--color-text-light) opacity-30" aria-hidden
+      ></span>
+      <div class="flex flex-col items-center gap-0.5">
+        <span class="font-mono text-2xl font-bold text-(--portal-leisure)"
+          >{totalHours.toFixed(0)}+</span
+        >
+        <span
+          class="font-mono text-sm tracking-wider text-(--color-text-light) uppercase"
+          >Hours</span
+        >
+      </div>
+      <span class="h-8 w-0.5 bg-(--color-text-light) opacity-30" aria-hidden
+      ></span>
+      <div class="flex flex-col items-center gap-0.5">
+        <span class="font-mono text-2xl font-bold text-(--portal-leisure)"
+          >{totalAchievementsUnlocked}</span
+        >
+        <span
+          class="font-mono text-sm tracking-wider text-(--color-text-light) uppercase"
+          >Achievements</span
+        >
+      </div>
+    </section>
+
+    {
+      gameSectionsCollection.map((section, index) => {
+        const sectionId = section.data.id;
+        const isFavourite = sectionId === "favourites";
+
+        const sectionGames = gameCollection.filter(
+          (game) => game.data.section === sectionId,
+        );
+
+        if (sectionGames.length === 0) {
+          return;
+        }
+
+        return (
+          <section
+            class="scroll-fade mx-auto my-0 max-w-7xl px-8 py-16"
+            style={`transition-delay: ${(index + 1) * 100}ms`}
+          >
+            <header class="mb-12">
+              <h2 class="mb-1 font-serif text-5xl text-(--color-text-primary)">
+                {section.data.title}
+              </h2>
+              {section.data.description && (
+                <p class="text-base text-(--color-text-secondary)">
+                  {section.data.description}
+                </p>
+              )}
+            </header>
+            <div
+              class:list={[
+                "grid gap-6",
+                isFavourite
+                  ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
+              ]}
+            >
+              {sectionGames.map((game) => (
+                <GameCard {...game.data} isFavourite={isFavourite} />
+              ))}
+            </div>
+          </section>
+        );
+      })
+    }
+  </main>
+</Layout>

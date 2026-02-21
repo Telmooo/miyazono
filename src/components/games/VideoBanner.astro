@@ -1,0 +1,138 @@
+---
+interface VideoSource {
+  webm: string;
+  mp4: string;
+}
+
+interface Props {
+  videos: VideoSource[];
+}
+
+const { videos } = Astro.props;
+---
+
+<section
+  class="video-banner relative h-screen min-h-96 w-full overflow-hidden will-change-transform"
+  aria-label="Animated banner"
+>
+  <div class="video-container absolute inset-0 grid grid-cols-1 grid-rows-1">
+    {
+      videos.map((video, index) => (
+        <video
+          class="col-start-1 row-start-1 h-full w-full object-cover opacity-0 transition-opacity duration-[2s] ease-in-out will-change-[opacity] data-[active=true]:opacity-100 motion-reduce:transition-none"
+          muted
+          playsinline
+          data-active="false"
+          data-index={index}
+        >
+          <source src={video.webm} type="video/webm" />
+          <source src={video.mp4} type="video/mp4" />
+        </video>
+      ))
+    }
+  </div>
+
+  <div class="banner-overlay absolute inset-0 z-1"></div>
+
+  <div class="absolute right-0 bottom-1/6 left-0 z-2 text-center">
+    <h1 class="mb-0 flex flex-col items-center gap-2">
+      <span
+        class="font-serif text-7xl font-bold tracking-wide text-white text-shadow-black/50 text-shadow-lg"
+        >Gaming</span
+      >
+    </h1>
+  </div>
+
+  <div class="absolute bottom-16 left-1/2 z-2 translate-x-1/2" aria-hidden>
+    <span
+      class="scroll-chevron block h-6 w-6 rotate-45 motion-reduce:animate-none"
+    ></span>
+  </div>
+</section>
+
+<script>
+  const bannerContainer = document.querySelector<HTMLElement>(".video-banner");
+  const videos = document.querySelectorAll<HTMLVideoElement>(
+    ".video-container video",
+  );
+
+  // Video carousel
+  if (videos.length > 0) {
+    videos.forEach((video) => {
+      video.addEventListener("play", () => {
+        video.setAttribute("data-active", "true");
+      });
+
+      video.addEventListener("timeupdate", () => {
+        if (video.duration - video.currentTime < 2) {
+          video.setAttribute("data-active", "false");
+        } else if (video.currentTime > 8) {
+          video.setAttribute("data-active", "false");
+          if (video.currentTime > 10) {
+            video.pause();
+            video.currentTime = 0;
+          }
+        }
+      });
+
+      ["pause", "ended"].forEach((event) => {
+        video.addEventListener(event, () => {
+          const next = video.nextElementSibling as HTMLVideoElement;
+          if (next) {
+            next.play();
+          } else {
+            videos[0].play();
+          }
+        });
+      });
+    });
+
+    videos[0].play();
+
+    // Parallax scroll effect
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (bannerContainer) {
+            const scrollY = window.scrollY;
+            const offset = scrollY * 0.4;
+            bannerContainer.style.transform = `translate3d(0, ${offset}px, 0)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+</script>
+
+<style>
+  .banner-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.2) 50%,
+      rgba(0, 0, 0, 0.7) 85%,
+      var(--color-bg-primary) 100%
+    );
+  }
+
+  .scroll-chevron {
+    border-right: 2px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollBounce {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateY(8px);
+      opacity: 1;
+    }
+  }
+</style>

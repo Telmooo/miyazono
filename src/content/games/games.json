@@ -1,0 +1,258 @@
+[
+  {
+    "id": "hollow-knight",
+    "title": "Hollow Knight",
+    "section": "favourites",
+    "genres": ["Metroidvania", "Platformer", "Souls-like", "Indie", "2D"],
+    "platforms": ["PC"],
+    "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/367520/library_600x900.jpg",
+    "storePage": "https://store.steampowered.com/app/367520/Hollow_Knight/",
+    "stats": {
+      "hoursPlayed": 224.2,
+      "completionPercent": 100,
+      "achievements": {
+        "total": 63,
+        "unlocked": 63
+      },
+      "rating": 10
+    }
+  },
+  {
+    "id": "hollow-knight-silksong",
+    "title": "Hollow Knight: Silksong",
+    "section": "favourites",
+    "genres": ["Metroidvania", "Platformer", "Souls-like", "Indie", "2D"],
+    "platforms": ["PC"],
+    "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/1030300/library_600x900.jpg",
+    "storePage": "https://store.steampowered.com/app/1030300/Hollow_Knight_Silksong/",
+    "stats": {
+      "hoursPlayed": 83.5,
+      "completionPercent": 100,
+      "achievements": {
+        "total": 52,
+        "unlocked": 48
+      },
+      "rating": 10
+    }
+  },
+  {
+    "id": "sekiro",
+    "title": "Sekiro: Shadows Die Twice",
+    "section": "favourites",
+    "genres": ["Souls-like", "Action"],
+    "platforms": ["PC"],
+    "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/814380/library_600x900.jpg",
+    "storePage": "https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition/",
+    "stats": {
+      "hoursPlayed": 94.2,
+      "completionPercent": 100,
+      "achievements": {
+        "total": 34,
+        "unlocked": 34
+      },
+      "rating": 10
+    }
+  },
+  {
+    "id": "nier-automata",
+    "title": "NieR:Automata",
+    "section": "favourites",
+    "genres": ["Hack'n'Slash", "RPG"],
+    "platforms": ["PC"],
+    "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/524220/library_600x900.jpg",
+    "storePage": "https://store.steampowered.com/app/524220/NieRAutomata/",
+    "stats": {
+      "rating": 10
+    }
+  },
+  {
+    "id": "minecraft-modded",
+    "title": "Minecraft (Modded)",
+    "section": "favourites",
+    "genres": ["Sandbox", "Survival"],
+    "platforms": ["PC"],
+    "cover": "https://upload.wikimedia.org/wikipedia/en/5/5f/Minecraft_%E2%80%93_Volume_Alpha.jpeg",
+    "storePage": "https://www.minecraft.net/",
+    "stats": {
+      "hoursPlayed": 3000,
+      "completionPercent": 100
+    }
+  },
+  {
+    "id": "portal-2",
+    "title": "Portal 2",
+    "section": "favourites",
+    "genres": ["Platformer", "Puzzle"],
+    "platforms": ["PC"],
+    "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/620/library_600x900.jpg",
+    "storePage": "https://store.steampowered.com/app/620/Portal_2/",
+    "stats": {
+      "hoursPlayed": 26.6,
+      "achievements": {
+        "total": 51,
+        "unlocked": 18
+      },
+      "rating": 10
+    }
+  },
+  {
+    "id": "god-of-war-2016",
+    "title": "God of War",
+    "section": "favourites",
+    "genres": ["Action", "Adventure"],
+    "platforms": ["PC"],
+    "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/library_600x900.jpg",
+    "storePage": "https://store.steampowered.com/app/1593500/God_of_War/",
+    "stats": {
+      "hoursPlayed": 73.4,
+      "completionPercent": 100,
+      "achievements": {
+        "total": 37,
+        "unlocked": 37
+      },
+      "rating": 10
+    }
+  },
+  {
+    "id": "ratchet-clank-triology",
+    "title": "Ratchet & Clank: Triology",
+    "section": "grew-up-with",
+    "genres": ["Platformer"],
+    "platforms": ["PS3"],
+    "cover": "/miyazono/games/Ratchet_&_Clank_Trilogy_Cover.jpg",
+    "stats": {
+      "completionPercent": 100,
+      "rating": 8.5
+    }
+  },
+  {
+    "id": "ratchet-clank-tools-of-destruction",
+    "title": "Ratchet & Clank Future: Tools of Destruction",
+    "section": "grew-up-with",
+    "genres": ["Platformer"],
+    "platforms": ["PS3"],
+    "cover": "/miyazono/games/Ratchet_&_Clank_Future_Tools_of_Destruction_Cover.png",
+    "stats": {
+      "completionPercent": 100,
+      "rating": 8.8
+    }
+  },
+  {
+    "id": "ratchet-clank-crack-in-time",
+    "title": "Ratchet & Clank Future: A Crack in Time",
+    "section": "grew-up-with",
+    "genres": ["Platformer"],
+    "platforms": ["PS3"],
+    "cover": "/miyazono/games/Ratchet_&_Clank_Future_Crack_in_Time_Cover.jfif",
+    "stats": {
+      "completionPercent": 100,
+      "rating": 9.2
+    }
+  },
+  {
+    "id": "god-of-war-2",
+    "title": "God of War II",
+    "section": "grew-up-with",
+    "genres": ["Action Adventure"],
+    "platforms": ["PS2"],
+    "cover": "/miyazono/games/God_of_War_2_Cover.jpg",
+    "stats": {
+      "completionPercent": 100,
+      "rating": 8.2
+    }
+  },
+  {
+    "id": "god-of-war-3",
+    "title": "God of War III",
+    "section": "grew-up-with",
+    "genres": ["Action Adventure"],
+    "platforms": ["PS2"],
+    "cover": "/miyazono/games/God_of_War_3_Cover.jpg",
+    "stats": {
+      "completionPercent": 100,
+      "rating": 9.3
+    }
+  },
+  {
+    "id": "mashed",
+    "title": "Mashed",
+    "section": "grew-up-with",
+    "genres": ["Racing"],
+    "platforms": ["PS2"],
+    "cover": "/miyazono/games/Mashed_Cover.jpg",
+    "storePage": "https://store.steampowered.com/app/281280/Mashed/",
+    "stats": {
+      "rating": 7.0
+    }
+  },
+  {
+    "id": "expedition-33",
+    "title": "Clair Obscur: Expedition 33",
+    "section": "completed",
+    "genres": ["Turn-Based", "RPG"],
+    "platforms": ["PC"],
+    "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/1903340/library_600x900.jpg",
+    "storePage": "https://store.steampowered.com/app/1903340/Clair_Obscur_Expedition_33/",
+    "stats": {
+      "hoursPlayed": 117.6,
+      "completionPercent": 100,
+      "achievements": {
+        "total": 55,
+        "unlocked": 55
+      },
+      "rating": 8.6
+    }
+  },
+  {
+    "id": "elden-ring",
+    "title": "Elden Ring",
+    "section": "completed",
+    "genres": ["Souls-like", "RPG", "Open World"],
+    "platforms": ["PC"],
+    "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/1245620/library_600x900.jpg",
+    "storePage": "https://store.steampowered.com/app/1245620/ELDEN_RING/",
+    "stats": {
+      "hoursPlayed": 236.2,
+      "completionPercent": 100,
+      "achievements": {
+        "total": 42,
+        "unlocked": 42
+      },
+      "rating": 8.4
+    }
+  },
+  {
+    "id": "elden-ring-nightreign",
+    "title": "Elden Ring: Nightreign",
+    "section": "currently-playing",
+    "genres": ["Souls-like", "Roguelike", "Multiplayer"],
+    "platforms": ["PC"],
+    "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/2622380/library_600x900.jpg",
+    "storePage": "https://store.steampowered.com/app/2622380/ELDEN_RING_NIGHTREIGN/",
+    "stats": {
+      "hoursPlayed": 129.7,
+      "completionPercent": 100,
+      "achievements": {
+        "total": 37,
+        "unlocked": 37
+      },
+      "rating": 8.0
+    }
+  },
+  {
+    "id": "stellar-blade",
+    "title": "Stellar Blade",
+    "section": "currently-playing",
+    "genres": ["Action"],
+    "platforms": ["PC"],
+    "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/3489700/library_600x900.jpg",
+    "storePage": "https://store.steampowered.com/app/3489700/Stellar_Blade/",
+    "stats": {
+      "hoursPlayed": 14.7,
+      "achievements": {
+        "total": 45,
+        "unlocked": 6
+      }
+    }
+  }
+]

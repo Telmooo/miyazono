@@ -1,0 +1,21 @@
+[
+  {
+    "id": "favourites",
+    "title": "All-time favourites",
+    "description": "Games worth every penny and every hour."
+  },
+  {
+    "id": "grew-up-with",
+    "title": "Childhood classics",
+    "description": "Games I've grew up with and are still important to me."
+  },
+  {
+    "id": "currently-playing",
+    "title": "Currently Playing"
+  },
+  {
+    "id": "completed",
+    "title": "Completed",
+    "description": "Games I've already finished, including both the goods and the bads."
+  }
+]
