@@ -1,0 +1,74 @@
+---
+title: Dell XPS BIOS Configuration
+description: Some notes about my BIOS configuration for my Dell XPS 9570
+---
+
+import { Badge } from "@astrojs/starlight/components";
+import { FileTree } from "@astrojs/starlight/components";
+import { Icon } from "@astrojs/starlight/components";
+
+This is currently serving as my home server, and for such task, I tweaked options on the BIOS to improve the power efficiency and laptop health.
+
+The specifications are as follows:
+
+- CPU: Intel Core i7-8750H
+- iGPU: Intel UHD Graphics 630
+- GPU: NVIDIA GeForce GTX 1050 Ti Max-Q (4GB GDDR5)
+- RAM: 2x 8GB DDR4
+- Storage: 1x M.2 NVME SSD 512 GB
+- BIOS Version: 1.27.0
+
+The following sections are categorized as they appear in the BIOS.
+
+## System Configuration
+
+### Audio
+
+- Disable Audio
+  - Disable Microphone
+  - Disable Internal Speaker
+
+### Thunderbolt
+
+- Disable Thunderbolt <Badge text="watchlist" size="small" variant="caution" />
+
+### Keyboard Illumination
+
+- Disabled
+
+### Miscellaneous Devices
+
+- Disable Camera
+- Disable SD Card
+
+### Video
+
+- LCD Brightness
+  - On Battery: 10%
+  - On AC: 10%
+
+### Performance
+
+Intel Turboboost improves CPU performance by allowing it to surpass its base specification. I've disabled it for now, but may re-enable it later.
+
+- Enable C-states
+- Disable Intel Turboboost <Badge text="watchlist" size="small" variant="caution" />
+- Enable Intel Speedstep
+- Enable HyperThreading <Badge text="watchlist" size="small" variant="caution" />
+
+### Power Management
+
+- AC Behaviour
+  - Wake on LAN: LAN Only
+
+- Primary Battery Charge Configuration
+  - Primarily AC Use
+  - Custom Charge start: 50
+  - Custom Charge Stop: 70
+
+### Wireless
+
+- Wireless Switch
+  - Disable Bluetooth
+- Wireless Device Enable
+  - Disable Bluetooth

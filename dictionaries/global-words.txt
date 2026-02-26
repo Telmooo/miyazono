@@ -9,6 +9,10 @@ zram
 bssid
 debloat
 
+# Hardware terms
+gddr
+nvme
+
 # Distros
 archlinux
 
