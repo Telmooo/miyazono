@@ -97,10 +97,12 @@ const baseUrl: string = import.meta.env.BASE_URL;
           });
         }, observerOptions);
 
-        // Observe all elements with .scroll-fade class
-        document.querySelectorAll(".scroll-fade").forEach((el) => {
-          observer.observe(el);
-        });
+        // Observe all elements with scroll animation classes
+        document
+          .querySelectorAll(".scroll-fade, .scroll-unfurl")
+          .forEach((el) => {
+            observer.observe(el);
+          });
       });
     </script>
   </body>

@@ -1,0 +1,63 @@
+[
+  {
+    "id": "python",
+    "name": "Python",
+    "category": "programming-languages",
+    "proficiency": 5
+  },
+  {
+    "id": "typescript",
+    "name": "TypeScript",
+    "category": "programming-languages",
+    "proficiency": 4
+  },
+  {
+    "id": "rust",
+    "name": "Rust",
+    "category": "programming-languages",
+    "proficiency": 1,
+    "learning": true
+  },
+  {
+    "id": "java",
+    "name": "Java",
+    "category": "programming-languages",
+    "proficiency": 3
+  },
+  {
+    "id": "c-cpp",
+    "name": "C / C++",
+    "category": "programming-languages",
+    "proficiency": 3
+  },
+  {
+    "id": "fastapi",
+    "name": "FastAPI",
+    "category": "backend",
+    "proficiency": 5
+  },
+  {
+    "id": "pytorch",
+    "name": "PyTorch",
+    "category": "machine-learning",
+    "proficiency": 4
+  },
+  {
+    "id": "scikit-learn",
+    "name": "scikit-learn",
+    "category": "machine-learning",
+    "proficiency": 4
+  },
+  {
+    "id": "linux",
+    "name": "Linux",
+    "category": "devops",
+    "proficiency": 4.5
+  },
+  {
+    "id": "git",
+    "name": "Git",
+    "category": "tools",
+    "proficiency": 5
+  }
+]

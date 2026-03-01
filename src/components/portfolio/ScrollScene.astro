@@ -1,0 +1,144 @@
+---
+import type { Project } from "@/schemas/portfolio";
+
+type Props = Project;
+
+const { title, description, techStack, categories, links, featured } =
+  Astro.props;
+
+const categoryLabels: Record<string, string> = {
+  backend: "Backend",
+  "machine-learning": "Machine Learning & Data Science",
+  "computer-vision": "Computer Vision",
+  nlp: "NLP",
+  AR: "AR",
+  web: "Website",
+  devops: "DevOps",
+  tools: "Tools",
+  other: "Other",
+};
+---
+
+<article
+  class:list={[
+    "scroll-scene group relative overflow-hidden rounded-lg",
+    featured && "md:col-span-2",
+  ]}
+>
+  <!-- Brush stroke top border -->
+  <svg
+    class="brush-top"
+    viewBox="0 0 400 8"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M0,4 C40,1 80,7 120,3 C160,0 200,6 240,4 C280,2 340,7 400,4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"></path>
+  </svg>
+
+  <div class="scene-content flex flex-col p-6">
+    <div class="mb-3 flex items-center justify-between">
+      <span
+        class="text-[rgba(220, 80, 100, 0.7)] dark:text-[rgba(220, 80, 100, 0.7)] font-mono text-sm uppercase"
+      >
+        {categoryLabels[categories[0]] ?? categories[0]}
+      </span>
+    </div>
+
+    <h3
+      class="mb-2 font-serif text-xl font-semibold text-(--color-text-primary)"
+    >
+      {title}
+    </h3>
+
+    <p
+      class="mb-4 flex-1 text-sm leading-relaxed text-(--color-text-secondary)"
+    >
+      {
+        description.split("\n").map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))
+      }
+    </p>
+
+    <div class="mb-4 flex flex-wrap gap-2">
+      {
+        techStack.map((tech) => (
+          <span class="rounded-sm px-2 py-0.5 font-mono text-xs text-(--color-text-light) dark:bg-white/8">
+            {tech}
+          </span>
+        ))
+      }
+    </div>
+
+    {
+      links && (links.github || links.live) && (
+        <div class="flex gap-4 border-t border-(--color-text-light)/10 pt-3">
+          {links.github && (
+            <a
+              href={links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm font-medium text-(--portal-portfolio) no-underline transition-opacity duration-200 hover:opacity-70"
+              aria-label={`View ${title} on Github`}
+            >
+              Github &rarr;
+            </a>
+          )}
+          {links.live && (
+            <a
+              href={links.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm font-medium text-(--portal-portfolio) no-underline transition-opacity duration-200 hover:opacity-70"
+              aria-label={`View live demo of ${title}`}
+            >
+              Live Demo &rarr;
+            </a>
+          )}
+        </div>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .scroll-scene {
+    border-radius: var(--radius-lg);
+    transition: box-shadow var(--transition-base);
+  }
+
+  .scroll-scene:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .brush-top {
+    display: block;
+    width: 100%;
+    height: 6px;
+    color: rgba(196, 30, 58, 0.5);
+  }
+
+  html[data-theme="dark"] .brush-top {
+    color: rgba(220, 80, 100, 0.4);
+  }
+
+  .scene-content {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 1.5rem 1.5rem;
+    background: rgba(247, 243, 235, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  html[data-theme="dark"] .scene-content {
+    background: rgba(26, 26, 46, 0.6);
+  }
+</style>

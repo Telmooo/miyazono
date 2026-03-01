@@ -1,0 +1,89 @@
+<div
+  class="pointer-events-none fixed inset-0 z-(--z-base) overflow-hidden"
+  aria-hidden="true"
+>
+  {
+    Array.from({ length: 8 }).map((_, i) => (
+      <div
+        class="ink-drop absolute size-1.5 rounded-full opacity-0 blur-[0.5px] will-change-[transform,opacity]"
+        data-ink={i}
+      />
+    ))
+  }
+</div>
+
+<style>
+  .ink-drop {
+    background: radial-gradient(circle, #2a2a2a 0%, transparent 70%);
+  }
+
+  html[data-theme="dark"] .ink-drop {
+    background: radial-gradient(circle, #a0a0a0 0%, transparent 70%);
+  }
+
+  /* Individual ink drop timings */
+  .ink-drop[data-ink="0"] {
+    left: 8%;
+    animation: inkDrift 18s ease-in-out infinite 0s;
+  }
+  .ink-drop[data-ink="1"] {
+    left: 22%;
+    animation: inkDrift 22s ease-in-out infinite 3s;
+  }
+  .ink-drop[data-ink="2"] {
+    left: 38%;
+    animation: inkDrift 20s ease-in-out infinite 6s;
+  }
+  .ink-drop[data-ink="3"] {
+    left: 52%;
+    animation: inkDrift 24s ease-in-out infinite 2s;
+  }
+  .ink-drop[data-ink="4"] {
+    left: 65%;
+    animation: inkDrift 19s ease-in-out infinite 8s;
+  }
+  .ink-drop[data-ink="5"] {
+    left: 78%;
+    animation: inkDrift 21s ease-in-out infinite 5s;
+  }
+  .ink-drop[data-ink="6"] {
+    left: 88%;
+    animation: inkDrift 23s ease-in-out infinite 10s;
+  }
+  .ink-drop[data-ink="7"] {
+    left: 45%;
+    animation: inkDrift 17s ease-in-out infinite 12s;
+  }
+
+  /* Size variations */
+  .ink-drop[data-ink="0"],
+  .ink-drop[data-ink="4"] {
+    width: 4px;
+    height: 4px;
+  }
+
+  .ink-drop[data-ink="2"],
+  .ink-drop[data-ink="6"] {
+    width: 8px;
+    height: 8px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ink-drop {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ink-drop {
+      opacity: 0.3;
+    }
+    .ink-drop[data-ink="4"],
+    .ink-drop[data-ink="5"],
+    .ink-drop[data-ink="6"],
+    .ink-drop[data-ink="7"] {
+      display: none;
+    }
+  }
+</style>

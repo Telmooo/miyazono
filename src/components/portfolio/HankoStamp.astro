@@ -1,0 +1,62 @@
+---
+interface Props {
+  name: string;
+  proficiency: number;
+}
+
+const { name, proficiency } = Astro.props;
+
+// Map proficiency to visual properties
+const opacity = 0.4 + (proficiency / 5) * 0.6;
+const size = 3.5 + proficiency * 0.25;
+
+// Generate pseudo-random border-radius values from name
+const hash = name.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
+const r1 = 40 + (hash % 15);
+const r2 = 45 + ((hash * 3) % 12);
+const r3 = 38 + ((hash * 7) % 18);
+const r4 = 42 + ((hash * 11) % 14);
+---
+
+<div
+  class={`hanko-stamp inline-flex items-center justify-center cursor-default size-[${size}rem]`}
+  style={`
+    --stamp-opacity: ${opacity};
+    --stamp-r1: ${r1}%;
+    --stamp-r2: ${r2}%;
+    --stamp-r3: ${r3}%;
+    --stamp-r4: ${r4}%;
+    `}
+  role="listitem"
+>
+  <span
+    class="p-1 text-center font-serif text-sm font-semibold text-white text-shadow-xs"
+    >{name}</span
+  >
+</div>
+
+<style>
+  .hanko-stamp {
+    background: rgba(196, 30, 58, var(--stamp-opacity));
+    border: 2px solid rgba(196, 30, 58, calc(var(--stamp-opacity) + 0.1));
+    border-radius: var(--stamp-r1) var(--stamp-r2) var(--stamp-r3)
+      var(--stamp-r4);
+    transition:
+      transform var(--transition-base),
+      opacity var(--transition-base);
+  }
+
+  .hanko-stamp:hover {
+    transform: scale(1.08);
+    background: rgba(196, 30, 58, calc(var(--stamp-opacity) + 0.15));
+  }
+
+  html[data-theme="dark"] .hanko-stamp {
+    background: rgba(220, 50, 70, var(--stamp-opacity));
+    border-color: rgba(220, 50, 70, calc(var(--stamp-opacity) + 0.1));
+  }
+
+  html[data-theme="dark"] .hanko-stamp:hover {
+    background: rgba(220, 50, 70, calc(var(--stamp-opacity) + 0.15));
+  }
+</style>

@@ -1,0 +1,91 @@
+[
+  {
+    "id": "miyazono",
+    "title": "Miyazono",
+    "description": "My personal digital garden and knowledge repository that I use to archive all kinds of things",
+    "techStack": ["Astro", "Typescript", "Tailwind CSS"],
+    "categories": ["web"],
+    "links": {
+      "github": "https://github.com/Telmooo/miyazono",
+      "live": "https://telmooo.github.io/miyazono"
+    },
+    "featured": true
+  },
+  {
+    "id": "nura",
+    "title": "nura",
+    "description": "No description yet.",
+    "techStack": ["Rust", "Ratatui"],
+    "categories": ["tools"],
+    "links": {
+      "github": "https://github.com/Telmooo/nura"
+    },
+    "featured": false
+  },
+  {
+    "id": "redstone-tools",
+    "title": "Redstone Tools",
+    "description": "The project aimed to create an emulation of Minecraft's vanilla redstone circuits with additional mechanics from prolific Minecraft Mods, such as ProjectRed, RFTools, Minecraft Circuit Mod and Super Circuit Maker, providing an interface to manipulate and simulate circuits.",
+    "techStack": ["Java", "Lanterna"],
+    "categories": ["other"],
+    "links": {
+      "github": "https://github.com/Telmooo/Redstone-Tools"
+    },
+    "featured": false
+  },
+  {
+    "id": "traffic-signifier",
+    "title": "Traffic Signifier",
+    "description": "A traffic sign classifier from images. Classifier is implemented in two versions: using traditional computer vision techniques and using Deep-Learning models.",
+    "techStack": ["Python", "OpenCV", "Pandas", "PyTorch"],
+    "categories": ["machine-learning", "computer-vision"],
+    "links": {
+      "github": "https://github.com/Telmooo/traffic-signifier"
+    },
+    "featured": false
+  },
+  {
+    "id": "cARd-bot",
+    "title": "cARd Bot",
+    "description": "\"Games are not boring. Games purify our souls and leave room for new development that challenges the mind! They are the products of human wisdom\" - Seto Kaiba\n\ncARd-bot is an augmented reality application that assists playing card games, namely Sueca. Application detects cards played on the table, counts the points of each round and keeps track of team points and game state.",
+    "techStack": ["Python", "OpenCV"],
+    "categories": ["computer-vision", "AR"],
+    "links": {
+      "github": "https://github.com/Telmooo/cARd-bot"
+    },
+    "featured": false
+  },
+  {
+    "id": "rwf-robopy",
+    "title": "RWF-RoboPy",
+    "description": "A simple reactive wall-following robot implemented in ROS to follow a \"Ç\" shaped form.",
+    "techStack": ["Python", "OpenCV"],
+    "categories": ["other"],
+    "links": {
+      "github": "https://github.com/Telmooo/rwf-robopy"
+    },
+    "featured": false
+  },
+  {
+    "id": "adu-classifier",
+    "title": "ADU Classifier",
+    "description": "Classifier built as a project for NLP course with objective to classify on types of ADUs obtained from Publico newspaper",
+    "techStack": ["Python", "SKLearn", "NLTK"],
+    "categories": ["machine-learning", "nlp"],
+    "links": {
+      "github": "https://github.com/Telmooo/adu-classifier"
+    },
+    "featured": false
+  },
+  {
+    "id": "adu-classifier-dl",
+    "title": "ADU Classifier (DL)",
+    "description": "Deep Learning model built as a project for NLP course with objective to classify on types of ADUs obtained from Publico newspaper",
+    "techStack": ["Python", "PyTorch", "HuggingFace"],
+    "categories": ["machine-learning", "nlp"],
+    "links": {
+      "github": "https://github.com/Telmooo/adu-classifier-dl"
+    },
+    "featured": false
+  }
+]
