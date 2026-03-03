@@ -87,18 +87,30 @@ export interface CountryData {
   };
 }
 
+const BATCH_SIZE = 10;
+
 export async function fetchCountries(codes: string[]): Promise<CountryData[]> {
   if (codes.length === 0) return [];
 
-  const url = `${RESTCOUNTRIES_BASE}/alpha?codes=${codes.join(",")}`;
-  const response = await fetch(url);
-
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch country data: ${response.status} ${response.statusText}`,
-    );
+  const batches: string[][] = [];
+  for (let i = 0; i < codes.length; i += BATCH_SIZE) {
+    batches.push(codes.slice(i, i + BATCH_SIZE));
   }
 
-  const rawCountryData: CountryData[] = await response.json();
-  return rawCountryData;
+  const results = await Promise.all(
+    batches.map(async (batch) => {
+      const url = `${RESTCOUNTRIES_BASE}/alpha?codes=${batch.join(",")}`;
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch country data: ${response.status} ${response.statusText}`,
+        );
+      }
+
+      return response.json() as Promise<CountryData[]>;
+    }),
+  );
+
+  return results.flat();
 }

@@ -3,8 +3,10 @@ import { z } from "astro/zod";
 export const TripMetadataSchema = z
   .object({
     id: z.string(),
-    country: z.string().min(2).max(3), // ISO 3166-1 alpha-2 (e.g. "PT") or alpha-3 (e.g. "PRT")
+    region: z.string().optional(),
+    country: z.string().min(2).max(3).toUpperCase(), // ISO 3166-1 alpha-2 (e.g. "PT") or alpha-3 (e.g. "PRT")
     yearsVisited: z.array(z.number()),
+    isOrigin: z.boolean().optional().default(false),
     photos: z.array(
       z.object({
         src: z.union([
@@ -39,3 +41,7 @@ export const TripMetadataSchema = z
   .strict();
 
 export type Trip = z.infer<typeof TripMetadataSchema>;
+
+export function tripSchema() {
+  return TripMetadataSchema;
+}

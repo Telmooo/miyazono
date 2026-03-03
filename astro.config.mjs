@@ -63,7 +63,17 @@ export default defineConfig({
   outDir: "./dist",
 
   vite: {
-    // @ts-expect-error This is proper Tailwind configuration as per documentation
-    plugins: [tailwindcss()],
+    plugins: [
+      // @ts-expect-error Vite version mismatch between astro and tailwindcss
+      tailwindcss(),
+      {
+        name: "geojson",
+        transform(code, id) {
+          if (id.endsWith(".geojson")) {
+            return { code: `export default ${code}`, map: null };
+          }
+        },
+      },
+    ],
   },
 });

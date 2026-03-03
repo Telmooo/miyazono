@@ -1,0 +1,494 @@
+---
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import Layout from "@/layouts/Layout.astro";
+import { fetchCountries } from "@/lib/countries";
+import { getCollection } from "astro:content";
+import TravelGlobe from "@/components/react/trips/TravelGlobe";
+
+const tripsCollection = await getCollection("trips");
+
+const countryCodes = [
+  ...new Set(tripsCollection.map((trip) => trip.data.country)),
+];
+
+const countryDataList =
+  countryCodes.length > 0 ? await fetchCountries(countryCodes) : [];
+
+const countryDataMap = new Map(
+  countryDataList.map((country) => [country.cca2, country]),
+);
+for (const country of countryDataList) {
+  countryDataMap.set(country.cca3, country);
+}
+
+const trips = tripsCollection
+  .map((trip) => {
+    const country = countryDataMap.get(trip.data.country);
+    if (!country) return null;
+    return { trip: trip.data, country };
+  })
+  .filter((trip) => trip !== null);
+
+const visitedTrips = trips.filter((trip) => !trip.trip.isOrigin);
+const originTrip = trips.find((trip) => trip.trip.isOrigin);
+const originLatLng = originTrip?.country.latlng ?? [41.1501526, -8.610318];
+
+// -- Statistics --
+
+const haversineDistance = (
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number,
+): number => {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+};
+
+const formatNumber = (num: number): string => {
+  if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(1) + "B";
+  if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
+  if (num >= 1_000) return (num / 1_000).toFixed(1) + "K";
+  return num.toLocaleString();
+};
+
+const formatDistance = (distance: number): string => {
+  return (
+    distance.toLocaleString(undefined, { maximumFractionDigits: 0 }) + " km"
+  );
+};
+
+// Geographical
+const WORLD_AREA = 510_072_000;
+const EARTH_CIRCUMFERENCE = 40_075;
+
+const uniqueContinents = new Set(
+  trips.flatMap((trip) => trip.country.continents),
+);
+
+const allTimezones = new Set(
+  visitedTrips.flatMap((trip) => trip.country.timezones),
+);
+
+const totalAreaVisited = visitedTrips.reduce(
+  (sum, trip) => sum + trip.country.area,
+  0,
+);
+
+const areaPercentWorld = (totalAreaVisited / WORLD_AREA) * 100;
+const originArea = originTrip?.country.area ?? 92_230;
+const areaTimesOrigin = totalAreaVisited / originArea;
+
+const tripsWithDistance = visitedTrips.map((trip) => ({
+  ...trip,
+  distance: haversineDistance(
+    originLatLng[0],
+    originLatLng[1],
+    trip.country.latlng[0],
+    trip.country.latlng[1],
+  ),
+}));
+
+const farthestTrip = [...tripsWithDistance].sort(
+  (tripA, tripB) => tripB.distance - tripA.distance,
+)[0];
+
+const totalDistance = tripsWithDistance.reduce(
+  (sum, trip) => sum + trip.distance,
+  0,
+);
+
+const tripsAroundEarth = totalDistance / EARTH_CIRCUMFERENCE;
+
+const continentCounts = new Map<string, number>();
+for (const trip of visitedTrips) {
+  for (const continent of trip.country.continents) {
+    continentCounts.set(continent, (continentCounts.get(continent) ?? 0) + 1);
+  }
+}
+const continentEntries = [...continentCounts.entries()].sort(
+  (continentA, continentB) => continentB[1] - continentA[1],
+);
+const maxContinentCount = Math.max(...continentCounts.values(), 1);
+
+const landlockedCount = visitedTrips.filter((t) => t.country.landlocked).length;
+
+// Cultural
+const WORLD_POPULATION = 8_300_000_000;
+
+const allLanguages = new Set(
+  visitedTrips.flatMap((trip) => Object.values(trip.country.languages || {})),
+);
+
+const allCurrencies = new Map<string, { name: string; symbol: string }>();
+for (const trip of visitedTrips) {
+  for (const [code, info] of Object.entries(trip.country.currencies || {})) {
+    allCurrencies.set(code, info);
+  }
+}
+
+const totalPopulation = visitedTrips.reduce((sum, trip) => {
+  const population =
+    typeof trip.country.population === "string"
+      ? parseInt(trip.country.population, 10)
+      : trip.country.population;
+  return sum + (isNaN(population) ? 0 : population);
+}, 0);
+const populationPercentWorld = (totalPopulation / WORLD_POPULATION) * 100;
+
+// Timeline
+const allYears = [
+  ...new Set(trips.flatMap((trip) => trip.trip.yearsVisited)),
+].sort((tripA, tripB) => tripA - tripB);
+const firstYear = allYears[0];
+const lastYear = allYears[allYears.length - 1];
+
+const countriesByYear = new Map<number, string[]>();
+for (const trip of visitedTrips) {
+  for (const year of trip.trip.yearsVisited) {
+    const list = countriesByYear.get(year) ?? [];
+    list.push(trip.country.flag + " " + trip.country.name.common);
+    countriesByYear.set(year, list);
+  }
+}
+
+const timelineYears: { year: number; countries: string[]; count: number }[] =
+  [];
+if (firstYear && lastYear) {
+  for (let year = firstYear; year <= lastYear; year++) {
+    const countries = countriesByYear.get(year) ?? [];
+    timelineYears.push({ year: year, countries, count: countries.length });
+  }
+}
+const maxYearCount = Math.max(...timelineYears.map((year) => year.count), 1);
+---
+
+<Layout
+  title="Travel | Telmo Baptista"
+  description="Places I've visited around the world"
+>
+  <ThemeToggle />
+
+  <main
+    id="main-content"
+    class="relative z-(--z-content) min-h-screen bg-(--color-bg-primary) pb-24"
+  >
+    <header class="scroll-fade mx-auto my-0 max-w-7xl px-8 pt-12 pb-0">
+      <a
+        href="/miyazono/leisure/"
+        class="inline-block text-sm text-(--color-text-secondary) no-underline transition-colors duration-200 hover:text-(--portal-leisure)"
+        aria-label="Return to My World"
+      >
+        ← Back to My World
+      </a>
+      <div class="mt-6 flex flex-col items-center gap-2">
+        <h1
+          class="font-serif text-5xl tracking-wide text-(--color-text-primary)"
+        >
+          Travels
+        </h1>
+      </div>
+    </header>
+
+    {
+      trips.length > 0 && (
+        <section
+          class="scroll-fade stagger-1 mx-auto my-8 flex max-w-7xl flex-wrap items-center justify-center gap-6 rounded-3xl bg-(--color-bg-secondary) px-8 py-6 sm:gap-8"
+          aria-label="Travel statistics"
+        >
+          <div class="flex flex-col items-center gap-0.5">
+            <span class="font-mono text-2xl font-bold text-(--portal-leisure)">
+              {visitedTrips.length}
+            </span>
+            <span class="font-mono text-sm tracking-wider text-(--color-text-light) uppercase">
+              Countries
+            </span>
+          </div>
+          <span
+            class="hidden h-8 w-0.5 bg-(--color-text-light) opacity-30 sm:block"
+            aria-hidden
+          />
+          <div class="flex flex-col items-center gap-0.5">
+            <span class="font-mono text-2xl font-bold text-(--portal-leisure)">
+              {uniqueContinents.size}
+            </span>
+            <span class="font-mono text-sm tracking-wider text-(--color-text-light) uppercase">
+              Continents
+            </span>
+          </div>
+          <span
+            class="hidden h-8 w-0.5 bg-(--color-text-light) opacity-30 sm:block"
+            aria-hidden
+          />
+          <div class="flex flex-col items-center gap-0.5">
+            <span class="font-mono text-2xl font-bold text-(--portal-leisure)">
+              {allLanguages.size}
+            </span>
+            <span class="font-mono text-sm tracking-wider text-(--color-text-light) uppercase">
+              Languages
+            </span>
+          </div>
+          <span
+            class="hidden h-8 w-0.5 bg-(--color-text-light) opacity-30 sm:block"
+            aria-hidden
+          />
+          <div class="flex flex-col items-center gap-0.5">
+            <span class="font-mono text-2xl font-bold text-(--portal-leisure)">
+              {allCurrencies.size}
+            </span>
+            <span class="font-mono text-sm tracking-wider text-(--color-text-light) uppercase">
+              Currencies
+            </span>
+          </div>
+          <span
+            class="hidden h-8 w-0.5 bg-(--color-text-light) opacity-30 sm:block"
+            aria-hidden
+          />
+          <div class="flex flex-col items-center gap-0.5">
+            <span class="font-mono text-2xl font-bold text-(--portal-leisure)">
+              {allTimezones.size}
+            </span>
+            <span class="font-mono text-sm tracking-wider text-(--color-text-light) uppercase">
+              Timezones
+            </span>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="scroll-fade stagger-2 mx-auto my-0 max-w-7xl px-8">
+      <TravelGlobe trips={trips} client:only="react" />
+    </section>
+
+    {
+      visitedTrips.length > 0 && (
+        <Fragment>
+          <section class="scroll-fade stagger-3 mx-auto mt-16 max-w-7xl px-8">
+            <h2 class="mb-8 text-center font-serif text-3xl text-(--color-text-primary)">
+              Geographic Reach
+            </h2>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div class="rounded-2xl bg-(--color-bg-secondary) p-6">
+                <span class="font-mono text-xs tracking-wider text-(--color-text-light) uppercase">
+                  Farthest from Home
+                </span>
+                <div class="mt-2 flex items-center gap-3">
+                  <span class="text-3xl">{farthestTrip.country.flag}</span>
+                  <div>
+                    <p class="text-lg font-semibold text-(--color-text-primary)">
+                      {farthestTrip.country.name.common}
+                    </p>
+                    <p class="font-mono text-sm text-(--portal-leisure)">
+                      {formatDistance(farthestTrip.distance)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-(--color-bg-secondary) p-6">
+                <span class="font-mono text-xs tracking-wider text-(--color-text-light) uppercase">
+                  World Area Covered
+                </span>
+                <p class="mt-2 font-mono text-2xl font-bold text-(--portal-leisure)">
+                  {areaPercentWorld.toFixed(2)}%
+                </p>
+                <div class="mt-3 h-2.5 w-full overflow-hidden rounded-full bg-(--color-bg-primary)">
+                  <div
+                    class="h-full rounded-full bg-(--portal-leisure) transition-all duration-500"
+                    style={`width: ${Math.max(areaPercentWorld, 1)}%`}
+                  />
+                </div>
+                <p class="mt-2 text-sm text-(--color-text-light)">
+                  {formatNumber(totalAreaVisited)} km² of{" "}
+                  {formatNumber(WORLD_AREA)} km²
+                </p>
+              </div>
+
+              <div class="rounded-2xl bg-(--color-bg-secondary) p-6 md:col-span-2">
+                <span class="font-mono text-xs tracking-wider text-(--color-text-light) uppercase">
+                  Continent Distribution
+                </span>
+                <div class="mt-4 space-y-3">
+                  {continentEntries.map(([continent, count]) => (
+                    <div>
+                      <div class="mb-1 flex items-center justify-between">
+                        <span class="text-sm font-medium text-(--color-text-secondary)">
+                          {continent}
+                        </span>
+                        <span class="font-mono text-sm text-(--portal-leisure)">
+                          {count} {count === 1 ? "country" : "countries"}
+                        </span>
+                      </div>
+                      <div class="h-2 w-full overflow-hidden rounded-full bg-(--color-bg-primary)">
+                        <div
+                          class="h-full rounded-full bg-(--portal-leisure) opacity-70 transition-all duration-500"
+                          style={`width: ${(count / maxContinentCount) * 100}%`}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="scroll-fade stagger-4 mx-auto mt-16 max-w-7xl px-8">
+            <h2 class="mb-8 text-center font-serif text-3xl text-(--color-text-primary)">
+              Cultural Mosaic
+            </h2>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div class="rounded-2xl bg-(--color-bg-secondary) p-6">
+                <span class="font-mono text-xs tracking-wider text-(--color-text-light) uppercase">
+                  Languages Encountered
+                </span>
+                <p class="mt-1 font-mono text-2xl font-bold text-(--portal-leisure)">
+                  {allLanguages.size}
+                </p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  {[...allLanguages].sort().map((lang) => (
+                    <span class="rounded-full bg-[rgba(233,30,99,0.10)] px-3 py-1 text-xs font-medium text-(--color-text-secondary)">
+                      {lang}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-(--color-bg-secondary) p-6">
+                <span class="font-mono text-xs tracking-wider text-(--color-text-light) uppercase">
+                  Currencies Used
+                </span>
+                <p class="mt-1 font-mono text-2xl font-bold text-(--portal-leisure)">
+                  {allCurrencies.size}
+                </p>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  {[...allCurrencies.values()].map((info) => (
+                    <span class="rounded-full bg-[rgba(233,30,99,0.10)] px-3 py-1 text-xs font-medium text-(--color-text-secondary) capitalize">
+                      {info.name} {info.symbol}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-(--color-bg-secondary) p-6 md:col-span-2">
+                <span class="font-mono text-xs tracking-wider text-(--color-text-light) uppercase">
+                  Combined Population of Visited Countries
+                </span>
+                <p class="mt-2 font-mono text-2xl font-bold text-(--portal-leisure)">
+                  {formatNumber(totalPopulation)}
+                </p>
+                <div class="mt-3 h-2.5 w-full overflow-hidden rounded-full bg-(--color-bg-primary)">
+                  <div
+                    class="h-full rounded-full bg-(--portal-leisure) transition-all duration-500"
+                    style={`width: ${Math.max(populationPercentWorld, 1)}%`}
+                  />
+                </div>
+                <p class="mt-2 text-sm text-(--color-text-light)">
+                  {populationPercentWorld.toFixed(1)}% of world population
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {timelineYears.length > 0 && (
+            <section class="scroll-fade stagger-5 mx-auto mt-16 max-w-7xl px-8">
+              <h2 class="mb-2 text-center text-3xl font-(--font-serif) text-(--color-text-primary)">
+                Timeline
+              </h2>
+              <p class="mb-8 text-center text-sm text-(--color-text-light)">
+                {firstYear} — {lastYear}
+              </p>
+              <div class="mx-auto max-w-2xl space-y-3">
+                {timelineYears.map((entry) => (
+                  <div class="flex items-center gap-4">
+                    <span class="w-12 shrink-0 text-right font-mono text-sm font-semibold text-(--color-text-secondary)">
+                      {entry.year}
+                    </span>
+                    <div class="flex-1">
+                      {entry.count > 0 ? (
+                        <div class="flex items-center gap-2">
+                          <div
+                            class="h-6 rounded-full bg-(--portal-leisure) opacity-80"
+                            style={`width: ${(entry.count / maxYearCount) * 100}%; min-width: 1.5rem;`}
+                          />
+                          <span class="shrink-0 text-xs text-(--color-text-light)">
+                            {entry.countries.join(", ")}
+                          </span>
+                        </div>
+                      ) : (
+                        <div class="flex h-6 items-center">
+                          <div class="h-0.5 w-4 rounded bg-(--color-text-light) opacity-20" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <section class="scroll-fade stagger-6 mx-auto mt-16 max-w-7xl px-8">
+            <h2 class="mb-8 text-center text-3xl font-(--font-serif) text-(--color-text-primary)">
+              Fun Comparisons
+            </h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div class="flex flex-col items-center rounded-2xl bg-(--color-bg-secondary) p-6 text-center">
+                <span class="text-4xl">🌍</span>
+                <p class="mt-3 font-mono text-2xl font-bold text-(--portal-leisure)">
+                  {tripsAroundEarth.toFixed(2)}x
+                </p>
+                <p class="mt-1 text-sm text-(--color-text-light)">
+                  trips around Earth
+                </p>
+                <p class="mt-1 font-mono text-xs text-(--color-text-light)">
+                  ({formatDistance(totalDistance)} total)
+                </p>
+              </div>
+
+              <div class="flex flex-col items-center rounded-2xl bg-(--color-bg-secondary) p-6 text-center">
+                <span class="text-4xl">{originTrip?.country.flag ?? "🇵🇹"}</span>
+                <p class="mt-3 font-mono text-2xl font-bold text-(--portal-leisure)">
+                  {areaTimesOrigin.toFixed(1)}x
+                </p>
+                <p class="mt-1 text-sm text-(--color-text-light)">
+                  the size of {originTrip?.country.name.common ?? "Portugal"}
+                </p>
+              </div>
+
+              <div class="flex flex-col items-center rounded-2xl bg-(--color-bg-secondary) p-6 text-center">
+                <span class="text-4xl">👥</span>
+                <p class="mt-3 font-mono text-2xl font-bold text-(--portal-leisure)">
+                  {populationPercentWorld.toFixed(1)}%
+                </p>
+                <p class="mt-1 text-sm text-(--color-text-light)">
+                  of world population
+                </p>
+                <p class="mt-1 font-mono text-xs text-(--color-text-light)">
+                  ({formatNumber(totalPopulation)} people)
+                </p>
+              </div>
+
+              {landlockedCount > 0 && (
+                <div class="flex flex-col items-center rounded-2xl bg-(--color-bg-secondary) p-6 text-center">
+                  <span class="text-4xl">🏔️</span>
+                  <p class="mt-3 font-mono text-2xl font-bold text-(--portal-leisure)">
+                    {landlockedCount}
+                  </p>
+                  <p class="mt-1 text-sm text-(--color-text-light)">
+                    landlocked {landlockedCount === 1 ? "country" : "countries"}
+                  </p>
+                </div>
+              )}
+            </div>
+          </section>
+        </Fragment>
+      )
+    }
+  </main>
+</Layout>

@@ -1,0 +1,83 @@
+[
+  {
+    "id": "republica-dominicana",
+    "country": "do",
+    "yearsVisited": [2008],
+    "photos": [
+      {
+        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
+        "alt": "S",
+        "caption": "s"
+      }
+    ]
+  },
+  {
+    "id": "tunisia",
+    "country": "tn",
+    "yearsVisited": [2010],
+    "photos": [
+      {
+        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
+        "alt": "S",
+        "caption": "s"
+      }
+    ]
+  },
+  {
+    "id": "palma-mallorca",
+    "region": "Mallorca",
+    "country": "es",
+    "yearsVisited": [2011],
+    "photos": [
+      {
+        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
+        "alt": "S",
+        "caption": "s"
+      }
+    ]
+  },
+  {
+    "id": "las-palmas",
+    "region": "Las Palmas",
+    "country": "es",
+    "yearsVisited": [2014],
+    "photos": [
+      {
+        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
+        "alt": "S",
+        "caption": "s"
+      }
+    ]
+  },
+  {
+    "id": "portugal",
+    "region": "Algarve",
+    "country": "pt",
+    "isOrigin": true,
+    "yearsVisited": [2015],
+    "photos": [
+      {
+        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
+        "alt": "S",
+        "caption": "s"
+      },
+      {
+        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
+        "alt": "S",
+        "caption": "s"
+      }
+    ]
+  },
+  {
+    "id": "japan",
+    "country": "jp",
+    "yearsVisited": [2025],
+    "photos": [
+      {
+        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
+        "alt": "S",
+        "caption": "s"
+      }
+    ]
+  }
+]

@@ -6,6 +6,7 @@ import { autoSidebarSchema } from "starlight-auto-sidebar/schema";
 import { file } from "astro/loaders";
 import { gameSchema, gameSectionSchema } from "./schemas/games";
 import { projectSchema, skillSchema } from "./schemas/portfolio";
+import { tripSchema } from "./schemas/trips";
 
 export const collections = {
   docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
@@ -13,6 +14,7 @@ export const collections = {
     loader: autoSidebarLoader(),
     schema: autoSidebarSchema(),
   }),
+  // Leisure section
   games: defineCollection({
     loader: file("src/content/games/games.json"),
     schema: gameSchema(),
@@ -21,6 +23,11 @@ export const collections = {
     loader: file("src/content/games/sections.json"),
     schema: gameSectionSchema(),
   }),
+  trips: defineCollection({
+    loader: file("src/content/trips/trips.json"),
+    schema: tripSchema(),
+  }),
+  // Portfolio section
   projects: defineCollection({
     loader: file("src/content/portfolio/projects.json"),
     schema: projectSchema(),
