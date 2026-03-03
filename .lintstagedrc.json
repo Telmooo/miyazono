@@ -1,5 +1,5 @@
 {
   "*.{js,ts,astro}": ["yarn lint:fix", "yarn typecheck", "yarn format"],
   "*.{json,yml,yaml}": ["yarn format"],
-  "*.{md,mdx}": ["yarn lint:md", "yarn spellcheck"]
+  "*.{md,mdx}": ["yarn lint:md:fix", "yarn spellcheck"]
 }
