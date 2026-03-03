@@ -11250,6 +11250,7 @@ __metadata:
     "@types/three": "npm:0.169.0"
     "@typescript-eslint/parser": "npm:^8.56.0"
     astro: "npm:^5.17.2"
+    conventional-changelog-conventionalcommits: "npm:^9.2.0"
     cspell: "npm:^9.6.4"
     eslint: "npm:^9.39.2"
     eslint-plugin-astro: "npm:^1.6.0"
