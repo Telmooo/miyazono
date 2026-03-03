@@ -24,3 +24,5 @@ dictionaryDefinitions:
   - name: "global-words"
     path: "./dictionaries/global-words.txt"
     addWords: true
+ignorePaths:
+  - CHANGELOG.md
