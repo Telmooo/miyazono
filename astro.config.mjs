@@ -13,11 +13,11 @@ export default defineConfig({
   site: "https://telmooo.github.io",
   base: "/miyazono",
   output: "static",
-  experimental: {
-    csp: {
-      algorithm: "SHA-512",
-    },
-  },
+  // experimental: {
+  //   csp: {
+  //     algorithm: "SHA-512",
+  //   },
+  // },
   integrations: [
     starlight({
       plugins: [starlightAutoSidebar()],

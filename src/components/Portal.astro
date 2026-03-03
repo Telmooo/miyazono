@@ -8,18 +8,9 @@ interface Props {
 }
 
 const { title, subtitle, href, color, icon } = Astro.props;
-
-// Portal colours
-const colorMap = {
-  portfolio: "var(--portal-portfolio)",
-  leisure: "var(--portal-leisure)",
-  wiki: "var(--portal-wiki)",
-};
-
-const portalColor = colorMap[color];
 ---
 
-<a href={href} class="portal" style={`--portal-color: ${portalColor}`}>
+<a href={href} class="portal" data-color={color}>
   <div class="portal-inner">
     <div class="portal-ring ring-1"></div>
     <div class="portal-ring ring-2"></div>
@@ -43,6 +34,18 @@ const portalColor = colorMap[color];
 </a>
 
 <style>
+  .portal[data-color="portfolio"] {
+    --portal-color: var(--portal-portfolio);
+  }
+
+  .portal[data-color="leisure"] {
+    --portal-color: var(--portal-leisure);
+  }
+
+  .portal[data-color="wiki"] {
+    --portal-color: var(--portal-wiki);
+  }
+
   .portal {
     position: relative;
     display: flex;
