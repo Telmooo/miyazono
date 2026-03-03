@@ -1,117 +1,237 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import ThemeToggle from "../components/ThemeToggle.astro";
+import Layout from "@/layouts/Layout.astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import InkParticles from "@/components/portfolio/InkParticles.astro";
+import InkDivider from "@/components/portfolio/InkDivider.astro";
+
+const sections = [
+  {
+    symbol: "🎮",
+    jp: "ゲーム",
+    en: "Gaming",
+    desc: "Games I play, completed, and love",
+    href: "/miyazono/leisure/gaming/",
+    active: true,
+  },
+  {
+    symbol: "✈️",
+    jp: "旅行",
+    en: "Trips",
+    desc: "Countries explored and adventures taken",
+    href: "/miyazono/leisure/trips/",
+    active: true,
+  },
+  {
+    symbol: "🎬",
+    jp: "映画",
+    en: "Cinema",
+    desc: "Series and movies that marked me",
+    href: "/miyazono/leisure/cinema/",
+    active: false,
+  },
+  {
+    symbol: "🎵",
+    jp: "音楽",
+    en: "Music",
+    desc: "Albums, artists, and sounds I listen to",
+    href: "/miyazono/leisure/music/",
+    active: false,
+  },
+  {
+    symbol: "🍜",
+    jp: "食",
+    en: "Food",
+    desc: "Best things to eat",
+    href: "/miyazono/leisure/food/",
+    active: false,
+  },
+];
 ---
 
 <Layout title="My World | Telmo Baptista" description="My Personal Interests">
   <ThemeToggle />
-  <main class="page-content" id="main-content">
-    <div class="container">
-      <header class="page-header scroll-fade">
-        <a href="/miyazono/" class="back-link" aria-label="Return to main hub"
-          >← Back to Hub</a
-        >
-        <h1 class="page-title">
-          <span class="title-en">My World</span>
-          <span class="title-jp" lang="ja">マイワールド</span>
-        </h1>
-        <p class="page-subtitle">Gaming • Music • Travel</p>
-      </header>
+  <InkParticles />
 
-      <section class="content-section scroll-fade stagger-1">
-        <h2>Coming Soon</h2>
-      </section>
-    </div>
+  <main
+    class="washi-bg relative z-(--z-content) min-h-screen pb-24"
+    id="main-content"
+  >
+    <header
+      class="scroll-fade mx-auto my-0 max-w-4xl px-8 pt-12 pb-0 text-center"
+    >
+      <a
+        href="/miyazono/"
+        class="inline-block text-sm text-(--color-text-secondary) no-underline transition-colors duration-200 hover:text-(--portal-leisure)"
+        aria-label="Return to main hub">← Back to Hub</a
+      >
+      <div class="mt-6 flex flex-col items-center gap-2">
+        <h1 class="page-title">My World</h1>
+        <span class="page-title-jp" lang="ja">マイワールド</span>
+        <p class="mt-2 text-lg text-(--color-text-light)">
+          Gaming • Music • Travel • Cinema • Food
+        </p>
+      </div>
+    </header>
+
+    <InkDivider variant={1} />
+
+    <section
+      class="scroll-fade stagger-1 mx-auto max-w-4xl px-8"
+      aria-label="Leisure sections"
+    >
+      <div class="hub-grid">
+        {
+          sections.map((section) =>
+            section.active ? (
+              <a href={section.href} class="section-card section-card--active">
+                <span class="card-symbol" aria-hidden="true">
+                  {section.symbol}
+                </span>
+                <span class="card-jp" lang="ja">
+                  {section.jp}
+                </span>
+                <span class="card-en">{section.en}</span>
+                <p class="card-desc">{section.desc}</p>
+              </a>
+            ) : (
+              <div
+                class="section-card section-card--soon"
+                aria-label={`${section.en} — coming soon`}
+              >
+                <span class="card-badge">準備中</span>
+                <span class="card-symbol" aria-hidden="true">
+                  {section.symbol}
+                </span>
+                <span class="card-jp" lang="ja">
+                  {section.jp}
+                </span>
+                <span class="card-en">{section.en}</span>
+                <p class="card-desc">{section.desc}</p>
+              </div>
+            ),
+          )
+        }
+      </div>
+    </section>
+
+    <InkDivider variant={2} />
   </main>
 </Layout>
 
 <style>
-  .page-content {
-    min-height: 100vh;
-    padding: var(--spacing-3xl) var(--spacing-md);
-    background: var(--color-bg-primary);
-  }
-
-  .page-header {
-    text-align: center;
-    margin-bottom: var(--spacing-3xl);
-  }
-
-  .back-link {
-    display: inline-block;
-    margin-bottom: var(--spacing-lg);
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    transition: color var(--transition-base);
-    font-size: var(--font-size-sm);
-  }
-
-  .back-link:hover {
-    color: var(--color-accent);
-  }
-
   .page-title {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-5xl);
+    letter-spacing: 0.05em;
+    color: var(--color-text-primary);
+  }
+
+  .page-title-jp {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-2xl);
+    font-weight: 400;
+    color: var(--color-text-secondary);
+  }
+
+  .hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  @media (max-width: 767px) {
+    .hub-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 479px) {
+    .hub-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .section-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    background: var(--color-bg-secondary);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-left: 3px solid rgba(0, 0, 0, 0.04);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    text-decoration: none;
+    transition:
+      transform var(--transition-base),
+      box-shadow var(--transition-base),
+      border-left-color var(--transition-base);
   }
 
-  .title-en {
-    font-size: var(--font-size-5xl);
+  [data-theme="dark"] .section-card {
+    border-color: rgba(255, 255, 255, 0.08);
+    border-left-color: rgba(255, 255, 255, 0.04);
+  }
+
+  .section-card--active {
+    cursor: pointer;
+    color: inherit;
+  }
+
+  .section-card--active:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-left-color: var(--portal-leisure);
+  }
+
+  .section-card--soon {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .card-symbol {
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .card-jp {
     font-family: var(--font-serif);
+    font-size: var(--font-size-xl);
+    color: var(--portal-leisure);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+  }
+
+  .card-en {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
     color: var(--color-text-primary);
     letter-spacing: 0.05em;
   }
 
-  .title-jp {
-    font-size: var(--font-size-2xl);
+  .card-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .card-badge {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
     font-family: var(--font-serif);
-    color: var(--color-text-secondary);
-    font-weight: 400;
-  }
-
-  .page-subtitle {
+    font-size: 0.65rem;
     color: var(--color-text-light);
-    font-size: var(--font-size-lg);
-  }
-
-  .content-section {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: var(--spacing-2xl);
-    background: var(--color-bg-secondary);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-  }
-
-  .content-section h2 {
-    color: var(--portal-leisure);
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .content-section ul {
-    list-style-position: inside;
-    color: var(--color-text-secondary);
-    line-height: 1.8;
-  }
-
-  @media (max-width: 768px) {
-    .page-content {
-      padding: var(--spacing-2xl) var(--spacing-md);
-    }
-
-    .title-en {
-      font-size: var(--font-size-4xl);
-    }
-
-    .title-jp {
-      font-size: var(--font-size-xl);
-    }
-
-    .content-section {
-      padding: var(--spacing-lg);
-    }
+    border: 1px solid currentColor;
+    border-radius: var(--radius-sm);
+    padding: 0.15rem 0.4rem;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
   }
 </style>
