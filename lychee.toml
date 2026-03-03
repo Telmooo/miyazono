@@ -75,10 +75,12 @@ base_url = "http://localhost:4321"
 
 # Exclude URLs and mail addresses from checking. The values are treated as regular expressions
 exclude = [
-    "^https://github.com/.*/edit/",  # Edit link requires authentication
-    "^https://fonts.googleapis.com", # Font link
-    "^https://fonts.gstatic.com",    # Font link
-    "^http://localhost(:4321)?",     # Local host links
+    "^https://github.com/.*/edit/",     # Edit link requires authentication
+    "^https://fonts.googleapis.com",    # Font link
+    "^https://fonts.gstatic.com",       # Font link
+    "^http://localhost(:4321)?",        # Local host links
+    "^http://store.steampowered.com",   # Steam store pages
+    "^http://www.minecraft.net",        # Minecraft home page
 ]
 
 #############################  Hosts  #############################
