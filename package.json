@@ -51,7 +51,7 @@
     "@typescript-eslint/parser": "^8.56.0",
     "cspell": "^9.6.4",
     "eslint": "^9.39.2",
-    "eslint-plugin-astro": "^1.5.0",
+    "eslint-plugin-astro": "^1.6.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
