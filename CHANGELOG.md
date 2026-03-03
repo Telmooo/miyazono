@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.2.0](https://github.com/Telmooo/miyazono/compare/v0.1.0...v0.2.0) (2026-03-03)
+
+### Features
+
+- add country data request to restcountries and trip schema ([b7c0665](https://github.com/Telmooo/miyazono/commit/b7c066519d15b89ae0201ece6481ff7f50c178a7))
+- add Dell XPS 9570 BIOS configuration in homelab ([2019ef2](https://github.com/Telmooo/miyazono/commit/2019ef2e848992e33bc4e8bffa818c9ce5b5ca1e))
+- add gaming page ([b2712c5](https://github.com/Telmooo/miyazono/commit/b2712c50e336b9d5870f0c663d253d2bf667b566))
+- add portfolio page ([94adb92](https://github.com/Telmooo/miyazono/commit/94adb921d9952f3c79d5e52e190026a7b4c53b96))
+- add trips page with globe render ([501fb99](https://github.com/Telmooo/miyazono/commit/501fb995242c61a9c7c6b32d8932c4c9f040d38c))
+- enable CSP ([321ad4e](https://github.com/Telmooo/miyazono/commit/321ad4e3961a11772c57b7519e2630dc5fb39804))
+- update "My World" entry page ([a848db7](https://github.com/Telmooo/miyazono/commit/a848db7e244bb04e56525cd45ef34ab17efd08e9))
+- update awesome/windows content ([d1bf99c](https://github.com/Telmooo/miyazono/commit/d1bf99cc8d4d02b16367728e5307c3087837b11e))
+
+### Bug Fixes
+
+- broken links reported ([eb439a5](https://github.com/Telmooo/miyazono/commit/eb439a57a4dc429736f1117a06e07593b290d6c2)), closes [#11](https://github.com/Telmooo/miyazono/issues/11)
+
 ## 0.1.0 (2026-02-05)
 
 ### Features
