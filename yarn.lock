@@ -4926,7 +4926,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-conventionalcommits@npm:^9.1.0, conventional-changelog-conventionalcommits@npm:^9.2.0":
+"conventional-changelog-conventionalcommits@npm:9.2.0":
   version: 9.2.0
   resolution: "conventional-changelog-conventionalcommits@npm:9.2.0"
   dependencies:

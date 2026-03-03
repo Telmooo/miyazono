@@ -66,6 +66,7 @@
     "vitest": "^4.0.18"
   },
   "resolutions": {
-    "three": "0.169.0"
+    "three": "0.169.0",
+    "conventional-changelog-conventionalcommits": "9.2.0"
   }
 }
