@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": "^8.56.0",
     "conventional-changelog-conventionalcommits": "^9.2.0",
     "cspell": "^9.6.4",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "eslint-plugin-astro": "^1.6.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "husky": "^9.1.7",
