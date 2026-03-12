@@ -1,2 +1,2 @@
-yarn lint-staged
-yarn test:unit
+pnpm lint-staged
+pnpm test:unit

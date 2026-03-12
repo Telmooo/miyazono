@@ -90,7 +90,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: process.env.CI ? "yarn preview" : "yarn dev",
+    command: process.env.CI ? "pnpm preview" : "pnpm dev",
     url: "http://localhost:4321/miyazono",
     reuseExistingServer: !process.env.CI,
   },

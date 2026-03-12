@@ -10,7 +10,7 @@ These steps will guide you to set up your local development environment and prev
 ### Prerequisites
 
 - `node >= 25.2.1`
-- `yarn >= 4.12.0`
+- `pnpm >= 10.32.0`
 
 I personally use [mise](https://mise.jdx.dev/) to prepare all my development environments and already has a [local configuration](mise.toml).
 
@@ -24,16 +24,16 @@ However, using mise is not a requirement, feel free to use whatever you prefer â
 git clone https://github.com/Telmooo/miyazono.git
 ```
 
-2. Install dependencies
+1. Install dependencies
 
 ```bash
-yarn install
+pnpm install
 ```
 
-3. Launching development server
+1. Launching development server
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 The local website can be see on [http://localhost:4321](http://localhost:4321).
