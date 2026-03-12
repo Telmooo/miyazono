@@ -1,13 +1,43 @@
 [
   {
+    "id": "tenerife",
+    "region": "Tenerife",
+    "country": "es",
+    "yearsVisited": [2007],
+    "photos": []
+  },
+  {
     "id": "republica-dominicana",
     "country": "do",
     "yearsVisited": [2008],
     "photos": [
       {
-        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
-        "alt": "S",
-        "caption": "s"
+        "src": "/miyazono/trips/do/republica-dominicana-1.jpg",
+        "alt": "Republica Dominicana beach",
+        "caption": "Republica Dominicana beach."
+      }
+    ]
+  },
+  {
+    "id": "fuerteventura",
+    "region": "Fuerteventura & Lanzarote",
+    "country": "es",
+    "yearsVisited": [2009],
+    "photos": [
+      {
+        "src": "/miyazono/trips/es/fuerteventura-1.jpg",
+        "alt": "Playa del Castillo",
+        "caption": "Playa del Castillo."
+      },
+      {
+        "src": "/miyazono/trips/es/fuerteventura-2.jpg",
+        "alt": "Sand sculpture",
+        "caption": "Sand sculpture."
+      },
+      {
+        "src": "/miyazono/trips/es/lanzarote.jpg",
+        "alt": "Lanzarote landscape",
+        "caption": "Lanzarote landscape."
       }
     ]
   },
@@ -17,9 +47,9 @@
     "yearsVisited": [2010],
     "photos": [
       {
-        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
-        "alt": "S",
-        "caption": "s"
+        "src": "/miyazono/trips/tn/tunisia-1.jpg",
+        "alt": "Tunisia boat trip",
+        "caption": "Tunisia boat trip."
       }
     ]
   },
@@ -30,9 +60,9 @@
     "yearsVisited": [2011],
     "photos": [
       {
-        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
-        "alt": "S",
-        "caption": "s"
+        "src": "/miyazono/trips/es/palma-mallorca-1.jpg",
+        "alt": "Palma Mallorca beach",
+        "caption": "Palma Mallorca beach."
       }
     ]
   },
@@ -43,28 +73,41 @@
     "yearsVisited": [2014],
     "photos": [
       {
-        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
-        "alt": "S",
-        "caption": "s"
+        "src": "/miyazono/trips/es/las-palmas-1.jpg",
+        "alt": "Mico argentatus chilling",
+        "caption": "Monke!"
+      },
+      {
+        "src": "/miyazono/trips/es/las-palmas-2.jpg",
+        "alt": "Squirrel in the wild",
+        "caption": "Squirrel munching in the wild."
       }
     ]
   },
   {
-    "id": "portugal",
+    "id": "algarve",
     "region": "Algarve",
     "country": "pt",
     "isOrigin": true,
     "yearsVisited": [2015],
+    "photos": []
+  },
+  {
+    "id": "madeira",
+    "region": "Madeira",
+    "country": "pt",
+    "isOrigin": true,
+    "yearsVisited": [2016],
     "photos": [
       {
-        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
-        "alt": "S",
-        "caption": "s"
+        "src": "/miyazono/trips/pt/madeira-1.jpg",
+        "alt": "Grutas de São Vincente",
+        "caption": "Gruta de São Vincente."
       },
       {
-        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
-        "alt": "S",
-        "caption": "s"
+        "src": "/miyazono/trips/pt/madeira-2.jpg",
+        "alt": "Cristo Rei do Garajau",
+        "caption": "Cristo Rei do Garajau."
       }
     ]
   },
@@ -74,9 +117,24 @@
     "yearsVisited": [2025],
     "photos": [
       {
-        "src": "/miyazono/games/God_of_War_2_Cover.jpg",
-        "alt": "S",
-        "caption": "s"
+        "src": "/miyazono/trips/jp/japan-1.jpg",
+        "alt": "Magome-juku village",
+        "caption": "Magome-juku village during Nakasendo trail."
+      },
+      {
+        "src": "/miyazono/trips/jp/japan-2.jpg",
+        "alt": "RX-78F00/E Gundam",
+        "caption": "RX-78F00/E Gundam at Osaka EXPO 2025."
+      },
+      {
+        "src": "/miyazono/trips/jp/japan-3.jpg",
+        "alt": "Fukusaki stamp",
+        "caption": "Completed Fukusaki stamp."
+      },
+      {
+        "src": "/miyazono/trips/jp/japan-4.jpg",
+        "alt": "Ginkaku-ji",
+        "caption": "Ginkaku-ji in Kyoto."
       }
     ]
   }
