@@ -151,7 +151,7 @@ const firstYear = allYears[0];
 const lastYear = allYears[allYears.length - 1];
 
 const countriesByYear = new Map<number, string[]>();
-for (const trip of visitedTrips) {
+for (const trip of trips) {
   for (const year of trip.trip.yearsVisited) {
     const list = countriesByYear.get(year) ?? [];
     list.push(trip.country.flag + " " + trip.country.name.common);

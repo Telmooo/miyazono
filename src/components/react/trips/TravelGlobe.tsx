@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Globe, { type GlobeMethods } from "react-globe.gl";
 
 import geoDatabase from "@/data/trips/ne_110m_admin_0_countries.geojson";
-import TripTooltip from "@/components/react/trips/TripTooltip";
+import CountryPanel from "@/components/react/trips/CountryPanel";
 
 interface GeoFeature {
   type: "feature";
@@ -26,21 +26,27 @@ export interface TripWithCountry {
   country: CountryData;
 }
 
+export interface CountryTrips {
+  country: CountryData;
+  trips: Trip[];
+  isOrigin: boolean;
+}
+
 interface TravelGlobeProps {
   trips: TripWithCountry[];
 }
 
 const TravelGlobe = (props: TravelGlobeProps): React.ReactNode => {
   const { trips } = props;
-  console.log(trips);
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const globeRef = useRef<GlobeMethods | undefined>(undefined);
   const geoFeatures = geoDatabase.features as GeoFeature[];
   const [hoveredPolygon, setHoveredPolygon] = useState<GeoFeature | null>(null);
-  const tooltipHoveredRef = useRef(false);
-  const dismissTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [selectedPolygon, setSelectedPolygon] = useState<GeoFeature | null>(
+    null,
+  );
 
   // Detect theme
   useEffect(() => {
@@ -86,22 +92,35 @@ const TravelGlobe = (props: TravelGlobeProps): React.ReactNode => {
     }
   }, []);
 
+  // Group trips by country
   const tripLookup = useMemo(() => {
-    const byA2 = new Map<string, TripWithCountry>();
-    const byA3 = new Map<string, TripWithCountry>();
-    const byN3 = new Map<string, TripWithCountry>();
+    const byA2 = new Map<string, CountryTrips>();
+    const byA3 = new Map<string, CountryTrips>();
+    const byN3 = new Map<string, CountryTrips>();
 
-    for (const trip of trips) {
-      byA2.set(trip.country.cca2, trip);
-      byA3.set(trip.country.cca3, trip);
-      byN3.set(trip.country.ccn3, trip);
+    for (const { trip, country } of trips) {
+      const key = country.cca2;
+      const existing = byA2.get(key);
+      if (existing) {
+        existing.trips.push(trip);
+        existing.isOrigin = existing.isOrigin || (trip.isOrigin ?? false);
+      } else {
+        const entry: CountryTrips = {
+          country,
+          trips: [trip],
+          isOrigin: trip.isOrigin ?? false,
+        };
+        byA2.set(country.cca2, entry);
+        byA3.set(country.cca3, entry);
+        byN3.set(country.ccn3, entry);
+      }
     }
 
     return { byA2, byA3, byN3 };
   }, [trips]);
 
-  const findTrip = useCallback(
-    (feature: GeoFeature): TripWithCountry | undefined => {
+  const findCountryTrips = useCallback(
+    (feature: GeoFeature): CountryTrips | undefined => {
       const properties = feature.properties;
       return (
         tripLookup.byA2.get(properties.ISO_A2) ??
@@ -113,22 +132,25 @@ const TravelGlobe = (props: TravelGlobeProps): React.ReactNode => {
   );
 
   const isVisited = useCallback(
-    (feature: GeoFeature) => findTrip(feature) !== undefined,
-    [findTrip],
+    (feature: GeoFeature) => findCountryTrips(feature) !== undefined,
+    [findCountryTrips],
   );
   const isOrigin = useCallback(
-    (feature: GeoFeature) => findTrip(feature)?.trip.isOrigin === true,
-    [findTrip],
+    (feature: GeoFeature) => findCountryTrips(feature)?.isOrigin === true,
+    [findCountryTrips],
   );
+
+  // The active polygon is whichever is hovered, or the selected (pinned) one
+  const activePolygon = hoveredPolygon ?? selectedPolygon;
 
   const polygonCapColour = useCallback(
     (obj: object) => {
       const feature = obj as GeoFeature;
       const visited = isVisited(feature);
       const origin = isOrigin(feature);
-      const isHovered = hoveredPolygon === feature;
+      const isActive = activePolygon === feature;
 
-      if (origin && isHovered) {
+      if (origin && isActive) {
         return theme === "dark"
           ? "rgba(255, 179, 71, 0.95)"
           : "rgba(255, 179, 71, 0.85)";
@@ -140,7 +162,7 @@ const TravelGlobe = (props: TravelGlobeProps): React.ReactNode => {
           : "rgba(255, 179, 71, 0.6)";
       }
 
-      if (visited && isHovered) {
+      if (visited && isActive) {
         return theme === "dark"
           ? "rgba(233, 30, 99, 0.9)"
           : "rgba(233, 30, 99, 0.8)";
@@ -156,7 +178,7 @@ const TravelGlobe = (props: TravelGlobeProps): React.ReactNode => {
         ? "rgba(100, 100, 120, 0.15)"
         : "rgba(180, 180, 200, 0.3)";
     },
-    [hoveredPolygon, isVisited, isOrigin, theme],
+    [activePolygon, isVisited, isOrigin, theme],
   );
 
   const polygonSideColor = useCallback(
@@ -180,69 +202,57 @@ const TravelGlobe = (props: TravelGlobeProps): React.ReactNode => {
   const polygonAltitude = useCallback(
     (obj: object) => {
       const feature = obj as GeoFeature;
-      if (hoveredPolygon === feature && isOrigin(feature)) return 0.08;
+      const isActive = activePolygon === feature;
+      if (isActive && isOrigin(feature)) return 0.08;
       if (isOrigin(feature)) return 0.03;
-      if (hoveredPolygon === feature && isVisited(feature)) return 0.06;
+      if (isActive && isVisited(feature)) return 0.06;
       if (isVisited(feature)) return 0.02;
       return 0.005;
     },
-    [hoveredPolygon, isVisited, isOrigin],
+    [activePolygon, isVisited, isOrigin],
   );
 
-  const dismissTooltip = useCallback(() => {
-    setHoveredPolygon(null);
+  const onPolygonHover = useCallback(
+    (polygon: object | null) => {
+      const feature = polygon as GeoFeature | null;
+      if (feature && isVisited(feature)) {
+        setHoveredPolygon(feature);
+      } else {
+        setHoveredPolygon(null);
+      }
+    },
+    [isVisited],
+  );
+
+  const onPolygonClick = useCallback(
+    (polygon: object | null) => {
+      const feature = polygon as GeoFeature | null;
+      if (feature && isVisited(feature)) {
+        setSelectedPolygon(feature);
+        if (globeRef.current) {
+          globeRef.current.controls().autoRotate = false;
+        }
+      } else {
+        // Clicked ocean or non-visited country → close panel
+        setSelectedPolygon(null);
+        if (globeRef.current) {
+          globeRef.current.controls().autoRotate = true;
+        }
+      }
+    },
+    [isVisited],
+  );
+
+  const closePanel = useCallback(() => {
+    setSelectedPolygon(null);
     if (globeRef.current) {
       globeRef.current.controls().autoRotate = true;
     }
   }, []);
 
-  const scheduleDismiss = useCallback(() => {
-    if (dismissTimerRef.current) {
-      clearTimeout(dismissTimerRef.current);
-    }
-
-    dismissTimerRef.current = setTimeout(() => {
-      if (!tooltipHoveredRef.current) {
-        dismissTooltip();
-      }
-    }, 300);
-  }, [dismissTooltip]);
-
-  const cancelDismiss = useCallback(() => {
-    if (dismissTimerRef.current) {
-      clearTimeout(dismissTimerRef.current);
-      dismissTimerRef.current = null;
-    }
-  }, []);
-
-  const onPolygonHover = useCallback(
-    (polygon: object | null) => {
-      const feature = polygon as GeoFeature | null;
-
-      if (feature && isVisited(feature)) {
-        cancelDismiss();
-        setHoveredPolygon(feature);
-        if (globeRef.current) {
-          globeRef.current.controls().autoRotate = false;
-        }
-      } else {
-        scheduleDismiss();
-      }
-    },
-    [isVisited, cancelDismiss, scheduleDismiss],
-  );
-
-  const onTooltipMouseEnter = useCallback(() => {
-    tooltipHoveredRef.current = true;
-    cancelDismiss();
-  }, [cancelDismiss]);
-
-  const onTooltipMouseLeave = useCallback(() => {
-    tooltipHoveredRef.current = false;
-    scheduleDismiss();
-  }, [scheduleDismiss]);
-
-  const hoveredTrip = hoveredPolygon ? findTrip(hoveredPolygon) : null;
+  const selectedCountryTrips = selectedPolygon
+    ? (findCountryTrips(selectedPolygon) ?? null)
+    : null;
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -274,13 +284,10 @@ const TravelGlobe = (props: TravelGlobeProps): React.ReactNode => {
             : "rgba(100, 100, 120, 0.2)"
         }
         onPolygonHover={onPolygonHover}
+        onPolygonClick={onPolygonClick}
       />
 
-      <TripTooltip
-        trip={hoveredTrip}
-        onMouseEnter={onTooltipMouseEnter}
-        onMouseLeave={onTooltipMouseLeave}
-      />
+      <CountryPanel countryTrips={selectedCountryTrips} onClose={closePanel} />
     </div>
   );
 };
