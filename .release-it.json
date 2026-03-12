@@ -1,6 +1,6 @@
 {
   "git": {
-    "commitMessage": "chore(release): version ${version}",
+    "commitMessage": "chore(release): version ${version} [skip ci]",
     "tagName": "v${version}",
     "requireCleanWorkingDir": true
   },

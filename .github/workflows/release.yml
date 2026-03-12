@@ -1,0 +1,107 @@
+name: Release and Deploy
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+on:
+  workflow_run:
+    workflows:
+      - "CI"
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  release:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-latest
+    outputs:
+      released: ${{ steps.check_releasable.outputs.skip == 'false' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if release commit
+        id: check
+        run: |
+          if git log -1 --pretty=%s | grep -q "^chore(release):"; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check for releasable commits
+        id: check_releasable
+        if: steps.check.outputs.skip != 'true'
+        run: |
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_TAG" ]; then
+            RANGE="HEAD"
+          else
+            RANGE="${LAST_TAG}..HEAD"
+          fi
+          if ! git log "$RANGE" --pretty=%s | grep -qE "^(feat|fix|perf)(\(.+\))?!?:"; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install pnpm
+        if: steps.check_releasable.outputs.skip == 'false'
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        if: steps.check_releasable.outputs.skip == 'false'
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        if: steps.check_releasable.outputs.skip == 'false'
+        run: pnpm install --frozen-lockfile
+
+      - name: Configure git
+        if: steps.check_releasable.outputs.skip == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Release
+        if: steps.check_releasable.outputs.skip == 'false'
+        run: pnpm release -- --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    name: Build site
+    needs: release
+    if: needs.release.outputs.released == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          ref: main
+      - name: Install, build, and upload your site
+        uses: withastro/action@v5
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
