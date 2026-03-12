@@ -1,5 +1,12 @@
 # Changelog
 
+## [](https://github.com/Telmooo/miyazono/compare/v0.2.1...vnull) (2026-03-12)
+
+### Features
+
+- redesign trip panel when clicking a visited country ([cea3bbe](https://github.com/Telmooo/miyazono/commit/cea3bbe45114ecd13fdf73c37c765b36aed0d2f1))
+- update projects content ([5b400ca](https://github.com/Telmooo/miyazono/commit/5b400cab36afe092bbe07fef7a27d1c8efb97f01))
+
 ## [0.2.1](https://github.com/Telmooo/miyazono/compare/v0.2.0...v0.2.1) (2026-03-03)
 
 ### Bug Fixes
