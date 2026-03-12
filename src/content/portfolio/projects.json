@@ -12,6 +12,18 @@
     "featured": true
   },
   {
+    "id": "kutabe",
+    "title": "Kutabe",
+    "description": "A VSCode extension to automatically generate documentation. ",
+    "techStack": ["Typescript"],
+    "categories": ["tools"],
+    "links": {
+      "github": "https://github.com/Telmooo/kutabe",
+      "live": "https://marketplace.visualstudio.com/items?itemName=telmooo.kutabe"
+    },
+    "featured": true
+  },
+  {
     "id": "nura",
     "title": "nura",
     "description": "No description yet.",
