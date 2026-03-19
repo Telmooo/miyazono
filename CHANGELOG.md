@@ -1,5 +1,11 @@
 # Changelog
 
+## [](https://github.com/Telmooo/miyazono/compare/v0.3.0...vnull) (2026-03-19)
+
+### Features
+
+- add cinema page with initial selection of movies and series ([b43d94e](https://github.com/Telmooo/miyazono/commit/b43d94ececf850822b5faba393bc1215bcc33130))
+
 ## [](https://github.com/Telmooo/miyazono/compare/v0.2.1...vnull) (2026-03-12)
 
 ### Features
