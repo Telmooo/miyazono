@@ -1,0 +1,270 @@
+---
+import CinemaCard from "@/components/cinema/CinemaCard.astro";
+import InkDivider from "@/components/portfolio/InkDivider.astro";
+import InkParticles from "@/components/portfolio/InkParticles.astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const entries = (await getCollection("cinemaEntries")).map((e) => e.data);
+
+const totalEntries = entries.length;
+const movieCount = entries.filter((e) => e.type === "movie").length;
+const seriesCount = entries.filter((e) => e.type === "series").length;
+
+const tierOrder = { masterpiece: 0, recommended: 1, enjoyed: 2 };
+
+const genres = [...new Set(entries.map((e) => e.genre))];
+const genreGroups = genres.map((genre) => ({
+  genre,
+  entries: entries
+    .filter((e) => e.genre === genre)
+    .sort((a, b) => tierOrder[a.tier] - tierOrder[b.tier]),
+}));
+---
+
+<Layout
+  title="Cinema | Telmo Baptista"
+  description="Movies and series that marked me"
+>
+  <ThemeToggle />
+  <InkParticles />
+
+  <main
+    id="main-content"
+    class="washi-bg relative z-(--z-content) min-h-screen pb-24"
+  >
+    <header
+      class="scroll-fade mx-auto my-0 max-w-7xl px-8 pt-12 pb-0 text-center"
+    >
+      <a
+        href="/miyazono/leisure/"
+        class="inline-block text-sm text-(--color-text-secondary) no-underline transition-colors duration-200 hover:text-(--portal-leisure)"
+        aria-label="Return to My World"
+      >
+        &larr; Back to My World
+      </a>
+      <div class="mt-6 flex flex-col items-center gap-2">
+        <h1 class="page-title">Cinema</h1>
+      </div>
+    </header>
+
+    <InkDivider variant={1} />
+
+    <section
+      class="scroll-fade stagger-1 mx-auto my-12 flex max-w-7xl items-center justify-center gap-8 rounded-3xl bg-(--color-bg-secondary) px-8 py-6"
+      aria-label="Cinema statistics summary"
+    >
+      <div class="flex flex-col items-center gap-0.5">
+        <span class="stat-value" data-stat="total">{totalEntries}</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <span class="h-8 w-0.5 bg-(--color-text-light) opacity-30" aria-hidden
+      ></span>
+      <div class="flex flex-col items-center gap-0.5">
+        <span class="stat-value" data-stat="movie">{movieCount}</span>
+        <span class="stat-label">Movies</span>
+      </div>
+      <span class="h-8 w-0.5 bg-(--color-text-light) opacity-30" aria-hidden
+      ></span>
+      <div class="flex flex-col items-center gap-0.5">
+        <span class="stat-value" data-stat="series">{seriesCount}</span>
+        <span class="stat-label">Series</span>
+      </div>
+    </section>
+
+    <nav
+      class="scroll-fade stagger-2 mx-auto flex max-w-7xl items-center justify-center gap-6 px-8"
+      aria-label="Filter by type"
+    >
+      <button
+        class="cinema-tab cinema-tab--active"
+        role="tab"
+        aria-selected="true"
+        data-tab="all"
+      >
+        <span class="tab-en">All</span>
+      </button>
+      <button
+        class="cinema-tab"
+        role="tab"
+        aria-selected="false"
+        data-tab="movie"
+      >
+        <span class="tab-en">Movies</span>
+      </button>
+      <button
+        class="cinema-tab"
+        role="tab"
+        aria-selected="false"
+        data-tab="series"
+      >
+        <span class="tab-en">Series</span>
+      </button>
+    </nav>
+
+    {
+      genreGroups.map((group, index) => {
+        const hasMasterpiece = group.entries.some(
+          (e) => e.tier === "masterpiece",
+        );
+        return (
+          <section
+            class="scroll-fade mx-auto my-0 max-w-7xl px-8 py-16"
+            style={`transition-delay: ${(index + 3) * 100}ms`}
+            data-cinema-section={group.genre}
+          >
+            <header class="mb-12">
+              <h2 class="mb-1 font-serif text-5xl text-(--color-text-primary)">
+                {group.genre}
+              </h2>
+            </header>
+            <div
+              class:list={[
+                "grid gap-6",
+                hasMasterpiece
+                  ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                  : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
+              ]}
+            >
+              {group.entries.map((entry) => (
+                <CinemaCard
+                  {...entry}
+                  isFeatured={entry.tier === "masterpiece"}
+                />
+              ))}
+            </div>
+          </section>
+        );
+      })
+    }
+
+    <InkDivider variant={2} />
+  </main>
+</Layout>
+
+<style>
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-5xl);
+    letter-spacing: 0.05em;
+    color: var(--color-text-primary);
+  }
+
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--portal-leisure);
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+  }
+
+  .cinema-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.5rem 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition:
+      color var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .cinema-tab .tab-en {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    transition: color var(--transition-base);
+  }
+
+  .cinema-tab:hover .tab-en {
+    color: var(--color-text-primary);
+  }
+
+  .cinema-tab--active {
+    border-bottom-color: var(--portal-leisure);
+  }
+
+  .cinema-tab--active .tab-en {
+    color: var(--portal-leisure);
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tabs = document.querySelectorAll("[role='tab']");
+    const cards = document.querySelectorAll("[data-type]");
+    const sections = document.querySelectorAll("[data-cinema-section]");
+    const statTotal = document.querySelector("[data-stat='total']");
+    const statMovie = document.querySelector("[data-stat='movie']");
+    const statSeries = document.querySelector("[data-stat='series']");
+
+    function activate(tab) {
+      const type = tab.dataset.tab;
+
+      tabs.forEach((t) => {
+        t.setAttribute("aria-selected", "false");
+        t.classList.remove("cinema-tab--active");
+      });
+      tab.setAttribute("aria-selected", "true");
+      tab.classList.add("cinema-tab--active");
+
+      let visibleTotal = 0;
+      let visibleMovie = 0;
+      let visibleSeries = 0;
+
+      cards.forEach((card) => {
+        const hidden = type !== "all" && card.dataset.type !== type;
+        card.classList.toggle("hidden", hidden);
+        if (!hidden) {
+          visibleTotal++;
+          if (card.dataset.type === "movie") visibleMovie++;
+          if (card.dataset.type === "series") visibleSeries++;
+        }
+      });
+
+      sections.forEach((section) => {
+        const visibleCards = section.querySelectorAll(
+          "[data-type]:not(.hidden)",
+        );
+        section.classList.toggle("hidden", visibleCards.length === 0);
+      });
+
+      if (statTotal) statTotal.textContent = visibleTotal;
+      if (statMovie) statMovie.textContent = visibleMovie;
+      if (statSeries) statSeries.textContent = visibleSeries;
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => activate(tab));
+
+      tab.addEventListener("keydown", (e) => {
+        const tabArray = [...tabs];
+        const index = tabArray.indexOf(tab);
+        let target;
+        if (e.key === "ArrowRight")
+          target = tabArray[(index + 1) % tabArray.length];
+        if (e.key === "ArrowLeft")
+          target = tabArray[(index - 1 + tabArray.length) % tabArray.length];
+        if (target) {
+          e.preventDefault();
+          target.focus();
+          activate(target);
+        }
+      });
+    });
+  });
+</script>

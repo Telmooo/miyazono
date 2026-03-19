@@ -1,0 +1,152 @@
+---
+import type { CinemaEntry } from "@/schemas/cinema";
+
+interface Props extends CinemaEntry {
+  isFeatured?: boolean;
+}
+
+const {
+  title,
+  tags,
+  year,
+  rating,
+  poster,
+  tier,
+  type,
+  link,
+  isFeatured = false,
+} = Astro.props;
+
+const starsValue = rating / 2;
+const starFills = Array.from({ length: 5 }, (_, i) =>
+  Math.min(100, Math.max(0, (starsValue - i) * 100)),
+);
+
+const linkLabel = link?.includes("anilist")
+  ? "Anilist"
+  : link?.includes("letterboxd")
+    ? "Letterboxd"
+    : link?.includes("serializd")
+      ? "Serializd"
+      : link?.includes("IMDb")
+        ? "IMDb"
+        : "View";
+---
+
+<article
+  class="group relative aspect-2/3 cursor-default overflow-hidden rounded-3xl transition-shadow duration-200 hover:shadow-(--shadow-glow-pink)"
+  data-type={type}
+>
+  <div class="absolute inset-0">
+    <img
+      class="h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+      src={poster}
+      alt={`${title} poster`}
+      loading="lazy"
+    />
+  </div>
+
+  {
+    tier === "masterpiece" && (
+      <div class="absolute top-3 right-3 z-10 flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 backdrop-blur-sm">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="var(--color-golden-hour)"
+          aria-hidden="true"
+        >
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+        <span class="font-mono text-[0.6rem] tracking-widest text-(--color-golden-hour) uppercase">
+          Masterpiece
+        </span>
+      </div>
+    )
+  }
+
+  <div
+    class="absolute inset-0 flex flex-col justify-end opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100"
+  >
+    {
+      isFeatured ? (
+        <div class="bg-linear-to-t from-black/90 via-black/70 to-transparent px-6 pt-24 pb-6 backdrop-blur-sm">
+          <h3 class="mb-1 font-serif text-2xl leading-tight text-white">
+            {title}
+          </h3>
+          <span class="mb-3 block font-mono text-xs tracking-widest text-white/50 uppercase">
+            {year} &middot; {tags[0]}
+          </span>
+
+          <div class="flex gap-px" aria-label={`Rating: ${rating} out of 10`}>
+            {starFills.map((fillPercent) => (
+              <span
+                class="relative inline-block text-base leading-none"
+                aria-hidden="true"
+              >
+                <span class="text-white/20">&#9733;</span>
+                <span
+                  class="absolute inset-0 overflow-hidden text-(--color-golden-hour)"
+                  style={`width: ${fillPercent}%`}
+                >
+                  &#9733;
+                </span>
+              </span>
+            ))}
+          </div>
+
+          {link && (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-3 inline-block font-mono text-sm text-(--portal-leisure) no-underline transition-colors duration-150 hover:text-white"
+            >
+              {linkLabel} &rarr;
+            </a>
+          )}
+        </div>
+      ) : (
+        <div class="bg-linear-to-t from-black/85 via-black/60 to-transparent px-4 pt-16 pb-4">
+          <h3 class="mb-1 font-serif text-lg leading-snug text-white">
+            {title}
+          </h3>
+          <span class="mb-1 block font-mono text-xs tracking-wider text-white/60 uppercase">
+            {year} &middot; {tags[0]}
+          </span>
+
+          <div
+            class="mt-1.5 flex gap-px"
+            aria-label={`Rating: ${rating} out of 10`}
+          >
+            {starFills.map((fillPercent) => (
+              <span
+                class="relative inline-block text-sm leading-none"
+                aria-hidden="true"
+              >
+                <span class="text-white/20">&#9733;</span>
+                <span
+                  class="absolute inset-0 overflow-hidden text-(--color-golden-hour)"
+                  style={`width: ${fillPercent}%`}
+                >
+                  &#9733;
+                </span>
+              </span>
+            ))}
+          </div>
+
+          {link && (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-2 inline-block font-mono text-xs text-(--portal-leisure) no-underline transition-colors duration-150 hover:text-white"
+            >
+              {linkLabel} &rarr;
+            </a>
+          )}
+        </div>
+      )
+    }
+  </div>
+</article>
