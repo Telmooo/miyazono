@@ -119,7 +119,7 @@
     "section": "grew-up-with",
     "genres": ["Platformer"],
     "platforms": ["PS3"],
-    "cover": "/miyazono/games/Ratchet_&_Clank_Trilogy_Cover.jpg",
+    "cover": "/games/Ratchet_&_Clank_Trilogy_Cover.jpg",
     "stats": {
       "completionPercent": 100,
       "rating": 8.5
@@ -131,7 +131,7 @@
     "section": "grew-up-with",
     "genres": ["Platformer"],
     "platforms": ["PS3"],
-    "cover": "/miyazono/games/Ratchet_&_Clank_Future_Tools_of_Destruction_Cover.png",
+    "cover": "/games/Ratchet_&_Clank_Future_Tools_of_Destruction_Cover.png",
     "stats": {
       "completionPercent": 100,
       "rating": 8.8
@@ -143,7 +143,7 @@
     "section": "grew-up-with",
     "genres": ["Platformer"],
     "platforms": ["PS3"],
-    "cover": "/miyazono/games/Ratchet_&_Clank_Future_Crack_in_Time_Cover.jfif",
+    "cover": "/games/Ratchet_&_Clank_Future_Crack_in_Time_Cover.jfif",
     "stats": {
       "completionPercent": 100,
       "rating": 9.2
@@ -155,7 +155,7 @@
     "section": "grew-up-with",
     "genres": ["Action Adventure"],
     "platforms": ["PS2"],
-    "cover": "/miyazono/games/God_of_War_2_Cover.jpg",
+    "cover": "/games/God_of_War_2_Cover.jpg",
     "stats": {
       "completionPercent": 100,
       "rating": 8.2
@@ -167,7 +167,7 @@
     "section": "grew-up-with",
     "genres": ["Action Adventure"],
     "platforms": ["PS2"],
-    "cover": "/miyazono/games/God_of_War_3_Cover.jpg",
+    "cover": "/games/God_of_War_3_Cover.jpg",
     "stats": {
       "completionPercent": 100,
       "rating": 9.3
@@ -179,7 +179,7 @@
     "section": "grew-up-with",
     "genres": ["Racing"],
     "platforms": ["PS2"],
-    "cover": "/miyazono/games/Mashed_Cover.jpg",
+    "cover": "/games/Mashed_Cover.jpg",
     "storePage": "https://store.steampowered.com/app/281280/Mashed/",
     "stats": {
       "rating": 7.0

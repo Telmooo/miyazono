@@ -6,7 +6,7 @@
       "settings": {
         "preset": "desktop"
       },
-      "url": ["http://localhost/miyazono/", "http://localhost/miyazono/wiki/"]
+      "url": ["http://localhost/", "http://localhost/wiki/"]
     },
     "assert": {
       "preset": "lighthouse:recommended",

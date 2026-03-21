@@ -10,8 +10,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://telmooo.github.io",
-  base: "/miyazono",
+  site: "https://telmooo.dev",
   output: "static",
   // experimental: {
   //   csp: {
