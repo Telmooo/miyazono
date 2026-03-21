@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  three: 0.169.0
+  three: 0.183.2
   conventional-changelog-conventionalcommits: 9.2.0
 
 importers:
@@ -52,8 +52,8 @@ importers:
         specifier: ^4.1.18
         version: 4.2.1
       three:
-        specifier: 0.169.0
-        version: 0.169.0
+        specifier: 0.183.2
+        version: 0.183.2
       vite:
         specifier: ^7.3.1
         version: 7.3.1(@types/node@25.4.0)(jiti@2.6.1)(lightningcss@1.31.1)(yaml@2.8.2)
@@ -4786,34 +4786,34 @@ packages:
     resolution: {integrity: sha512-NaP3RWLJIyPGI+zyaZwd0Yj6rkoxm4FJHqAX1Enb4L64oNYLCn4bz1ESgOEYavgcUwCNYINu1AgEoUBJr1wZcA==}
     engines: {node: '>=12'}
     peerDependencies:
-      three: 0.169.0
+      three: 0.183.2
 
   three-geojson-geometry@2.1.1:
     resolution: {integrity: sha512-dC7bF3ri1goDcihYhzACHOBQqu7YNNazYLa2bSydVIiJUb3jDFojKSy+gNj2pMkqZNSVjssSmdY9zlmnhEpr1w==}
     engines: {node: '>=12'}
     peerDependencies:
-      three: 0.169.0
+      three: 0.183.2
 
   three-globe@2.45.0:
     resolution: {integrity: sha512-Ur6BVkezvmHnvsEg8fbq6gIscSZtknSQMWwDRbiJ95o6OSDjDbGTc4oO6nP7mOM9aAA3YrF7YZyOwSkP4T56QA==}
     engines: {node: '>=12'}
     peerDependencies:
-      three: 0.169.0
+      three: 0.183.2
 
   three-render-objects@1.40.4:
     resolution: {integrity: sha512-Ukpu1pei3L5r809izvjsZxwuRcYLiyn6Uvy3lZ9bpMTdvj3i6PeX6w++/hs2ZS3KnEzGjb6YvTvh4UQuwHTDJg==}
     engines: {node: '>=12'}
     peerDependencies:
-      three: 0.169.0
+      three: 0.183.2
 
   three-slippy-map-globe@1.0.5:
     resolution: {integrity: sha512-e5ZUKclpflaX+0Nc9CQko3vYq4VLrjHiyMQsVpdtE4ztxpw/T9+LHzcxBgp7pvkTfo51UQV2BII+DZCclJOPHg==}
     engines: {node: '>=12'}
     peerDependencies:
-      three: 0.169.0
+      three: 0.183.2
 
-  three@0.169.0:
-    resolution: {integrity: sha512-Ed906MA3dR4TS5riErd4QBsRGPcx+HBDX2O5yYE5GqJeFQTPU+M56Va/f/Oph9X7uZo3W3o4l2ZhBZ6f6qUv0w==}
+  three@0.183.2:
+    resolution: {integrity: sha512-di3BsL2FEQ1PA7Hcvn4fyJOlxRRgFYBpMTcyOgkwJIaDOdJMebEFPA+t98EvjuljDx4hNulAGwF6KIjtwI5jgQ==}
 
   tiny-inflate@1.0.3:
     resolution: {integrity: sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==}
@@ -8666,9 +8666,9 @@ snapshots:
       '@tweenjs/tween.js': 25.0.0
       accessor-fn: 1.5.3
       kapsule: 1.16.3
-      three: 0.169.0
-      three-globe: 2.45.0(three@0.169.0)
-      three-render-objects: 1.40.4(three@0.169.0)
+      three: 0.183.2
+      three-globe: 2.45.0(three@0.183.2)
+      three-render-objects: 1.40.4(three@0.183.2)
 
   gopd@1.2.0: {}
 
@@ -10923,7 +10923,7 @@ snapshots:
 
   tapable@2.3.0: {}
 
-  three-conic-polygon-geometry@2.1.2(three@0.169.0):
+  three-conic-polygon-geometry@2.1.2(three@0.183.2):
     dependencies:
       '@turf/boolean-point-in-polygon': 7.3.4
       d3-array: 3.2.4
@@ -10932,16 +10932,16 @@ snapshots:
       d3-scale: 4.0.2
       delaunator: 5.0.1
       earcut: 3.0.2
-      three: 0.169.0
+      three: 0.183.2
 
-  three-geojson-geometry@2.1.1(three@0.169.0):
+  three-geojson-geometry@2.1.1(three@0.183.2):
     dependencies:
       d3-geo: 3.1.1
       d3-interpolate: 3.0.1
       earcut: 3.0.2
-      three: 0.169.0
+      three: 0.183.2
 
-  three-globe@2.45.0(three@0.169.0):
+  three-globe@2.45.0(three@0.183.2):
     dependencies:
       '@tweenjs/tween.js': 25.0.0
       accessor-fn: 1.5.3
@@ -10956,29 +10956,29 @@ snapshots:
       h3-js: 4.4.0
       index-array-by: 1.4.2
       kapsule: 1.16.3
-      three: 0.169.0
-      three-conic-polygon-geometry: 2.1.2(three@0.169.0)
-      three-geojson-geometry: 2.1.1(three@0.169.0)
-      three-slippy-map-globe: 1.0.5(three@0.169.0)
+      three: 0.183.2
+      three-conic-polygon-geometry: 2.1.2(three@0.183.2)
+      three-geojson-geometry: 2.1.1(three@0.183.2)
+      three-slippy-map-globe: 1.0.5(three@0.183.2)
       tinycolor2: 1.6.0
 
-  three-render-objects@1.40.4(three@0.169.0):
+  three-render-objects@1.40.4(three@0.183.2):
     dependencies:
       '@tweenjs/tween.js': 25.0.0
       accessor-fn: 1.5.3
       float-tooltip: 1.7.5
       kapsule: 1.16.3
       polished: 4.3.1
-      three: 0.169.0
+      three: 0.183.2
 
-  three-slippy-map-globe@1.0.5(three@0.169.0):
+  three-slippy-map-globe@1.0.5(three@0.183.2):
     dependencies:
       d3-geo: 3.1.1
       d3-octree: 1.1.0
       d3-scale: 4.0.2
-      three: 0.169.0
+      three: 0.183.2
 
-  three@0.169.0: {}
+  three@0.183.2: {}
 
   tiny-inflate@1.0.3: {}
 
