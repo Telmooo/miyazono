@@ -1,5 +1,15 @@
 # Changelog
 
+## [](https://github.com/Telmooo/miyazono/compare/v0.4.0...vnull) (2026-03-21)
+
+### ⚠ BREAKING CHANGES
+
+- moving website to my domain
+
+### Features
+
+- moving website to my domain ([25fb7d7](https://github.com/Telmooo/miyazono/commit/25fb7d771486338099fa1209554941626ede58d3))
+
 ## [](https://github.com/Telmooo/miyazono/compare/v0.3.0...vnull) (2026-03-19)
 
 ### Features
