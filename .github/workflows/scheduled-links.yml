@@ -17,7 +17,7 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
       - name: Install, build, and upload your site
-        uses: withastro/action@v5
+        uses: withastro/action@v6
       - name: Link Checker
         id: lychee
         uses: lycheeverse/lychee-action@v2
