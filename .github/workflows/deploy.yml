@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
       - name: Install, build, and upload your site
-        uses: withastro/action@v5
+        uses: withastro/action@v6.1.0
 
   deploy:
     needs: build
